@@ -1,0 +1,55 @@
+# =============================================================================
+# Netlify 部署設定
+# 最快的上線方式：把整個資料夾拖到 https://app.netlify.com/drop
+# =============================================================================
+
+[build]
+  # 純靜態站，沒有建置步驟
+  publish = "."
+  command = ""
+
+# ---- 快取策略 ---------------------------------------------------------------
+# HTML 不快取，這樣你改了內容重新部署，使用者立刻看得到。
+# 用明確路徑而不是 /*.html —— Netlify 的 for 是路徑比對，不保證認副檔名萬用字元。
+[[headers]]
+  for = "/"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/admin.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# config.js 也不快取 —— 改了設定要能立刻生效
+[[headers]]
+  for = "/assets/js/config.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# 其餘的 JS / CSS 快取一小時。
+# 沒有做檔名雜湊，所以不能設太長，否則改版後使用者會拿到舊檔。
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+
+# ---- 安全性標頭 -------------------------------------------------------------
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+
+# 後台不要被搜尋引擎收錄
+[[headers]]
+  for = "/admin.html"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"

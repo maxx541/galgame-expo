@@ -1,0 +1,27 @@
+# 相依套件
+node_modules/
+
+# 系統檔
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 編輯器
+.vscode/
+.idea/
+*.swp
+
+# 部署工具的快取
+.netlify/
+.vercel/
+
+# 本機預覽用的暫存檔
+_mobile-preview.html
+
+# 機密資料 ——【重要】
+# service_role key、Cloudinary API Secret 等絕對不能進版控。
+# 本專案的 config.js 只放公開值（anon key / unsigned preset），所以它是要 commit 的。
+.env
+.env.*
+*secret*
+*.key

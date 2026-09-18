@@ -1,0 +1,43 @@
+# =============================================================================
+# GitHub Pages 自動部署
+# -----------------------------------------------------------------------------
+# 啟用方式：
+#   repo → Settings → Pages → Build and deployment → Source 選「GitHub Actions」
+# 之後每次 push 到 main 就會自動上線。
+# =============================================================================
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  # 也可以在 Actions 分頁手動觸發
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 同時只跑一個部署；有新的就取消排隊中的舊的
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/configure-pages@v5
+
+      # 純靜態站，不需要建置，直接把整個 repo 當成網站內容上傳
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - id: deployment
+        uses: actions/deploy-pages@v4

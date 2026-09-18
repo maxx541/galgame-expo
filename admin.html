@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" data-theme="day">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="dark light" />
+<meta name="theme-color" content="#0b0714" media="(prefers-color-scheme: dark)" />
+<meta name="theme-color" content="#fff3f8" media="(prefers-color-scheme: light)" />
+
+<title>上傳後台｜口袋中的夏末號</title>
+<!-- 後台不需要被搜尋引擎收錄 -->
+<meta name="robots" content="noindex, nofollow" />
+
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Zen+Maru+Gothic:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap"
+  rel="stylesheet"
+/>
+
+<link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+
+<body>
+
+<div class="bg-stage" aria-hidden="true">
+  <div class="bg-photo" id="bg-photo"></div>
+  <div class="bg-glass"></div>
+</div>
+
+<div class="page">
+
+  <!-- ====================================================================
+       登入閘門 — 通過之前不會載入任何後台內容
+       ================================================================= -->
+  <section class="gate" id="gate">
+    <div class="panel gate__card" id="gate-card">
+      <img class="gate__mark" id="gate-mark" src="" alt="" />
+      <h1 class="gate__title">上傳者入口</h1>
+      <div class="gate__sub" id="gate-sub">請輸入上傳者密碼</div>
+
+      <form class="gate__form" id="gate-form" autocomplete="off">
+        <div class="field">
+          <label class="field__label" for="gate-password">密碼</label>
+          <input
+            class="input"
+            id="gate-password"
+            type="password"
+            autocomplete="current-password"
+            required
+          />
+        </div>
+
+        <div class="gate__err" id="gate-err" role="alert"></div>
+
+        <button class="btn btn--primary" id="gate-submit" type="submit">進入</button>
+      </form>
+
+      <p class="field__hint" id="gate-hint-shared" style="margin-top: 20px; display: none">
+        團隊共用密碼，忘記密碼請洽網站管理員。
+      </p>
+
+      <p style="margin-top: 16px">
+        <a href="index.html" style="font-size: 12px; color: var(--text-muted)">← 回到展覽</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       Header（登入後才顯示）
+       ================================================================= -->
+  <header class="site-header" id="site-header" style="display: none">
+    <div class="shell site-header__inner">
+      <a class="brand" href="index.html">
+        <img class="brand__mark" id="brand-logo" src="" alt="" width="34" height="34" />
+        <span class="brand__text">
+          <span class="brand__name">上傳後台</span>
+          <span class="brand__sub">ADMIN</span>
+        </span>
+      </a>
+
+      <div class="header-spacer"></div>
+
+      <button class="btn btn--icon btn--ghost" id="theme-toggle" type="button" aria-label="切換日夜模式" title="切換日夜模式">☀</button>
+
+      <button
+        class="menu-toggle"
+        id="menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="menu-drawer"
+        aria-label="選單"
+      >
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- 後台的抽屜選單：回到展覽、登出。跟展覽頁共用同一套樣式。 -->
+  <div class="menu-scrim" id="menu-scrim" hidden></div>
+  <nav class="menu-drawer" id="menu-drawer" aria-label="後台選單" hidden>
+    <div class="menu-drawer__group">
+      <span class="menu-drawer__label">帳號</span>
+      <a class="menu-drawer__item" href="index.html">
+        <span class="menu-drawer__icon" aria-hidden="true">⌕</span>
+        看展覽
+      </a>
+      <button class="menu-drawer__item" id="sign-out" type="button">
+        <span class="menu-drawer__icon" aria-hidden="true">↩</span>
+        登出
+      </button>
+    </div>
+  </nav>
+
+  <!-- ====================================================================
+       後台本體
+       ================================================================= -->
+  <main class="admin" id="admin">
+    <div class="shell">
+      <div id="notice-slot"></div>
+
+      <!-- 內部使用說明：只有團隊自己會看到（要先登入才進得來這頁），
+           所以可以放比較口語、比較細的操作提醒。看過可以收合起來，
+           下次打開頁面會記住收合狀態。 -->
+      <details class="panel admin__guide" id="admin-guide" open>
+        <summary>使用說明（點一下收合）</summary>
+        <ul>
+          <li>第一次用這台電腦上傳，先在下面設定「擁有者」——之後這台電腦上傳的展品都會自動掛你的名字，不用每批都重填。</li>
+          <li>圖片可以一次拖多張進來，也可以直接 <code>Ctrl+V</code> 貼上截圖；單檔上限 10 MB。</li>
+          <li>「分類」是必填，「社團 / 品牌」「作品名稱」打幾個字就會跳建議，沒有的話直接打新的就好；沒把握歸哪個社團就選「其他社團」。</li>
+          <li>「備註」欄可以寫收藏故事、保存狀況等，會完整顯示在展品的燈箱詳細頁裡，手機上預設收合。</li>
+          <li>右邊「已展出的作品」可以搜尋、編輯或下架既有展品；只列最近 100 件，更早的用搜尋找。</li>
+          <li>如果分類需要新增或調整，請聯絡網站管理員。</li>
+        </ul>
+      </details>
+
+      <!-- 擁有者：登入後設定一次，之後這個瀏覽器上傳的展品都自動掛同一個擁有者，
+           不用每批圖都重填。不是帳號系統，純粹是「這台電腦現在是誰在用」的標記。 -->
+      <div class="panel owner-bar" id="owner-bar">
+        <span class="owner-bar__icon" aria-hidden="true">✎</span>
+        <span class="owner-bar__label">目前擁有者</span>
+        <span class="owner-bar__value" id="owner-value">尚未設定</span>
+        <button class="btn btn--ghost owner-bar__btn" id="owner-change" type="button">
+          設定／更換
+        </button>
+      </div>
+
+      <div class="admin__grid">
+
+        <!-- ---- 左：上傳 ------------------------------------------------ -->
+        <section>
+          <div class="panel admin__panel">
+            <div class="admin__heading">
+              <h2>新增展品</h2>
+              <span class="field__hint" id="queue-meta"></span>
+            </div>
+
+            <form id="upload-form">
+              <!-- 拖放區 -->
+              <div class="dropzone" id="dropzone">
+                <div class="dropzone__icon">⇪</div>
+                <div class="dropzone__title">把圖片拖進來，或點一下選檔</div>
+                <div class="dropzone__hint">
+                  可一次選多張／也可以直接 Ctrl+V 貼上截圖<br />
+                  支援 JPG、PNG、WebP，單檔上限 10 MB
+                </div>
+                <input type="file" id="file-input" accept="image/*" multiple />
+              </div>
+
+              <!-- 待上傳清單 -->
+              <div class="queue" id="queue"></div>
+              <div style="display: flex; justify-content: flex-end; margin-top: 8px">
+                <button class="btn btn--ghost" id="queue-clear" type="button" style="display: none; padding: 7px 14px; font-size: 12.5px">
+                  清空清單
+                </button>
+              </div>
+
+              <!-- 共用欄位 -->
+              <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 20px">
+                <p class="field__hint">
+                  以下欄位會套用到這批全部的圖片。每張圖片各自的名稱在上面的清單裡填。
+                </p>
+
+                <div class="field">
+                  <label class="field__label" for="f-category">分類<span class="req">*</span></label>
+                  <select class="select" id="f-category" data-category-select required></select>
+                </div>
+
+                <div class="field">
+                  <label class="field__label" for="f-circle">社團 / 品牌</label>
+                  <!-- 社團是展覽頁的主要篩選維度，放在作品前面。
+                       打字會跳建議（config 的預設 + 資料庫已有的）。 -->
+                  <input
+                    class="input"
+                    id="f-circle"
+                    list="circle-options"
+                    autocomplete="off"
+                    placeholder="打幾個字會跳出建議，例：ゆずソフト"
+                  />
+                  <datalist id="circle-options"></datalist>
+                  <span class="field__hint">
+                    冷門或只有一兩件的社團，選「其他社團」就好。
+                  </span>
+                </div>
+
+                <div class="field">
+                  <label class="field__label" for="f-series">作品名稱</label>
+                  <!-- 填了已知作品會自動幫忙帶出上面的社團（見 admin.js 的 seriesToCircle）。 -->
+                  <input
+                    class="input"
+                    id="f-series"
+                    list="series-options"
+                    autocomplete="off"
+                    placeholder="社團底下更細一層，選填。例：白色相簿2"
+                  />
+                  <datalist id="series-options"></datalist>
+                  <span class="field__hint">
+                    選填。填了已知作品會自動幫你帶出社團。
+                  </span>
+                </div>
+
+                <div class="field">
+                  <label class="field__label" for="f-character">角色</label>
+                  <input class="input" id="f-character" placeholder="例：月見坂 雫" />
+                </div>
+
+                <div class="field">
+                  <label class="field__label" for="f-note">備註 / 收藏故事</label>
+                  <textarea
+                    class="textarea textarea--story"
+                    id="f-note"
+                    placeholder="怎麼入手的、保存狀況、當時的心情、想跟大家分享的任何事……寫多長都可以。"
+                  ></textarea>
+                  <span class="field__hint">這段文字會完整顯示在燈箱下方的對話框裡（手機上預設收合，點一下展開）。</span>
+                </div>
+
+                <button class="btn btn--primary" id="submit-btn" type="submit" disabled>
+                  上傳到展覽
+                </button>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <!-- ---- 右：管理 ------------------------------------------------ -->
+        <section>
+          <div class="panel admin__panel">
+            <div class="admin__heading">
+              <h2>已展出的作品</h2>
+              <span class="field__hint" id="manage-count"></span>
+            </div>
+
+            <div style="display: flex; gap: 8px; margin-bottom: 14px">
+              <input
+                class="input"
+                id="manage-search"
+                type="search"
+                placeholder="搜尋已上傳的展品…"
+                aria-label="搜尋已上傳的展品"
+              />
+              <button class="btn btn--ghost btn--icon" id="manage-reload" type="button" title="重新整理">↻</button>
+            </div>
+
+            <div class="admin-list" id="manage-list"></div>
+
+            <p class="field__hint" style="margin-top: 14px">
+              這裡只列出最近 100 件。要找更早的請用上面的搜尋。
+            </p>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+</div>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/placeholder.js"></script>
+<script src="assets/js/cloudinary.js"></script>
+<script src="assets/js/store.js"></script>
+<script src="assets/js/admin.js"></script>
+
+</body>
+</html>

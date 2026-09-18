@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" data-theme="day">
+<head>
+<meta charset="UTF-8" />
+<!-- viewport-fit=cover：讓瀏海機 / 圓角螢幕能搭配 env(safe-area-inset-*) -->
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="dark light" />
+<meta name="theme-color" content="#0b0714" media="(prefers-color-scheme: dark)" />
+<meta name="theme-color" content="#fff3f8" media="(prefers-color-scheme: light)" />
+
+<title>口袋中的夏末號｜線上週邊展示牆</title>
+<meta name="description" content="遊戲實體、設定集、掛軸、立牌與各式週邊的線上展示牆。" />
+
+<!-- 分享預覽（og:image 請換成自己的圖，見 docs/ASSETS.md） -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="口袋中的夏末號｜線上週邊展示牆" />
+<meta property="og:description" content="遊戲實體、設定集、掛軸、立牌與各式週邊的線上展示牆。" />
+<meta property="og:image" content="assets/img/og-image.png" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+
+<!-- 字體：明朝體做標題（galgame 的文藝感），圓體做內文 -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Zen+Maru+Gothic:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap"
+  rel="stylesheet"
+/>
+
+<link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+
+<body>
+
+<a class="skip-link" href="#main">跳到展品列表</a>
+
+<!-- ========================================================================
+     背景層（v2 隨機背景功能的掛鉤點，預設關閉）
+     .bg-photo / .bg-glass 由 assets/js/background.js 填入。
+     行為由 config.js 的 ux.randomBackground 控制（手機一律不啟用）。
+     這裡不再放裝飾性的漸層 / 光斑 / 紙紋 —— 版面現在乾淨清爽，
+     背景交給 hero 的照片，內容區用主題色的實色背景就好。
+     ===================================================================== -->
+<div class="bg-stage" aria-hidden="true">
+  <div class="bg-photo" id="bg-photo"></div>
+  <div class="bg-glass"></div>
+</div>
+
+<div class="page">
+
+  <!-- ====================================================================
+       Header — 只留 logo 跟漢堡鈕，其餘全部收進下面的抽屜選單。
+       ================================================================= -->
+  <header class="site-header" id="site-header">
+    <div class="shell site-header__inner">
+      <a class="brand" href="./" aria-label="回到展覽首頁">
+        <img class="brand__mark" id="brand-logo" src="" alt="" width="34" height="34" />
+        <span class="brand__text">
+          <span class="brand__name" id="brand-name">ATELIER SAKURA</span>
+          <span class="brand__sub" id="brand-sub">Galgame 週邊線上展覽</span>
+        </span>
+      </a>
+
+      <div class="header-spacer"></div>
+
+      <button class="btn btn--icon btn--ghost" id="theme-toggle" type="button" aria-label="切換日夜模式" title="切換日夜模式">☀</button>
+
+      <button
+        class="menu-toggle"
+        id="menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="menu-drawer"
+        aria-label="選單"
+      >
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ====================================================================
+       抽屜選單 —— 版面顯示、特效、日夜、上傳者入口全部在這裡。
+       menu-toggle 按下才會滑出，桌機手機共用同一套。
+       ================================================================= -->
+  <div class="menu-scrim" id="menu-scrim" hidden></div>
+  <nav class="menu-drawer" id="menu-drawer" aria-label="站台選單" hidden>
+    <div class="menu-drawer__group">
+      <span class="menu-drawer__label">瀏覽</span>
+      <button class="menu-drawer__item" id="wall-mode" type="button">
+        <span class="menu-drawer__icon" aria-hidden="true">▤</span>
+        單欄 / 多欄
+      </button>
+      <button class="menu-drawer__item" id="petal-toggle" type="button" aria-pressed="false">
+        <span class="menu-drawer__icon" aria-hidden="true">✽</span>
+        櫻花特效
+      </button>
+    </div>
+    <div class="menu-drawer__group">
+      <span class="menu-drawer__label">團隊</span>
+      <a class="menu-drawer__item" href="admin.html">
+        <span class="menu-drawer__icon" aria-hidden="true">✎</span>
+        上傳者入口
+      </a>
+    </div>
+  </nav>
+
+  <!-- ====================================================================
+       Hero —— 整張祭典插畫當背景，搜尋框疊在照片上（參考 StockSnap 的作法：
+       大照片 + 疊字標題 + 白色搜尋框）。篩選列移到下面的白色／主題色區塊，
+       跟照片區明確分開。
+       ================================================================= -->
+  <section class="hero">
+    <div class="hero__bg" style="background-image: url('assets/img/hero-bg.jpg')"></div>
+    <div class="hero__scrim"></div>
+    <div class="shell hero__inner">
+      <h1 class="hero__title" id="site-title">口袋中的夏末號</h1>
+      <p class="hero__lead" id="site-desc">線上週邊展示牆</p>
+
+      <div class="hero__search search" id="search">
+        <span class="search__icon" aria-hidden="true">⌕</span>
+        <input
+          class="input"
+          id="search-input"
+          type="search"
+          placeholder="搜尋作品、角色、週邊名稱…（按 / 快速跳來）"
+          aria-label="搜尋展品"
+          autocomplete="off"
+        />
+        <button class="search__clear" id="search-clear" type="button" aria-label="清除搜尋">×</button>
+      </div>
+
+      <!-- 骰子用 inline SVG 而不是 ⚄ 字元：U+2684 在很多系統（含 Windows）沒有字形，會變成缺字方框。 -->
+      <button class="hero__random" id="random-pick" type="button">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <rect x="3.5" y="3.5" width="17" height="17" rx="4.5" />
+          <circle cx="8.6" cy="8.6" r="1.3" fill="currentColor" stroke="none" />
+          <circle cx="15.4" cy="8.6" r="1.3" fill="currentColor" stroke="none" />
+          <circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none" />
+          <circle cx="8.6" cy="15.4" r="1.3" fill="currentColor" stroke="none" />
+          <circle cx="15.4" cy="15.4" r="1.3" fill="currentColor" stroke="none" />
+        </svg>
+        隨機看一件
+      </button>
+
+      <div class="hero__meta">
+        <span>展品總數　<b id="hero-count">—</b></span>
+        <span>分類　<b id="hero-cats">7</b></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       篩選列 —— 照片區底下的主題色區塊（day 主題下是白色，night 主題下維持
+       深色，跟 body 背景一致，不再疊加額外的裝飾漸層）。
+       ================================================================= -->
+  <section class="controls" id="controls">
+    <div class="shell">
+      <div class="controls__row">
+        <div class="filters-wrap" id="filters-wrap">
+          <div class="filters" id="filters" role="group" aria-label="分類篩選"></div>
+          <span class="filters__hint" id="filters-hint" aria-hidden="true">›</span>
+        </div>
+
+        <!-- 社團篩選：展覽頁的主要篩選維度。選項由 gallery.js 動態載入，
+             沒有任何社團資料時（demo 剛啟動前、或 Supabase 還沒跑新版 schema）
+             會被 JS 加上 is-hidden 藏起來。跟分類是 AND 關係。 -->
+        <div class="field-inline" id="circle-field">
+          <select class="select" id="circle-select" aria-label="依社團篩選">
+            <option value="all">全部社團</option>
+          </select>
+        </div>
+
+        <select class="select" id="sort-select" aria-label="排序方式" style="max-width: 130px">
+          <option value="new">最新收錄</option>
+          <option value="old">最早收錄</option>
+          <option value="title">依名稱</option>
+        </select>
+      </div>
+
+      <div class="controls__row">
+        <div class="result-bar" id="result-count">載入中…</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       展品牆
+       ================================================================= -->
+  <main class="gallery" id="main" tabindex="-1">
+    <div class="shell">
+      <div id="notice-slot"></div>
+
+      <div class="wall" id="wall"></div>
+
+      <div class="loadmore" id="loadmore" style="display: none">
+        <div class="spinner" aria-label="載入中"></div>
+      </div>
+
+      <div class="sentinel" id="sentinel"></div>
+      <div id="gallery-foot"></div>
+    </div>
+  </main>
+
+  <!-- ====================================================================
+       Footer
+       ================================================================= -->
+  <footer class="site-footer">
+    <div class="shell site-footer__inner">
+      <span id="site-subtitle">Galgame 週邊線上展覽</span>
+      <span>
+        圖片版權屬各原作者所有，本站僅為個人收藏之非商業性展示。
+      </span>
+      <a href="admin.html">上傳者入口</a>
+    </div>
+  </footer>
+
+</div>
+
+<button class="to-top" id="to-top" type="button" aria-label="回到頂端">↑</button>
+
+<!-- ========================================================================
+     Scripts — 順序不能換：
+       config → util → placeholder → cloudinary → store → petals → lightbox → gallery
+     ===================================================================== -->
+<script src="assets/js/config.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/placeholder.js"></script>
+<script src="assets/js/cloudinary.js"></script>
+<script src="assets/js/store.js"></script>
+<script src="assets/js/petals.js"></script>
+<script src="assets/js/lightbox.js"></script>
+<script src="assets/js/gallery.js"></script>
+<script src="assets/js/background.js"></script>
+
+</body>
+</html>

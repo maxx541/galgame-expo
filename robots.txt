@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+
+# 上線後把下面這行的網址換成你自己的，並拿掉註解
+# Sitemap: https://your-site.example/sitemap.xml
