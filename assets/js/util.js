@@ -61,6 +61,33 @@
     );
   }
 
+  /**
+   * 把純文字裡的網址轉成可點擊連結，回傳可以直接塞進 innerHTML 的字串。
+   * 先跳脫整段文字再抓網址，不是反過來 —— 不然備註裡打的 <script> 之類的東西
+   * 會被當成真的 HTML 插進頁面。抓到的網址本身已經跳脫過，不用再處理一次。
+   */
+  function linkify(text) {
+    const escaped = escapeHtml(text);
+    // URL 本體只吃 ASCII 的合法網址字元，不含中日文字或全形標點 —— 不然「看
+    // https://x.com/a 這篇」會把後面的「這篇」也貪心地一起吃進網址裡
+    // （網址字元跟空白之間沒有任何邊界可以判斷該停在哪）。
+    const urlPattern = /((?:https?:\/\/|www\.)[a-zA-Z0-9\-._~:/?#[\]@!$&'()*+,;=%]+)/gi;
+    const trailingPunct = /[)\]}>,.;:!?，。！？；：、」』〉》'"]+$/;
+
+    return escaped.replace(urlPattern, (raw) => {
+      let url = raw;
+      let suffix = '';
+      const m = url.match(trailingPunct);
+      if (m) {
+        suffix = m[0];
+        url = url.slice(0, -suffix.length);
+      }
+      if (!url) return raw;
+      const href = /^https?:\/\//i.test(url) ? url : `https://${url}`;
+      return `<a href="${href}" target="_blank" rel="noopener noreferrer nofollow">${url}</a>${suffix}`;
+    });
+  }
+
   /** 1536 → '1.5 MB' */
   function fmtBytes(n) {
     if (!n && n !== 0) return '—';
@@ -226,7 +253,7 @@
   /* ---- 匯出 -------------------------------------------------------------- */
   window.U = {
     $, $$, el,
-    normalize, highlight, escapeHtml, fmtBytes, fmtDate,
+    normalize, highlight, escapeHtml, linkify, fmtBytes, fmtDate,
     debounce, rafThrottle,
     category, CATS,
     sha256, store, toast,

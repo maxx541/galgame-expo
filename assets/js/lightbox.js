@@ -13,7 +13,7 @@
 (function () {
   'use strict';
 
-  const { $, el, category, toast, CFG } = window.U;
+  const { $, el, category, toast, CFG, linkify } = window.U;
 
   let root = null;
   let imgEl = null;
@@ -161,8 +161,9 @@
       imgEl.classList.toggle('is-zoomed');
     });
 
-    // 手機：備註點一下展開
-    $('#lb-note', root).addEventListener('click', function () {
+    // 手機：備註點一下展開（點到裡面的連結就讓它正常跳轉，不要順便觸發展開／收合）
+    $('#lb-note', root).addEventListener('click', function (e) {
+      if (e.target.closest('a')) return;
       this.classList.toggle('is-expanded');
     });
 
@@ -336,7 +337,8 @@
     series.style.display = seriesText ? '' : 'none';
 
     const note = $('#lb-note', root);
-    note.textContent = it.note || '';
+    // 備註可能包含網址，用 linkify() 轉成可點擊連結（裡面已經先跳脫過 HTML）
+    note.innerHTML = it.note ? linkify(it.note) : '';
     note.style.display = it.note ? '' : 'none';
     note.classList.remove('is-expanded');
 

@@ -17,7 +17,7 @@
 (function () {
   'use strict';
 
-  const { $, $$, el, category, fmtBytes, fmtDate, toast, store, CFG } = window.U;
+  const { $, $$, el, category, fmtBytes, fmtDate, toast, store, CFG, highlight } = window.U;
 
   const SESSION_KEY = 'expo.admin.session';
   const OWNER_KEY = 'expo.admin.owner';
@@ -27,6 +27,10 @@
   let queue = [];
   let uploading = false;
   let manageItems = [];
+
+  /** 社團／作品建議清單，loadSuggestions() 填好之後給 bindAutocomplete() 用 */
+  let circleNames = [];
+  let seriesNames = [];
 
   /* ==========================================================================
    * 啟動
@@ -227,28 +231,124 @@
   }
 
   /**
-   * 社團與作品的輸入建議。用原生 <datalist>：
-   * 打字時瀏覽器自己會做前綴比對並跳出清單，點一下就填入，
-   * 不用自己寫一套下拉選單（也就不用自己處理鍵盤上下鍵、失焦關閉、觸控等等）。
-   *
+   * 社團與作品的輸入建議清單。
    * 每次上傳成功後會重新載入一次，所以剛剛才新增的社團 / 作品，下一批就選得到。
+   * 實際的下拉 UI 在 bindAutocomplete()，這裡只負責把名單抓回來存著。
    */
   async function loadSuggestions() {
-    const fill = async (sel, getter) => {
-      const list = $(sel);
-      if (!list) return;
-      try {
-        const names = await getter();
-        list.textContent = '';
-        for (const name of names) list.append(el('option', { value: name }));
-      } catch {
-        // 建議載入失敗不影響上傳，使用者照樣可以自己打字
+    try {
+      circleNames = await window.STORE.circleSuggestions();
+    } catch {
+      circleNames = []; // 建議載入失敗不影響上傳，使用者照樣可以自己打字
+    }
+    try {
+      seriesNames = await window.STORE.seriesSuggestions();
+    } catch {
+      seriesNames = [];
+    }
+  }
+
+  /**
+   * 含字比對的輸入建議下拉 —— 取代原生 <datalist>。
+   * 原生 datalist 大多數瀏覽器只比對「開頭」，中文輸入法下過濾也常常不穩，
+   * 打「蒼」找不到「蒼」不在開頭的名字。這裡自己做，含字比對，行為才可控。
+   *
+   * 用法：input 本身要先包在 <div class="combo"> 裡（.combo 負責定位下拉清單），
+   * getItems() 回傳目前完整的候選名單（不用先篩好，這裡自己篩）。
+   */
+  function bindAutocomplete(input, getItems) {
+    if (!input) return;
+    const wrap = input.parentElement;
+    const list = el('div', { class: 'combo__list' });
+    list.hidden = true;
+    wrap.append(list);
+
+    let activeIndex = -1;
+
+    function choose(name) {
+      input.value = name;
+      close();
+      // 只發 change，不發 input —— 發 input 會馬上被自己的 filter() 監聽到，
+      // 拿選好的值重新比對一次（自己一定符合自己），下拉清單就會立刻又跳出來。
+      // change 就夠讓「作品 → 自動帶入社團」那段既有邏輯照常觸發。
+      input.dispatchEvent(new Event('change', { bubbles: true }));
+      input.focus();
+    }
+
+    function close() {
+      list.hidden = true;
+      list.textContent = '';
+      activeIndex = -1;
+    }
+
+    function render(matches, q) {
+      list.textContent = '';
+      activeIndex = -1;
+      if (!matches.length) {
+        list.hidden = true;
+        return;
       }
-    };
-    await Promise.all([
-      fill('#circle-options', () => window.STORE.circleSuggestions()),
-      fill('#series-options', () => window.STORE.seriesSuggestions()),
-    ]);
+      for (const name of matches) {
+        list.append(
+          el(
+            'button',
+            {
+              type: 'button',
+              class: 'combo__opt',
+              onmousedown: (e) => {
+                // 先 preventDefault 才不會讓 input 先 blur 把清單關掉
+                e.preventDefault();
+                choose(name);
+              },
+            },
+            highlight(name, q)
+          )
+        );
+      }
+      list.hidden = false;
+    }
+
+    function filter() {
+      const q = input.value.trim();
+      if (!q) {
+        close();
+        return;
+      }
+      const items = getItems() || [];
+      const lower = q.toLowerCase();
+      const matches = items.filter((n) => n.toLowerCase().includes(lower)).slice(0, 8);
+      render(matches, q);
+    }
+
+    input.addEventListener('input', filter);
+    input.addEventListener('focus', filter);
+    input.addEventListener('blur', () => {
+      // 給 mousedown 的 choose() 一點時間跑完，不然會搶在點擊前把清單關掉
+      setTimeout(close, 150);
+    });
+    input.addEventListener('keydown', (e) => {
+      const opts = list.querySelectorAll('.combo__opt');
+      if (list.hidden || !opts.length) return;
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        activeIndex = Math.min(activeIndex + 1, opts.length - 1);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        activeIndex = Math.max(activeIndex - 1, 0);
+      } else if (e.key === 'Enter') {
+        if (activeIndex < 0) return;
+        e.preventDefault();
+        choose(opts[activeIndex].textContent);
+        return;
+      } else if (e.key === 'Escape') {
+        close();
+        return;
+      } else {
+        return;
+      }
+      opts.forEach((o, i) => o.classList.toggle('is-active', i === activeIndex));
+      opts[activeIndex].scrollIntoView({ block: 'nearest' });
+    });
   }
 
   /**
@@ -397,6 +497,9 @@
   function bindUploader() {
     const dz = $('#dropzone');
     const input = $('#file-input');
+
+    bindAutocomplete($('#f-circle'), () => circleNames);
+    bindAutocomplete($('#f-series'), () => seriesNames);
 
     input.addEventListener('change', () => {
       addFiles(input.files);
@@ -832,24 +935,26 @@
         ]),
         el('div', { class: 'field' }, [
           el('label', { class: 'field__label', for: 'edit-circle' }, '社團 / 品牌'),
-          el('input', {
-            class: 'input',
-            id: 'edit-circle',
-            list: 'circle-options',
-            autocomplete: 'off',
-            value: it.circle || '',
-          }),
+          el('div', { class: 'combo' }, [
+            el('input', {
+              class: 'input',
+              id: 'edit-circle',
+              autocomplete: 'off',
+              value: it.circle || '',
+            }),
+          ]),
         ]),
         el('div', { class: 'field' }, [
           el('label', { class: 'field__label', for: 'edit-series' }, '作品名稱'),
-          // 共用上傳表單那份 datalist，編輯時一樣有建議可選
-          el('input', {
-            class: 'input',
-            id: 'edit-series',
-            list: 'series-options',
-            autocomplete: 'off',
-            value: it.series || '',
-          }),
+          // 跟上傳表單共用同一份建議名單，編輯時一樣有建議可選
+          el('div', { class: 'combo' }, [
+            el('input', {
+              class: 'input',
+              id: 'edit-series',
+              autocomplete: 'off',
+              value: it.series || '',
+            }),
+          ]),
         ]),
         el('div', { class: 'field' }, [
           el('label', { class: 'field__label', for: 'edit-character' }, '角色'),
@@ -893,6 +998,10 @@
         return true;
       },
     });
+
+    // openModal() 是同步把畫面插進 DOM 的，這裡才抓得到剛剛建的兩個輸入框
+    bindAutocomplete($('#edit-circle'), () => circleNames);
+    bindAutocomplete($('#edit-series'), () => seriesNames);
   }
 
   /* ---- 刪除 -------------------------------------------------------------- */

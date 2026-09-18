@@ -191,15 +191,15 @@
                 <div class="field">
                   <label class="field__label" for="f-circle">社團 / 品牌</label>
                   <!-- 社團是展覽頁的主要篩選維度，放在作品前面。
-                       打字會跳建議（config 的預設 + 資料庫已有的）。 -->
-                  <input
-                    class="input"
-                    id="f-circle"
-                    list="circle-options"
-                    autocomplete="off"
-                    placeholder="打幾個字會跳出建議，例：ゆずソフト"
-                  />
-                  <datalist id="circle-options"></datalist>
+                       打字會跳建議（含字比對，不是只比對開頭）。 -->
+                  <div class="combo">
+                    <input
+                      class="input"
+                      id="f-circle"
+                      autocomplete="off"
+                      placeholder="打幾個字會跳出建議，例：ゆずソフト"
+                    />
+                  </div>
                   <span class="field__hint">
                     冷門或只有一兩件的社團，選「其他社團」就好。
                   </span>
@@ -208,14 +208,14 @@
                 <div class="field">
                   <label class="field__label" for="f-series">作品名稱</label>
                   <!-- 填了已知作品會自動幫忙帶出上面的社團（見 admin.js 的 seriesToCircle）。 -->
-                  <input
-                    class="input"
-                    id="f-series"
-                    list="series-options"
-                    autocomplete="off"
-                    placeholder="社團底下更細一層，選填。例：白色相簿2"
-                  />
-                  <datalist id="series-options"></datalist>
+                  <div class="combo">
+                    <input
+                      class="input"
+                      id="f-series"
+                      autocomplete="off"
+                      placeholder="社團底下更細一層，選填。例：白色相簿2"
+                    />
+                  </div>
                   <span class="field__hint">
                     選填。填了已知作品會自動幫你帶出社團。
                   </span>

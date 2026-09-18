@@ -710,6 +710,55 @@ body.has-bg-photo .bg-glass {
   margin-left: 4px;
 }
 
+/* ---- 社團／作品輸入建議（取代原生 <datalist>）------------------------------
+   原生 datalist 在大多數瀏覽器只做前綴比對，中文輸入法下過濾也常常不穩，
+   打「蒼」找不到「白色相簿」這種名字裡含蒼字但不是開頭的情況。
+   自己做一個含字比對的下拉清單，行為才可控。 */
+.combo {
+  position: relative;
+}
+
+.combo__list {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 20;
+  max-height: 220px;
+  overflow-y: auto;
+  background: var(--panel-solid);
+  border: 1px solid var(--line);
+  box-shadow: var(--glow);
+}
+
+.combo__opt {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 9px 13px;
+  font-size: 13.5px;
+  color: var(--text);
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  cursor: pointer;
+}
+
+.combo__opt:last-child {
+  border-bottom: none;
+}
+
+.combo__opt:hover,
+.combo__opt.is-active {
+  background: color-mix(in srgb, var(--sakura) 14%, transparent);
+}
+
+.combo__opt mark {
+  background: none;
+  color: var(--sakura);
+  font-weight: 600;
+}
+
 .input,
 .select,
 .textarea {
@@ -1988,10 +2037,23 @@ body.menu-is-open {
   margin-top: 10px;
   max-width: 72ch;
   white-space: pre-wrap;
+  word-break: break-word;
   /* 收藏故事可以寫很長，捲動放在這裡（不是放在外層的 .lb__advbox，
      那樣會把凸出框外的名前欄一起裁掉） */
   max-height: 22vh;
   overflow-y: auto;
+}
+
+.lb__note a {
+  color: var(--sakura);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  word-break: break-all;
+}
+
+.lb__note a:hover,
+.lb__note a:focus-visible {
+  color: var(--violet);
 }
 
 .lb__facts {
