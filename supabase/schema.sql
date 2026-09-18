@@ -1,5 +1,5 @@
 -- =============================================================================
--- ATELIER SAKURA — Supabase 資料表與安全政策
+-- 口袋中的夏末號 — Supabase 資料表與安全政策
 -- -----------------------------------------------------------------------------
 -- 用法：
 --   1. 打開 Supabase Dashboard → 左側 SQL Editor → New query
@@ -169,44 +169,31 @@ create trigger exhibits_touch_updated_at
 -- =============================================================================
 -- 4. Row Level Security（真正的安全防線）
 -- -----------------------------------------------------------------------------
--- 重點觀念：
---   前端的密碼框只是「門簾」，任何人打開 F12 都能繞過，因為判斷在瀏覽器裡。
---   anon key 本來就是公開的，寫在 config.js 裡完全正常。
---   真正決定「誰能寫入」的是這裡的 RLS 政策，它跑在 Supabase 的伺服器上。
+-- 前端的密碼框只是「門簾」，任何人打開 F12 都能繞過，因為判斷在瀏覽器裡。
+-- anon key 本來就是公開的，寫在 config.js 裡完全正常。
+-- 真正決定「誰能寫入」的是這裡的 RLS 政策，它跑在 Supabase 的伺服器上。
 --
--- 下面提供三組方案，請**擇一**：
---   方案 A：每人各自一個 Supabase 帳號 → config.js 的 authMode 設 'supabase'
---   方案 B（方便但不安全）：任何人都能寫入 → config.js 的 authMode 設 'password'
---   方案 C（推薦給團隊）：大家共用一組密碼，驗證在雲端 → authMode 設 'shared'
---                         見本檔案最下面「6. 方案 C」，RLS 沿用方案 A 的政策，不用重複設定
+-- 這個專案的登入方式固定是「團隊共用密碼」（見下面第 6 節）：
+-- 密碼答對後，前端會拿到一個匿名但真實的登入 session，角色是 authenticated，
+-- 下面的政策就是照這個角色判斷「誰能寫入」。
 -- =============================================================================
 
 alter table public.exhibits enable row level security;
 
 -- 先清掉舊政策，避免重複執行時互相打架
-drop policy if exists "公開可讀"           on public.exhibits;
-drop policy if exists "登入者可新增"       on public.exhibits;
-drop policy if exists "登入者可修改"       on public.exhibits;
-drop policy if exists "登入者可刪除"       on public.exhibits;
-drop policy if exists "任何人可新增"       on public.exhibits;
-drop policy if exists "任何人可修改"       on public.exhibits;
-drop policy if exists "任何人可刪除"       on public.exhibits;
+drop policy if exists "公開可讀"     on public.exhibits;
+drop policy if exists "登入者可新增" on public.exhibits;
+drop policy if exists "登入者可修改" on public.exhibits;
+drop policy if exists "登入者可刪除" on public.exhibits;
 
-
--- ---- 共通：展覽是給大家看的，所以讀取一律公開 -------------------------------
+-- 展覽是給大家看的，讀取一律公開
 create policy "公開可讀"
   on public.exhibits
   for select
   to anon, authenticated
   using (true);
 
-
--- ---- 方案 A（推薦）：只有登入者能寫 -----------------------------------------
--- 搭配：config.js → supabase.authMode = 'supabase'
--- 帳號建立方式：Supabase Dashboard → Authentication → Users → Add user
---               （建議同時關掉 Authentication → Providers → Email 的「Enable signup」，
---                 否則路人可以自己註冊帳號，那就等於沒鎖）
-
+-- 只有登入的人（答對共用密碼、換到匿名登入 session）能寫入
 create policy "登入者可新增"
   on public.exhibits
   for insert
@@ -225,20 +212,6 @@ create policy "登入者可刪除"
   for delete
   to authenticated
   using (true);
-
-
--- ---- 方案 B（方便但不安全）：任何人都能寫 -----------------------------------
--- 搭配：config.js → supabase.authMode = 'password'
---
--- ⚠️ 這等於把資料庫的寫入權限公開。知道你網址的人可以直接用 anon key
---    新增或刪除展品。只適合「純自己玩、資料丟了也沒差」的情況。
---    如果這個展覽會分享出去，請用方案 A。
---
--- 要啟用的話，把下面四行的註解拿掉：
-
--- create policy "任何人可新增" on public.exhibits for insert to anon, authenticated with check (true);
--- create policy "任何人可修改" on public.exhibits for update to anon, authenticated using (true) with check (true);
--- create policy "任何人可刪除" on public.exhibits for delete to anon, authenticated using (true);
 
 
 -- =============================================================================
@@ -260,29 +233,28 @@ create policy "登入者可刪除"
 
 
 -- =============================================================================
--- 6. 方案 C：團隊共用密碼（存在雲端，前端比對）
+-- 6. 團隊共用密碼登入
 -- -----------------------------------------------------------------------------
 -- 適合：不只你一個人要上傳，團隊裡好幾個人共用同一組密碼，
 --       但又不想幫每個人開 Supabase 帳號。
 --
--- 跟方案 B（前端密碼）的差別：
---   方案 B 的密碼雜湊寫死在 config.js 裡，比對邏輯在瀏覽器跑，
---   任何人按 F12 都能看到判斷式、直接跳過。
---   方案 C 的密碼雜湊存在這張表，比對邏輯在下面這個資料庫函式裡跑，
---   瀏覽器只是把密碼送過去問「對不對」，真正的判斷你看不到、改不了。
+-- 密碼雜湊存在這張表，比對邏輯在下面這個資料庫函式裡跑，瀏覽器只是把密碼
+-- 送過去問「對不對」，真正的判斷你看不到、改不了（不是寫死在前端 JS 裡
+-- 誰都能按 F12 看到判斷式跳過的那種）。
 --
 -- 原理：
 --   1. 密碼答對 → 呼叫下面的 verify_upload_password() 函式，在資料庫裡比對
 --   2. 答對 → 前端呼叫 supabase.auth.signInAnonymously()，
 --             跟 Supabase 要一個「匿名但真實」的登入 session
---   3. 這個 session 的角色是 authenticated，跟方案 A 用的是同一組 RLS 政策
---      （上面「登入者可新增 / 可修改 / 可刪除」），完全不用改
+--   3. 這個 session 的角色是 authenticated，套用的就是上面第 4 節的 RLS 政策
 --
--- 要在 Supabase Dashboard 手動開一個開關才能用，見 docs/SETUP.md 的說明。
--- 搭配：config.js → supabase.authMode = 'shared'
+-- 要在 Supabase Dashboard 手動開一個開關才能用（Authentication → Providers →
+-- Anonymous Sign-ins），見 docs/SETUP.md 的說明。
 -- =============================================================================
 
-create extension if not exists pgcrypto;
+-- Supabase 的 SQL Editor 預設會把新裝的 extension 裝進 "extensions" schema，
+-- 不是 public。明確指定 schema，跟下面 security definer 函式的 search_path 對得上。
+create extension if not exists pgcrypto with schema extensions;
 
 -- 只存一列：目前生效的密碼雜湊
 create table if not exists public.admin_secret (
@@ -300,7 +272,10 @@ create or replace function public.verify_upload_password(pw text)
 returns boolean
 language sql
 security definer
-set search_path = public
+-- security definer 函式的 search_path 是寫死的，不會照抄呼叫者的設定，
+-- 所以要把 pgcrypto 實際安裝的 schema（extensions）也加進來，
+-- 不然 crypt() 會報 "function crypt(text, text) does not exist"。
+set search_path = public, extensions
 as $$
   select exists (
     select 1 from public.admin_secret
