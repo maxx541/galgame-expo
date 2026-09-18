@@ -128,10 +128,10 @@
         <summary>使用說明（點一下收合）</summary>
         <ul>
           <li>第一次用這台電腦上傳，先在下面設定「擁有者」——之後這台電腦上傳的展品都會自動掛你的名字，不用每批都重填。</li>
-          <li>圖片可以一次拖多張進來，也可以直接 <code>Ctrl+V</code> 貼上截圖；單檔上限 10 MB。</li>
+          <li>上傳一次只能選一張圖片，也可以直接 <code>Ctrl+V</code> 貼上截圖；單檔上限 10 MB。每張圖片都有自己完整的分類、社團、備註，不會跟其他圖片共用，所以不同東西的備註不會混在一起。</li>
           <li>「分類」是必填，「社團 / 品牌」「作品名稱」打幾個字就會跳建議，沒有的話直接打新的就好；沒把握歸哪個社團就選「其他社團」。</li>
           <li>「備註」欄可以寫收藏故事、保存狀況等，會完整顯示在展品的燈箱詳細頁裡，手機上預設收合。</li>
-          <li>右邊「已展出的作品」可以搜尋、編輯或下架既有展品；只列最近 100 件，更早的用搜尋找。</li>
+          <li>右邊「已展出的作品」只會列出你自己上傳的展品，可以搜尋、編輯或下架；只列最近 100 件，更早的用搜尋找。</li>
           <li>如果分類需要新增或調整，請聯絡網站管理員。</li>
         </ul>
       </details>
@@ -163,10 +163,10 @@
                 <div class="dropzone__icon">⇪</div>
                 <div class="dropzone__title">把圖片拖進來，或點一下選檔</div>
                 <div class="dropzone__hint">
-                  可一次選多張／也可以直接 Ctrl+V 貼上截圖<br />
+                  一次一張／也可以直接 Ctrl+V 貼上截圖<br />
                   支援 JPG、PNG、WebP，單檔上限 10 MB
                 </div>
-                <input type="file" id="file-input" accept="image/*" multiple />
+                <input type="file" id="file-input" accept="image/*" />
               </div>
 
               <!-- 待上傳清單 -->
@@ -180,7 +180,7 @@
               <!-- 共用欄位 -->
               <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 20px">
                 <p class="field__hint">
-                  以下欄位會套用到這批全部的圖片。每張圖片各自的名稱在上面的清單裡填。
+                  填寫這張圖片的完整資訊。名稱在上面的清單裡填。
                 </p>
 
                 <div class="field">
@@ -248,7 +248,7 @@
         <section>
           <div class="panel admin__panel">
             <div class="admin__heading">
-              <h2>已展出的作品</h2>
+              <h2>我上傳的作品</h2>
               <span class="field__hint" id="manage-count"></span>
             </div>
 
@@ -257,8 +257,8 @@
                 class="input"
                 id="manage-search"
                 type="search"
-                placeholder="搜尋已上傳的展品…"
-                aria-label="搜尋已上傳的展品"
+                placeholder="搜尋我上傳的展品…"
+                aria-label="搜尋我上傳的展品"
               />
               <button class="btn btn--ghost btn--icon" id="manage-reload" type="button" title="重新整理">↻</button>
             </div>
@@ -266,7 +266,7 @@
             <div class="admin-list" id="manage-list"></div>
 
             <p class="field__hint" style="margin-top: 14px">
-              這裡只列出最近 100 件。要找更早的請用上面的搜尋。
+              只列出目前擁有者上傳的展品，最近 100 件。要找更早的請用上面的搜尋。
             </p>
           </div>
         </section>

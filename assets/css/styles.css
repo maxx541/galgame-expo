@@ -1142,11 +1142,17 @@ body.menu-is-open {
 }
 
 .hero__search .input {
-  background: #fff;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(10px) saturate(1.4);
+  -webkit-backdrop-filter: blur(10px) saturate(1.4);
   color: #1c1a20;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.5);
   box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
   height: 54px;
+}
+
+.hero__search .input::placeholder {
+  color: #55525c;
 }
 
 .hero__search .search__icon {
@@ -1157,11 +1163,20 @@ body.menu-is-open {
   color: #8b8894;
 }
 
+/* 隨機看一件 + 週邊數量放同一行，置中對齊 */
+.hero__actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px 22px;
+  margin-top: 18px;
+}
+
 .hero__random {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  margin: 16px auto 0;
   padding: 8px 16px;
   border: 1px solid rgba(255, 255, 255, 0.4);
   background: rgba(10, 8, 14, 0.25);
@@ -1182,19 +1197,14 @@ body.menu-is-open {
   cursor: wait;
 }
 
-.hero__meta {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px 22px;
-  margin-top: 22px;
+.hero__stat {
   font-size: 12px;
   letter-spacing: 0.14em;
   color: rgba(255, 255, 255, 0.75);
   font-family: var(--font-mono);
 }
 
-.hero__meta b {
+.hero__stat b {
   color: #fff;
   font-family: var(--font-display);
   font-size: 15px;
@@ -1228,13 +1238,16 @@ body.menu-is-open {
     font-size: 13.5px;
   }
 
-  .hero__meta {
-    margin-top: 16px;
-    font-size: 10.5px;
-    gap: 6px 16px;
+  .hero__actions {
+    margin-top: 14px;
+    gap: 10px 16px;
   }
 
-  .hero__meta b {
+  .hero__stat {
+    font-size: 10.5px;
+  }
+
+  .hero__stat b {
     font-size: 13px;
   }
 }
@@ -1418,11 +1431,25 @@ body.menu-is-open {
     font-size: 12px;
   }
 
+  /* 手機上分類不用橫向捲動了 —— 讓 filters-wrap 自己獨佔一整行，
+     chips 直接換行排成兩層，社團／排序下拉擠到下一行。 */
+  .controls__row {
+    flex-wrap: wrap;
+  }
+
+  .filters-wrap {
+    flex-basis: 100%;
+  }
+
   .filters {
+    flex-wrap: wrap;
+    overflow-x: visible;
+    mask-image: none;
     gap: 6px;
-    /* 讓 chips 可以捲出 shell 的左右留白，看起來比較順 */
-    margin-inline: calc(var(--gutter) * -1);
-    padding-inline: var(--gutter);
+  }
+
+  .filters__hint {
+    display: none;
   }
 
   #circle-field .select {
@@ -1432,12 +1459,15 @@ body.menu-is-open {
   }
 
   .choice {
-    padding: 7px 13px 7px 25px;
-    font-size: 12.5px;
+    padding: 6px 12px;
+    gap: 5px;
+    font-size: 12px;
   }
 
+  /* 觸控裝置沒有 hover，這顆箭頭平常也用不到，拿掉左邊留白可以讓 chips
+     窄一點，手機上比較容易兩層排滿；已選取的狀態改靠底色本身表示就夠清楚。 */
   .choice::before {
-    left: 11px;
+    display: none;
   }
 
   .result-bar {

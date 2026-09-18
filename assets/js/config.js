@@ -196,10 +196,10 @@ window.EXPO_CONFIG = {
     { id: 'artbook',    label: '設定集・畫集', ja: '設定資料集・画集', hue: 158, icon: '▦' },
     { id: 'doujinshi',  label: '同好會刊物',  ja: '同人誌',           hue: 45,  icon: '▧' },
     { id: 'tapestry',   label: '掛軸・木製畫版', ja: 'タペストリー・木製アートボード', hue: 268, icon: '▤' },
-    { id: 'acrylic',    label: '立牌・壓克力', ja: 'アクリルスタンド', hue: 330, icon: '◈' },
+    { id: 'acrylic',    label: '壓克力',      ja: 'アクリルスタンド', hue: 330, icon: '◈' },
     { id: 'figure',     label: '娃娃・公仔',  ja: 'ぬいぐるみ・フィギュア', hue: 348, icon: '✿' },
     { id: 'soundtrack', label: '原聲帶',      ja: 'サウンドトラック', hue: 188, icon: '♪' },
-    { id: 'other',      label: '其他週邊',    ja: 'その他グッズ',     hue: 292, icon: '✧' },
+    { id: 'other',      label: '其他',        ja: 'その他グッズ',     hue: 292, icon: '✧' },
   ],
 
   /* ---------------------------------------------------------------------------

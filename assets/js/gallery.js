@@ -170,12 +170,6 @@
       // Hero 的統計數字
       const total = $('#hero-count');
       if (total) total.textContent = String(counts.all || 0);
-      const cats = $('#hero-cats');
-      if (cats) {
-        // 只算真的有展品的分類
-        const used = (CFG.categories || []).filter((c) => counts[c.id]).length;
-        cats.textContent = String(used || (CFG.categories || []).length);
-      }
     } catch {
       // 統計失敗不影響瀏覽，安靜略過
     }

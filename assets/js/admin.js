@@ -283,6 +283,8 @@
     if (trimmed) store.set(OWNER_KEY, trimmed);
     else store.del(OWNER_KEY);
     paintOwnerBar();
+    // 管理清單是依擁有者篩選的，換人就要重新載入，不然會看到上一個人的清單
+    if ($('#manage-list')) loadManageList(currentSearch());
   }
 
   function paintOwnerBar() {
@@ -430,32 +432,43 @@
 
   const MAX_MB = 10;
 
+  /**
+   * 一次只處理一張圖片 —— 每件展品的分類、社團、備註都是各自獨立的，
+   * 不共用同一組欄位，所以不做「一批多張」那種批次上傳。
+   * 選了新圖片就直接換掉清單裡還沒送出的那一張。
+   */
   function addFiles(fileList) {
-    const files = Array.from(fileList || []);
-    let rejected = 0;
+    const all = Array.from(fileList || []);
+    const files = all.filter((f) => f.type.startsWith('image/'));
+    if (all.length - files.length > 0) toast(`有 ${all.length - files.length} 個檔案不是圖片，已略過`, 'err');
+    if (!files.length) return;
 
-    for (const f of files) {
-      if (!f.type.startsWith('image/')) {
-        rejected++;
-        continue;
-      }
-      if (f.size > MAX_MB * 1024 * 1024) {
-        toast(`${f.name} 超過 ${MAX_MB} MB，已略過`, 'err', 5000);
-        continue;
-      }
-      queue.push({
-        id: `q-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
-        file: f,
-        previewUrl: URL.createObjectURL(f),
-        // 預設用檔名（去掉副檔名）當標題，通常比空白好改
-        title: f.name.replace(/\.[^.]+$/, ''),
-        state: 'ready',
-        progress: 0,
-        error: '',
-      });
+    if (uploading) {
+      toast('正在上傳中，請等這張傳完再選下一張。', 'err');
+      return;
     }
 
-    if (rejected) toast(`有 ${rejected} 個檔案不是圖片，已略過`, 'err');
+    if (files.length > 1) {
+      toast('一次只能選一張圖片，已經取第一張。', 'err', 5000);
+    }
+
+    const f = files[0];
+    if (f.size > MAX_MB * 1024 * 1024) {
+      toast(`${f.name} 超過 ${MAX_MB} MB`, 'err', 5000);
+      return;
+    }
+
+    clearQueue();
+    queue.push({
+      id: `q-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+      file: f,
+      previewUrl: URL.createObjectURL(f),
+      // 預設用檔名（去掉副檔名）當標題，通常比空白好改
+      title: f.name.replace(/\.[^.]+$/, ''),
+      state: 'ready',
+      progress: 0,
+      error: '',
+    });
     renderQueue();
   }
 
@@ -705,11 +718,23 @@
   async function loadManageList(search = '') {
     const box = $('#manage-list');
     box.textContent = '';
+
+    // 只列出目前擁有者自己上傳的展品，不要讓不同人互相看到、誤改到對方的東西
+    const owner = currentOwner();
+    if (!owner) {
+      $('#manage-count').textContent = '';
+      box.append(
+        el('div', { class: 'field__hint', style: { padding: '12px' } }, '請先設定擁有者，才能看到你上傳過的展品。')
+      );
+      return;
+    }
+
     box.append(el('div', { class: 'field__hint', style: { padding: '12px' } }, '載入中…'));
 
     try {
       const { items, total } = await window.STORE.list({
         category: 'all',
+        owner,
         search,
         sort: 'new',
         from: 0,
@@ -721,7 +746,11 @@
       box.textContent = '';
       if (!items.length) {
         box.append(
-          el('div', { class: 'field__hint', style: { padding: '12px' } }, '還沒有任何展品。')
+          el(
+            'div',
+            { class: 'field__hint', style: { padding: '12px' } },
+            search ? '找不到符合的展品。' : '你還沒有上傳過任何展品。'
+          )
         );
         return;
       }

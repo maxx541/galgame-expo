@@ -286,6 +286,7 @@
       category = 'all',
       circle = 'all',
       series = 'all',
+      owner = 'all',
       search = '',
       sort = 'new',
       from = 0,
@@ -305,6 +306,10 @@
 
       if (series && series !== 'all') {
         rows = rows.filter((r) => r.series === series);
+      }
+
+      if (owner && owner !== 'all') {
+        rows = rows.filter((r) => r.owner === owner);
       }
 
       const q = window.U.normalize(search);
@@ -333,6 +338,7 @@
     if (category && category !== 'all') q = q.eq('category', category);
     if (circle && circle !== 'all') q = q.eq('circle', circle);
     if (series && series !== 'all') q = q.eq('series', series);
+    if (owner && owner !== 'all') q = q.eq('owner', owner);
 
     if (search && search.trim()) {
       // 跨欄位模糊搜尋。前後的 * 是 PostgREST 的萬用字元。
