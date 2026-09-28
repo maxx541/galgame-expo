@@ -2167,6 +2167,181 @@ body.menu-is-open {
 }
 
 /* ==========================================================================
+ * 8.5 介紹面板（漢堡選單「介紹」→ <dialog class="intro">）
+ * --------------------------------------------------------------------------
+ * 面板高度跟著內容長，超過視窗就在 .intro__body 裡面捲動；
+ * 內容（文字、圖片、嵌入）一律由上往下依序排，放多少都會往下推。
+ * ======================================================================== */
+.intro {
+  width: min(880px, calc(100vw - 32px));
+  max-width: none;
+  max-height: calc(100vh - 48px);
+  max-height: calc(100dvh - 48px);
+  margin: auto;
+  padding: 0;
+  border: 1px solid var(--line-strong);
+  background: var(--panel-solid);
+  color: var(--text);
+  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.7);
+  overflow: hidden;
+}
+
+.intro[open] {
+  display: flex;
+  animation: intro-in 0.28s var(--ease);
+}
+
+.intro::backdrop {
+  background: var(--scrim);
+}
+
+.intro__panel {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 0;
+}
+
+.intro__head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px clamp(18px, 3vw, 28px);
+  border-bottom: 1px solid var(--line);
+  flex: 0 0 auto;
+}
+
+.intro__title {
+  flex: 1 1 auto;
+  font-size: clamp(17px, 2.2vw, 21px);
+}
+
+.intro__close {
+  flex: 0 0 auto;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line-strong);
+  color: var(--text);
+  font-size: 20px;
+  line-height: 1;
+  transition: border-color 0.2s var(--ease);
+}
+
+.intro__close:hover,
+.intro__close:focus-visible {
+  border-color: var(--sakura);
+}
+
+.intro__body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: clamp(18px, 3vw, 28px);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  color: var(--text-soft);
+}
+
+.intro__body h3 {
+  color: var(--text);
+  font-size: 17px;
+  margin-top: 8px;
+}
+
+.intro__body img {
+  width: 100%;
+  height: auto;
+}
+
+.intro__body figure {
+  margin: 0;
+}
+
+.intro__body figcaption {
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.intro__body a:not(.btn) {
+  color: var(--sakura);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.intro__placeholder {
+  padding: 36px 16px;
+  border: 1px dashed var(--line-strong);
+  text-align: center;
+  color: var(--text-muted);
+  letter-spacing: 0.12em;
+}
+
+/* 嵌入電子書：寬度吃滿，高度給夠翻頁器用 */
+.intro__embed {
+  flex: 0 0 auto;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+}
+
+.intro__embed iframe {
+  display: block;
+  width: 100%;
+  height: min(70vh, 620px);
+  border: 0;
+}
+
+.intro__embed-link {
+  margin-top: -6px;
+  font-size: 13px;
+  text-align: right;
+}
+
+/* 開著面板時鎖住背景捲動（intro.js 加在 body 上） */
+body.intro-is-open {
+  overflow: hidden;
+}
+
+@keyframes intro-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* 手機：面板直接吃滿整個畫面 */
+@media (max-width: 760px) {
+  .intro {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    max-height: none;
+    border: 0;
+  }
+
+  .intro__head {
+    padding-top: calc(12px + env(safe-area-inset-top));
+  }
+
+  .intro__body {
+    padding-bottom: calc(24px + env(safe-area-inset-bottom));
+  }
+
+  .intro__embed iframe {
+    height: 75vh;
+    height: 75dvh;
+  }
+}
+
+/* ==========================================================================
  * 9. 後台 Admin
  * ======================================================================== */
 .gate {
