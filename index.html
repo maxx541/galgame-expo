@@ -85,6 +85,22 @@
        ================================================================= -->
   <div class="menu-scrim" id="menu-scrim" hidden></div>
   <nav class="menu-drawer" id="menu-drawer" aria-label="站台選單" hidden>
+    <!-- 介紹：data-intro 對應下面 <dialog class="intro"> 的 id，由 intro.js 負責開關 -->
+    <div class="menu-drawer__group">
+      <span class="menu-drawer__label">介紹</span>
+      <button class="menu-drawer__item" type="button" data-intro="intro-booth">
+        <span class="menu-drawer__icon" aria-hidden="true">✦</span>
+        攤位活動介紹
+      </button>
+      <button class="menu-drawer__item" type="button" data-intro="intro-club">
+        <span class="menu-drawer__icon" aria-hidden="true">❀</span>
+        關於 Galgame 同好會
+      </button>
+      <button class="menu-drawer__item" type="button" data-intro="intro-eden">
+        <span class="menu-drawer__icon" aria-hidden="true">◈</span>
+        關於 Eden *創小壇
+      </button>
+    </div>
     <div class="menu-drawer__group">
       <span class="menu-drawer__label">瀏覽</span>
       <button class="menu-drawer__item" id="wall-mode" type="button">
@@ -111,7 +127,7 @@
        跟照片區明確分開。
        ================================================================= -->
   <section class="hero">
-    <div class="hero__bg" style="background-image: url('assets/img/hero-bg.jpg')"></div>
+    <div class="hero__bg" style="background-image: url('assets/img/hero-bg-new.jpg')"></div>
     <div class="hero__scrim"></div>
     <div class="shell hero__inner">
       <h1 class="hero__title" id="site-title">口袋中的夏末號</h1>
@@ -219,6 +235,68 @@
 <button class="to-top" id="to-top" type="button" aria-label="回到頂端">↑</button>
 
 <!-- ========================================================================
+     介紹頁（漢堡選單「介紹」那一組點開的彈出面板）
+     -------------------------------------------------------------------------
+     要加內容：直接在各自的 .intro__body 裡面往下放就好，會依序往下排、
+     面板本身可以捲動，放多少都行。例如：
+       <p>一段文字……</p>
+       <h3>小標題</h3>
+       <img src="assets/img/intro/booth-01.jpg" alt="圖片說明" />
+       <figure><img src="…" alt="…" /><figcaption>圖說</figcaption></figure>
+     放了真正的內容之後，把那一行 <p class="intro__placeholder"> 刪掉即可。
+     ===================================================================== -->
+<dialog class="intro" id="intro-booth" aria-labelledby="intro-booth-title">
+  <div class="intro__panel">
+    <header class="intro__head">
+      <h2 class="intro__title" id="intro-booth-title">攤位活動介紹</h2>
+      <button class="intro__close" type="button" data-intro-close aria-label="關閉">×</button>
+    </header>
+    <div class="intro__body">
+      <p class="intro__placeholder">內容準備中，敬請期待。</p>
+    </div>
+  </div>
+</dialog>
+
+<dialog class="intro" id="intro-club" aria-labelledby="intro-club-title">
+  <div class="intro__panel">
+    <header class="intro__head">
+      <h2 class="intro__title" id="intro-club-title">關於 Galgame 同好會</h2>
+      <button class="intro__close" type="button" data-intro-close aria-label="關閉">×</button>
+    </header>
+    <div class="intro__body">
+      <p class="intro__placeholder">內容準備中，敬請期待。</p>
+
+      <!-- 嵌入的 FlipHTML5 電子書。iframe 的 src 要等面板第一次打開才載入
+           （intro.js 會把 data-src 搬到 src），不拖慢首頁。 -->
+      <div class="intro__embed">
+        <iframe
+          data-src="https://online.fliphtml5.com/fihmv/texf/"
+          title="Galgame 同好會介紹手冊"
+          allow="fullscreen"
+          allowfullscreen
+          loading="lazy"
+        ></iframe>
+      </div>
+      <p class="intro__embed-link">
+        <a href="https://online.fliphtml5.com/fihmv/texf/" target="_blank" rel="noopener">在新分頁開啟手冊 ↗</a>
+      </p>
+    </div>
+  </div>
+</dialog>
+
+<dialog class="intro" id="intro-eden" aria-labelledby="intro-eden-title">
+  <div class="intro__panel">
+    <header class="intro__head">
+      <h2 class="intro__title" id="intro-eden-title">關於 Eden *創小壇</h2>
+      <button class="intro__close" type="button" data-intro-close aria-label="關閉">×</button>
+    </header>
+    <div class="intro__body">
+      <p class="intro__placeholder">內容準備中，敬請期待。</p>
+    </div>
+  </div>
+</dialog>
+
+<!-- ========================================================================
      Scripts — 順序不能換：
        config → util → placeholder → cloudinary → store → petals → lightbox → gallery
      ===================================================================== -->
@@ -231,6 +309,7 @@
 <script src="assets/js/lightbox.js"></script>
 <script src="assets/js/gallery.js"></script>
 <script src="assets/js/background.js"></script>
+<script src="assets/js/intro.js"></script>
 
 </body>
 </html>
