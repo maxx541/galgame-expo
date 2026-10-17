@@ -78,7 +78,8 @@
     img.decoding = 'async';
 
     img.onload = () => {
-      slot.style.backgroundImage = `url("${src}")`;
+      // 用 JSON.stringify 產生合法的 CSS 字串（會跳脫引號與反斜線），網址裡就算混了奇怪字元也跳不出 url()
+      slot.style.backgroundImage = `url(${JSON.stringify(String(src))})`;
       // 用 class 而不是 inline style：
       // 這樣日 / 夜兩套主題各自的處理方式都還能在 CSS 裡覆寫。
       // 寫成 inline 的話會蓋掉主題樣式，日間模式就會變成一塊灰泥。

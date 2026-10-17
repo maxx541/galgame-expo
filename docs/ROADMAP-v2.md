@@ -114,8 +114,9 @@ body.has-bg-photo .bg-sky { opacity: 0.35 }  /* 有照片時漸層自動讓位 *
    alter table public.backgrounds enable row level security;
    create policy "公開可讀" on public.backgrounds
      for select to anon, authenticated using (true);
-   create policy "登入者可寫" on public.backgrounds
-     for all to authenticated using (true) with check (true);
+   -- 寫入一定要用 is_uploader()，不能只看 authenticated（匿名登入誰都拿得到）
+   create policy "上傳者可寫" on public.backgrounds
+     for all to authenticated using (public.is_uploader()) with check (public.is_uploader());
    ```
 
 3. `admin.html` 加一個分頁「背景圖管理」，重用現有的 dropzone 元件

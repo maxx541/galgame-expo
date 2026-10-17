@@ -4,6 +4,7 @@
 -- 用法：
 --   1. 打開 Supabase Dashboard → 左側 SQL Editor → New query
 --   2. 把這整個檔案貼上，按 Run
+--   2.5 接著把 supabase/security-hardening.sql 也整份貼上執行（寫入權限與密碼驗證在那裡）
 --   3. 完成後到 Table Editor 應該看得到 exhibits 這張表
 --
 -- 這個檔案可以重複執行（都有 if not exists / drop if exists 保護）。
@@ -193,26 +194,12 @@ create policy "公開可讀"
   to anon, authenticated
   using (true);
 
--- 只有登入的人（答對共用密碼、換到匿名登入 session）能寫入
-create policy "登入者可新增"
-  on public.exhibits
-  for insert
-  to authenticated
-  with check (true);
-
-create policy "登入者可修改"
-  on public.exhibits
-  for update
-  to authenticated
-  using (true)
-  with check (true);
-
-create policy "登入者可刪除"
-  on public.exhibits
-  for delete
-  to authenticated
-  using (true);
-
+-- 寫入政策（只有答對共用密碼的「上傳者」能新增／修改／刪除）在
+-- supabase/security-hardening.sql 裡。跑完這份檔案之後，一定要接著跑那份。
+--
+-- ⚠️ 不要再用「to authenticated with check (true)」這種政策：
+--    匿名登入（signInAnonymously）任何人都能直接呼叫，只看 authenticated
+--    等於開放所有人寫入。
 
 -- =============================================================================
 -- 5. 測試資料（選用）
@@ -242,11 +229,11 @@ create policy "登入者可刪除"
 -- 送過去問「對不對」，真正的判斷你看不到、改不了（不是寫死在前端 JS 裡
 -- 誰都能按 F12 看到判斷式跳過的那種）。
 --
--- 原理：
---   1. 密碼答對 → 呼叫下面的 verify_upload_password() 函式，在資料庫裡比對
---   2. 答對 → 前端呼叫 supabase.auth.signInAnonymously()，
---             跟 Supabase 要一個「匿名但真實」的登入 session
---   3. 這個 session 的角色是 authenticated，套用的就是上面第 4 節的 RLS 政策
+-- 原理（細節見 security-hardening.sql）：
+--   1. 前端先呼叫 supabase.auth.signInAnonymously() 拿到匿名 session
+--   2. 再呼叫 claim_uploader(密碼)，在資料庫裡比對；答對才把這個 session
+--      記進上傳者名單（uploaders）
+--   3. 寫入的 RLS 政策只認上傳者名單 —— 只有匿名 session 什麼都寫不進去
 --
 -- 要在 Supabase Dashboard 手動開一個開關才能用（Authentication → Providers →
 -- Anonymous Sign-ins），見 docs/SETUP.md 的說明。
@@ -268,33 +255,17 @@ create table if not exists public.admin_secret (
 -- 唯一能碰到它的只有下面這個函式（security definer：用建立者的權限跑，繞過 RLS）。
 alter table public.admin_secret enable row level security;
 
-create or replace function public.verify_upload_password(pw text)
-returns boolean
-language sql
-security definer
--- security definer 函式的 search_path 是寫死的，不會照抄呼叫者的設定，
--- 所以要把 pgcrypto 實際安裝的 schema（extensions）也加進來，
--- 不然 crypt() 會報 "function crypt(text, text) does not exist"。
-set search_path = public, extensions
-as $$
-  select exists (
-    select 1 from public.admin_secret
-    where password_hash = crypt(pw, password_hash)
-  );
-$$;
-
--- 明確只給 anon / authenticated 執行權限，其餘什麼都不用開
-revoke all on function public.verify_upload_password(text) from public;
-grant execute on function public.verify_upload_password(text) to anon, authenticated;
-
+-- 比對密碼的函式 claim_uploader()、上傳者名單、猜密碼次數限制，
+-- 都在 supabase/security-hardening.sql。
 
 -- ---- 設定／更換密碼 ---------------------------------------------------------
 -- 第一次設定，或之後要換密碼，都執行這段（把 '你的密碼' 換掉再跑）：
 --
 --   insert into public.admin_secret (id, password_hash)
---   values (1, crypt('你的密碼', gen_salt('bf')))
+--   values (1, crypt('你的密碼', gen_salt('bf', 10)))
 --   on conflict (id) do update
 --     set password_hash = excluded.password_hash,
 --         updated_at = now();
+--   delete from public.uploaders;   -- 換密碼時讓所有人重新登入（第一次設定時這行可略過）
 --
 -- 這段故意不直接執行（沒有預設密碼），你一定要自己跑一次設定真正要用的密碼。

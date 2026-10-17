@@ -17,6 +17,18 @@
 (function () {
   'use strict';
 
+  // 防點擊劫持：後台不准被別的網站用 iframe 包起來（GitHub Pages 不能設 X-Frame-Options，
+  // CSP 的 frame-ancestors 在 meta 裡也無效，只能在這裡擋）
+  if (window.top !== window.self) {
+    document.documentElement.style.display = 'none';
+    try {
+      window.top.location.replace(window.self.location.href);
+    } catch {
+      /* 被跨網域包住時改不了上層網址，至少畫面已經藏起來了 */
+    }
+    return;
+  }
+
   const { $, $$, el, category, fmtBytes, fmtDate, toast, store, CFG, highlight } = window.U;
 
   const SESSION_KEY = 'expo.admin.session';
@@ -209,7 +221,10 @@
   async function checkSupabaseSession() {
     try {
       const user = await window.STORE.currentUser();
-      if (user) enterAdmin();
+      if (!user) return;
+      // 共用密碼模式：有匿名 session 不代表答對過密碼，要再問資料庫一次
+      if (AUTH_MODE === 'shared' && !(await window.STORE.isUploader())) return;
+      enterAdmin();
     } catch {
       /* 尚未登入，維持閘門畫面 */
     }

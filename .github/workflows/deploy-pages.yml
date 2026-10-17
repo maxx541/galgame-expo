@@ -34,10 +34,18 @@ jobs:
 
       - uses: actions/configure-pages@v5
 
-      # 純靜態站，不需要建置，直接把整個 repo 當成網站內容上傳
+      # 純靜態站，不需要建置。只把網站真正用到的檔案放進 _site 上傳，
+      # 資料庫結構（supabase/）、說明文件（docs/）、工具腳本（tools/）、原始素材
+      # 都不公開在網站上，減少攻擊者能拿到的資訊。
+      - name: Assemble public files
+        run: |
+          mkdir -p _site
+          cp index.html admin.html robots.txt _site/
+          cp -r assets _site/
+
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'
+          path: '_site'
 
       - id: deployment
         uses: actions/deploy-pages@v4

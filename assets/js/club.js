@@ -338,6 +338,9 @@
         allowfullscreen: 'true',
         allow: 'autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share',
         loading: 'lazy',
+        // 第三方內容：可以跑自己的程式、開新視窗（追蹤、分享），但不能把整個網站導走
+        sandbox: 'allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms',
+        referrerpolicy: 'strict-origin-when-cross-origin',
       });
       frame.style.height = `${height}px`;
       box.textContent = '';

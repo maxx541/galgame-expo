@@ -241,7 +241,7 @@
         reject(
           new Error(
             'Supabase 用戶端函式庫載入失敗。請確認網路正常，' +
-              '或是有沒有被廣告阻擋器 / 公司網路擋掉 cdn.jsdelivr.net。'
+              '或重新整理頁面再試一次。'
           )
         );
       document.head.append(s);
@@ -254,9 +254,9 @@
       return;
     }
     if (!window.supabase) {
-      await loadScript(
-        'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js'
-      );
+      // 放在自己網站上的固定版本，不從 CDN 抓「最新的 2.x」：
+      // CDN 上的版本被換掉或被入侵時，後台（握有寫入權限的頁面）不會跟著中招。
+      await loadScript('assets/js/vendor/supabase-2.117.0.min.js');
     }
     sb = window.supabase.createClient(SB_CFG.url, SB_CFG.anonKey, {
       auth: { persistSession: true, autoRefreshToken: true },
@@ -597,42 +597,58 @@
   /**
    * 方案 C：團隊共用密碼（authMode = 'shared'）。
    *
-   * 密碼答對之後，再跟 Supabase 要一個「匿名但真實」的登入 session —— 不是
-   * signIn()，是 signInAnonymously()：不需要 email，但拿到的是真的 JWT，
-   * 角色是 authenticated，套用的就是 supabase/schema.sql 方案 A 那組
-   * 「登入者可寫」的 RLS 政策，完全不用另外設定。
+   * 1. 先拿一個匿名登入 session（signInAnonymously；已經有就沿用，不重複建帳號）
+   * 2. 再呼叫資料庫的 claim_uploader(密碼)：密碼在資料庫裡比對，答對才把這個
+   *    session 的 user id 記進上傳者名單
+   * 3. 寫入的 RLS 政策只認上傳者名單（supabase/security-hardening.sql）
    *
-   * 密碼本身的比對發生在資料庫的 verify_upload_password() 函式裡（security
-   * definer，繞過 RLS 直接查表），瀏覽器只知道結果是 true/false，看不到雜湊、
-   * 看不到判斷邏輯 —— 這是它跟純前端密碼（authMode = 'password'）的差別。
+   * 為什麼順序是「先登入再驗密碼」：舊版先問密碼對不對、對了才登入，但
+   * signInAnonymously() 誰都能直接呼叫，跳過密碼就拿到可寫入的 session。
+   * 現在 session 本身沒有任何寫入權限，要跟密碼綁在一起才有。
    */
   async function verifyAndSignInShared(password) {
     await ready();
     if (mode === 'demo') {
       throw new Error('目前尚未開放登入，請稍後再試或聯絡網站管理員。');
     }
+    if (!password || password.length > 200) throw new Error('密碼不正確。');
 
-    const { data: ok, error: rpcError } = await sb.rpc('verify_upload_password', {
-      pw: password,
-    });
+    const { data: sess } = await sb.auth.getSession();
+    if (!sess || !sess.session) {
+      const { error } = await sb.auth.signInAnonymously();
+      if (error) {
+        throw new Error(
+          /anonymous sign-ins are disabled/i.test(error.message)
+            ? '系統設定尚未完成，請聯絡網站管理員。'
+            : /rate limit|too many/i.test(error.message)
+              ? '嘗試次數太多，請過一段時間再試。'
+              : '登入失敗，請稍後再試。'
+        );
+      }
+    }
+
+    const { data: ok, error: rpcError } = await sb.rpc('claim_uploader', { pw: password });
     if (rpcError) {
-      throw new Error(
-        /function .* does not exist/i.test(rpcError.message)
-          ? '系統尚未設定完成，請聯絡網站管理員。'
-          : '驗證失敗，請稍後再試。'
-      );
+      if (/too_many_attempts/i.test(rpcError.message)) {
+        throw new Error('密碼錯誤次數太多，請 15 分鐘後再試。');
+      }
+      if (/function .* does not exist|Could not find the function/i.test(rpcError.message)) {
+        throw new Error('系統尚未設定完成，請聯絡網站管理員。');
+      }
+      throw new Error('驗證失敗，請稍後再試。');
     }
     if (!ok) throw new Error('密碼不正確。');
 
-    const { data, error } = await sb.auth.signInAnonymously();
-    if (error) {
-      throw new Error(
-        /anonymous sign-ins are disabled/i.test(error.message)
-          ? '系統設定尚未完成，請聯絡網站管理員。'
-          : '登入失敗，請稍後再試。'
-      );
-    }
-    return data.user;
+    const { data } = await sb.auth.getUser();
+    return data ? data.user : null;
+  }
+
+  /** 目前的 session 是否在上傳者名單裡（答對過密碼、且未過期） */
+  async function isUploader() {
+    await ready();
+    if (mode === 'demo' || !sb) return false;
+    const { data, error } = await sb.rpc('is_uploader');
+    return !error && data === true;
   }
 
   async function currentUser() {
@@ -659,6 +675,7 @@
     signOut,
     currentUser,
     verifyAndSignInShared,
+    isUploader,
     get client() {
       return sb;
     },

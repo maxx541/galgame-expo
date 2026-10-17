@@ -2,6 +2,10 @@
 <html lang="zh-Hant" data-theme="day">
 <head>
 <meta charset="UTF-8" />
+<!-- 資安：限制頁面只能載入哪些來源（GitHub Pages 不能設定回應標頭，只能用 meta）。
+     新增外部服務（圖床、嵌入、字型）時要把網域加進來，不然會被瀏覽器擋掉。 -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob: https://res.cloudinary.com; connect-src 'self' https://otoengoysjwpipqhehoi.supabase.co wss://otoengoysjwpipqhehoi.supabase.co https://api.cloudinary.com; frame-src 'none'; media-src 'self'; worker-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests" />
+<meta name="referrer" content="strict-origin-when-cross-origin" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="author" content="資訊老師黃博胤" />
 <meta name="color-scheme" content="dark light" />
@@ -21,7 +25,7 @@
   rel="stylesheet"
 />
 
-<link rel="stylesheet" href="assets/css/styles.css?v=20261017" />
+<link rel="stylesheet" href="assets/css/styles.css?v=20261018s" />
 </head>
 
 <body>
@@ -278,12 +282,12 @@
 
 </div>
 
-<script src="assets/js/config.js"></script>
-<script src="assets/js/util.js"></script>
-<script src="assets/js/placeholder.js"></script>
-<script src="assets/js/cloudinary.js"></script>
-<script src="assets/js/store.js"></script>
-<script src="assets/js/admin.js?v=20261017"></script>
+<script src="assets/js/config.js?v=20261018s"></script>
+<script src="assets/js/util.js?v=20261018s"></script>
+<script src="assets/js/placeholder.js?v=20261018s"></script>
+<script src="assets/js/cloudinary.js?v=20261018s"></script>
+<script src="assets/js/store.js?v=20261018s"></script>
+<script src="assets/js/admin.js?v=20261018s"></script>
 
 </body>
 </html>

@@ -280,3 +280,8 @@ await expoHashPassword('你的新密碼')
 - 會刊用 FlipHTML5 的嵌入碼（面板最下方的 `.club-zine` 區塊）。換新版會刊時，到 FlipHTML5 更新同一本，
   或把 iframe 的 `src` 換成新網址。
 - `assets/js/config.js` 的 `site.url` 是網站正式網址（GitHub Pages）。
+
+## 資安
+
+資安檢查結果、程式端已修的項目，以及必須在 Supabase / Cloudinary / GitHub 後台手動完成的設定，見 [docs/SECURITY.md](docs/SECURITY.md)。
+第一次架站或改過資料庫時，`supabase/schema.sql` 跑完一定要接著跑 `supabase/security-hardening.sql`。
