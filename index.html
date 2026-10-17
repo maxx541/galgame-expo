@@ -93,10 +93,10 @@
         <span class="menu-drawer__icon" aria-hidden="true">✦</span>
         攤位活動介紹
       </button>
-      <button class="menu-drawer__item" type="button" data-intro="intro-club">
+      <a class="menu-drawer__item" href="about.html">
         <span class="menu-drawer__icon" aria-hidden="true">❀</span>
         關於 Galgame 同好會
-      </button>
+      </a>
       <button class="menu-drawer__item" type="button" data-intro="intro-eden">
         <span class="menu-drawer__icon" aria-hidden="true">◈</span>
         關於 Eden *創小壇
@@ -115,10 +115,6 @@
     </div>
     <div class="menu-drawer__group">
       <span class="menu-drawer__label">團隊</span>
-      <a class="menu-drawer__item" href="about.html">
-        <span class="menu-drawer__icon" aria-hidden="true">❖</span>
-        關於同好會
-      </a>
       <a class="menu-drawer__item" href="admin.html">
         <span class="menu-drawer__icon" aria-hidden="true">✎</span>
         上傳者入口
@@ -259,33 +255,6 @@
     </header>
     <div class="intro__body">
       <p class="intro__placeholder">內容準備中，敬請期待。</p>
-    </div>
-  </div>
-</dialog>
-
-<dialog class="intro" id="intro-club" aria-labelledby="intro-club-title">
-  <div class="intro__panel">
-    <header class="intro__head">
-      <h2 class="intro__title" id="intro-club-title">關於 Galgame 同好會</h2>
-      <button class="intro__close" type="button" data-intro-close aria-label="關閉">×</button>
-    </header>
-    <div class="intro__body">
-      <p class="intro__placeholder">內容準備中，敬請期待。</p>
-
-      <!-- 嵌入的 FlipHTML5 電子書。iframe 的 src 要等面板第一次打開才載入
-           （intro.js 會把 data-src 搬到 src），不拖慢首頁。 -->
-      <div class="intro__embed">
-        <iframe
-          data-src="https://online.fliphtml5.com/fihmv/texf/"
-          title="Galgame 同好會介紹手冊"
-          allow="fullscreen"
-          allowfullscreen
-          loading="lazy"
-        ></iframe>
-      </div>
-      <p class="intro__embed-link">
-        <a href="https://online.fliphtml5.com/fihmv/texf/" target="_blank" rel="noopener">在新分頁開啟手冊 ↗</a>
-      </p>
     </div>
   </div>
 </dialog>

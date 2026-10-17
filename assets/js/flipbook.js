@@ -431,10 +431,18 @@
   /* ---- 分享／QR code ------------------------------------------------------- */
   const share = $('#fb-share');
 
+  // 有填 config 的 site.url（網站正式網址）就用它，掃出來才是上線的網址；沒填就用目前網址
+  function siteUrl() {
+    return (window.EXPO_CONFIG && window.EXPO_CONFIG.site && window.EXPO_CONFIG.site.url) || '';
+  }
+
   function shareUrl() {
-    const base = ((window.EXPO_CONFIG && window.EXPO_CONFIG.site && window.EXPO_CONFIG.site.url) || '')
-      .replace(/#.*$/, '')
-      || location.href.replace(/[#?].*$/, '');
+    let base = location.href.replace(/[#?].*$/, '');
+    if (siteUrl()) {
+      try {
+        base = new URL('about.html', siteUrl()).href;
+      } catch (_) {}
+    }
     return `${base}#zine-p${visible()[0] + 1}`;
   }
 
@@ -452,7 +460,7 @@
       box.textContent = '無法產生 QR code';
     }
     const local = /^(localhost|127\.|\[::1\]|0\.0\.0\.0)/.test(location.hostname) || location.protocol === 'file:';
-    $('#fb-share-warn').hidden = !local;
+    $('#fb-share-warn').hidden = !(local && !siteUrl());
     share.hidden = false;
     $('#fb-share-close').focus();
   }
