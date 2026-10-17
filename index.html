@@ -30,6 +30,7 @@
 />
 
 <link rel="stylesheet" href="assets/css/styles.css?v=20261017" />
+<link rel="stylesheet" href="assets/css/club.css?v=20261018b" />
 </head>
 
 <body>
@@ -93,10 +94,10 @@
         <span class="menu-drawer__icon" aria-hidden="true">✦</span>
         攤位活動介紹
       </button>
-      <a class="menu-drawer__item" href="about.html">
+      <button class="menu-drawer__item" type="button" data-intro="intro-club">
         <span class="menu-drawer__icon" aria-hidden="true">❀</span>
         關於 Galgame 同好會
-      </a>
+      </button>
       <button class="menu-drawer__item" type="button" data-intro="intro-eden">
         <span class="menu-drawer__icon" aria-hidden="true">◈</span>
         關於 Eden *創小壇
@@ -227,7 +228,7 @@
       <span>
         圖片版權屬各原作者所有，本站僅為個人收藏之非商業性展示。
       </span>
-      <a href="about.html">關於同好會</a>
+      <a href="#intro-club" data-intro="intro-club">關於同好會</a>
       <a href="admin.html">上傳者入口</a>
     </div>
   </footer>
@@ -259,6 +260,123 @@
   </div>
 </dialog>
 
+<dialog class="intro intro--club" id="intro-club" aria-labelledby="intro-club-title">
+  <div class="intro__panel">
+    <header class="intro__head">
+      <h2 class="intro__title" id="intro-club-title">關於 Galgame 同好會</h2>
+      <button class="intro__close" type="button" data-intro-close aria-label="關閉">×</button>
+    </header>
+    <div class="intro__body">
+      <blockquote class="club-quote">
+        Galgame 不只是遊戲，它可以是文學、是哲學思考，也是連結陌生彼此的共同語言。
+      </blockquote>
+      <p>
+        大家好，我們是 GalGame 同好會。2023 年，因為大學漫研的一場 Galgame 社課相識，漸漸發展至今，以 galgame 討論為中心，從線上的討論逐漸延伸至線下的聚會活動。
+      </p>
+      <p>
+        現在成員來自不同學校與各行各業，也陸續和台大卡漫社、東吳漫學、北醫漫研社等社團合辦聯合社課，甚至延伸到了國際與各地的 galgame 愛好者有了交流。
+      </p>
+
+      <h3>我們做過的事</h3>
+      <div class="club-types">
+        <section>
+          <h4>社課</h4>
+          <ul class="club-list">
+            <li>清大 ACG 蔓延定期社課</li>
+            <li>與各大學舉辦聯合社課：交大、台大、北醫、東吳、長庚…</li>
+            <li>也在與成大、中正等學校交涉中，期待有更多學校加入推廣 Galgame 的行列</li>
+          </ul>
+        </section>
+        <section>
+          <h4>討論會與研討會</h4>
+          <ul class="club-list">
+            <li>Summer Pockets 討論會</li>
+            <li>變態監獄討論會</li>
+            <li>Little Busters! 小討論會</li>
+            <li>素晴日討論會</li>
+            <li>…等等</li>
+          </ul>
+        </section>
+        <section>
+          <h4>國際交流</h4>
+          <ul class="club-list">
+            <li>東京大學視覺小說同好會（UTVINOS）北醫社課交流</li>
+            <li>上海 Galonly 參訪</li>
+          </ul>
+        </section>
+      </div>
+
+      <h3>追蹤我們</h3>
+      <p>
+        這些討論若只留在聚會當下，實在可惜，所以我們開了粉專，記錄同好會的足跡。歡迎有興趣的追蹤，若是有意願加入推廣 Galgame 的行列，也可以到粉專聯繫我們。
+      </p>
+      <!-- Facebook 粉專（官方 Page plugin，iframe 版）。寬度由 club.js 依容器寬度帶進網址（上限 500） -->
+      <div class="club-fb" id="fb-embed" data-href="https://www.facebook.com/profile.php?id=61587255845771">
+        <p class="fb-fallback">
+          <a href="https://www.facebook.com/profile.php?id=61587255845771" target="_blank" rel="noopener noreferrer">到 Facebook 粉專看看</a>
+        </p>
+      </div>
+      <ul class="social-mini" aria-label="其他平台">
+            <li>
+              <a href="https://www.threads.com/@galgame0720" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.5 8.5C16.6 5.7 14.6 4.5 12 4.5 8.4 4.5 6 7.2 6 12s2.4 7.5 6 7.5c3 0 5.2-1.6 5.2-4 0-2.3-1.8-3.4-4.6-3.4-2 0-3.3.8-3.3 2 0 1 .9 1.7 2.1 1.7 1.9 0 3-1.4 3-4.2"/></svg>
+                Threads
+              </a>
+            </li>
+            <li>
+              <a href="https://www.instagram.com/galgame0720/" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4.5"/><circle cx="12" cy="12" r="3.6"/><circle cx="16.8" cy="7.2" r="0.6" fill="currentColor"/></svg>
+                Instagram
+              </a>
+            </li>
+          </ul>
+
+      <h3>活動相簿</h3>
+      <div class="album-tabs" id="album-tabs" role="tablist" aria-label="選擇活動"></div>
+
+        <div
+          class="carousel"
+          id="carousel"
+          role="region"
+          aria-roledescription="輪播"
+          aria-label="活動照片"
+        >
+          <div class="carousel__stage">
+            <div class="carousel__track" id="carousel-track" tabindex="0"></div>
+            <button class="carousel__nav carousel__nav--prev" id="car-prev" type="button" aria-label="上一張">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg>
+            </button>
+            <button class="carousel__nav carousel__nav--next" id="car-next" type="button" aria-label="下一張">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
+            </button>
+          </div>
+
+          <div class="carousel__bar">
+            <div class="carousel__caption" aria-live="polite">
+              <strong id="car-title"></strong>
+              <span id="car-date"></span>
+            </div>
+            <div class="carousel__ctrl">
+              <span class="carousel__count" id="car-count"></span>
+              <button class="carousel__play" id="car-play" type="button" aria-pressed="true">
+                <svg class="i-pause" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" /><rect x="14" y="5" width="4" height="14" /></svg>
+                <svg class="i-play" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M7 5l12 7-12 7z" /></svg>
+                <span class="carousel__play-text">暫停</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="carousel__dots" id="car-dots"></div>
+        </div>
+
+      <h3>創刊號會刊　還在共通線中！</h3>
+      <div class="club-zine">
+        <div style="position:relative;padding-top:max(60%,324px);width:100%;height:0;"><iframe style="position:absolute;border:none;width:100%;height:100%;left:0;top:0;" src="https://online.fliphtml5.com/fihmv/texf/" title="Galgame同好會 創刊號01：還在共通線中！" seamless="seamless" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true" loading="lazy"></iframe></div>
+      </div>
+    </div>
+  </div>
+</dialog>
+
 <dialog class="intro" id="intro-eden" aria-labelledby="intro-eden-title">
   <div class="intro__panel">
     <header class="intro__head">
@@ -284,7 +402,9 @@
 <script src="assets/js/lightbox.js"></script>
 <script src="assets/js/gallery.js?v=20261017"></script>
 <script src="assets/js/background.js"></script>
-<script src="assets/js/intro.js?v=20261017"></script>
+<script src="assets/js/events-data.js?v=20261018"></script>
+<script src="assets/js/intro.js?v=20261018"></script>
+<script src="assets/js/club.js?v=20261018b"></script>
 
 </body>
 </html>

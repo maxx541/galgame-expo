@@ -1,34 +1,29 @@
 /* 由 tools/build_photos.py 產生，不要手動編輯 */
 window.EVENT_ALBUMS = [
   {
-    "id": "ntu-1016",
-    "title": "台大社課",
-    "date": "2026/10/16",
+    "id": "tmu-tokyo",
+    "title": "北醫社課 × 東京大學視覺小說同好會來訪",
+    "date": "2026/05/08",
     "photos": [
       {
-        "src": "assets/img/events/ntu-1016/01.jpg",
+        "src": "assets/img/events/tmu-tokyo/01.jpg",
         "w": 1600,
-        "h": 1200
+        "h": 900
       },
       {
-        "src": "assets/img/events/ntu-1016/02.jpg",
+        "src": "assets/img/events/tmu-tokyo/02.jpg",
         "w": 1600,
-        "h": 1200
+        "h": 900
       },
       {
-        "src": "assets/img/events/ntu-1016/03.jpg",
+        "src": "assets/img/events/tmu-tokyo/03.jpg",
         "w": 1600,
-        "h": 1200
+        "h": 900
       },
       {
-        "src": "assets/img/events/ntu-1016/04.jpg",
+        "src": "assets/img/events/tmu-tokyo/04.jpg",
         "w": 1600,
-        "h": 1200
-      },
-      {
-        "src": "assets/img/events/ntu-1016/05.jpg",
-        "w": 1600,
-        "h": 1200
+        "h": 900
       }
     ]
   },
@@ -75,28 +70,6 @@ window.EVENT_ALBUMS = [
     ]
   },
   {
-    "id": "cgu",
-    "title": "長庚社課",
-    "date": "",
-    "photos": [
-      {
-        "src": "assets/img/events/cgu/01.jpg",
-        "w": 1600,
-        "h": 1200
-      },
-      {
-        "src": "assets/img/events/cgu/02.jpg",
-        "w": 1600,
-        "h": 1200
-      },
-      {
-        "src": "assets/img/events/cgu/03.jpg",
-        "w": 1600,
-        "h": 1200
-      }
-    ]
-  },
-  {
     "id": "subarashi-hibi",
     "title": "素晴日討論會",
     "date": "2026/07/19",
@@ -124,29 +97,56 @@ window.EVENT_ALBUMS = [
     ]
   },
   {
-    "id": "tmu-tokyo",
-    "title": "北醫社課 × 東京大學視覺小說同好會來訪",
-    "date": "2026/05/08",
+    "id": "ntu-1016",
+    "title": "台大社課",
+    "date": "2026/10/16",
     "photos": [
       {
-        "src": "assets/img/events/tmu-tokyo/01.jpg",
+        "src": "assets/img/events/ntu-1016/01.jpg",
         "w": 1600,
-        "h": 900
+        "h": 1200
       },
       {
-        "src": "assets/img/events/tmu-tokyo/02.jpg",
+        "src": "assets/img/events/ntu-1016/02.jpg",
         "w": 1600,
-        "h": 900
+        "h": 1200
       },
       {
-        "src": "assets/img/events/tmu-tokyo/03.jpg",
+        "src": "assets/img/events/ntu-1016/03.jpg",
         "w": 1600,
-        "h": 900
+        "h": 1200
       },
       {
-        "src": "assets/img/events/tmu-tokyo/04.jpg",
+        "src": "assets/img/events/ntu-1016/04.jpg",
         "w": 1600,
-        "h": 900
+        "h": 1200
+      },
+      {
+        "src": "assets/img/events/ntu-1016/05.jpg",
+        "w": 1600,
+        "h": 1200
+      }
+    ]
+  },
+  {
+    "id": "cgu",
+    "title": "長庚社課",
+    "date": "",
+    "photos": [
+      {
+        "src": "assets/img/events/cgu/01.jpg",
+        "w": 1600,
+        "h": 1200
+      },
+      {
+        "src": "assets/img/events/cgu/02.jpg",
+        "w": 1600,
+        "h": 1200
+      },
+      {
+        "src": "assets/img/events/cgu/03.jpg",
+        "w": 1600,
+        "h": 1200
       }
     ]
   }

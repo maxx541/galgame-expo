@@ -13,12 +13,6 @@
 (function () {
   'use strict';
 
-  // 舊版「關於同好會」是這裡的彈出面板，現在搬到 about.html；舊連結轉過去
-  if (location.hash === '#intro-club') {
-    location.replace('about.html');
-    return;
-  }
-
   const dialogs = document.querySelectorAll('dialog.intro');
   if (!dialogs.length || typeof HTMLDialogElement !== 'function') return;
 
@@ -32,6 +26,7 @@
     });
 
     dlg.showModal();
+    dlg.dispatchEvent(new CustomEvent('intro:open'));
     dlg.querySelector('.intro__body').scrollTop = 0;
     document.body.classList.add('intro-is-open');
   }

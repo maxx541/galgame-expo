@@ -6,24 +6,26 @@ SRC = r"D:\Galgame同好會\對外活動照"
 OUT = r"D:\claude工作區\Galgame週邊線上展覽\assets\img\events"
 MAXEDGE = 1600
 
-# folder -> (slug, title, date label)   (顯示順序 = 這個清單順序)
+# folder -> (slug, 標題, 日期, 要排在最前面的檔名)   顯示順序 = 這個清單的順序
 EVENTS = [
-    ("台大 1016", "ntu-1016", "台大社課", "2026/10/16"),
-    ("上海galonly fes", "shanghai-galonly", "上海 Galonly Fes", ""),
-    ("長庚社課", "cgu", "長庚社課", ""),
-    ("素晴日討論會", "subarashi-hibi", "素晴日討論會", "2026/07/19"),
-    ("北醫社課X東京大學視覺小說同好會來訪", "tmu-tokyo", "北醫社課 × 東京大學視覺小說同好會來訪", "2026/05/08"),
+    ("北醫社課X東京大學視覺小說同好會來訪", "tmu-tokyo", "北醫社課 × 東京大學視覺小說同好會來訪", "2026/05/08", ["20260508_183403.png"]),
+    ("上海galonly fes", "shanghai-galonly", "上海 Galonly Fes", "", []),
+    ("素晴日討論會", "subarashi-hibi", "素晴日討論會", "2026/07/19", []),
+    ("台大 1016", "ntu-1016", "台大社課", "2026/10/16", []),
+    ("長庚社課", "cgu", "長庚社課", "", []),
 ]
 
 def nat(s):
     return [int(t) if t.isdigit() else t.lower() for t in re.split(r"(\d+)", s)]
 
 albums = []
-for folder, slug, title, date in EVENTS:
+for folder, slug, title, date, first in EVENTS:
     d = os.path.join(SRC, folder)
     if not os.path.isdir(d):
         print("MISSING", folder); sys.exit(1)
     files = sorted([f for f in os.listdir(d) if f.lower().endswith((".jpg", ".jpeg", ".png"))], key=nat)
+    # 指定要放最前面的照片（依清單順序），其餘維持檔名順序
+    files = [f for f in first if f in files] + [f for f in files if f not in first]
     od = os.path.join(OUT, slug)
     os.makedirs(od, exist_ok=True)
     photos = []

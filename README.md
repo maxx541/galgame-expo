@@ -266,15 +266,17 @@ await expoHashPassword('你的新密碼')
 
 ---
 
-## 關於同好會頁與活動相簿
+## 關於同好會面板與活動相簿
 
-- `about.html`：同好會介紹、我們做過的事、追蹤連結（Threads、Instagram、Facebook）、
+- 漢堡選單「介紹 → 關於 Galgame 同好會」彈出面板（`index.html` 的 `<dialog id="intro-club">`，版型沿用其他介紹面板）：
+  同好會介紹、我們做過的事、追蹤連結（Facebook 粉專、Threads、Instagram）、
   活動相簿（自動播放、左右滑動、箭頭、鍵盤方向鍵、滑鼠拖曳），以及嵌入的創刊號會刊（FlipHTML5）。
+- 面板的樣式在 `assets/css/club.css`，相簿輪播與 Facebook 外掛在 `assets/js/club.js`（第一次打開面板才初始化）。
 - 相簿資料在 `assets/js/events-data.js`，照片在 `assets/img/events/<活動>/`，
   兩者都由 `tools/build_photos.py` 產生：它讀 `D:\Galgame同好會\對外活動照` 底下每個資料夾
   （一個資料夾＝一本相簿），縮成長邊 1600px 的 JPG。要新增或更換照片，
   改照片資料夾後執行 `python tools/build_photos.py` 即可；活動標題與日期寫在腳本最上面的 `EVENTS`。
 - 站徽來源是專案根目錄的 `logo.jpg`，腳本會同時去黑底輸出 `assets/img/logo.png` 與 `assets/img/favicon.png`。
-- 會刊用 FlipHTML5 的嵌入碼（`about.html` 裡的 `#zine` 區塊）。換新版會刊時，到 FlipHTML5 更新同一本，
+- 會刊用 FlipHTML5 的嵌入碼（面板最下方的 `.club-zine` 區塊）。換新版會刊時，到 FlipHTML5 更新同一本，
   或把 iframe 的 `src` 換成新網址。
 - `assets/js/config.js` 的 `site.url` 是網站正式網址（GitHub Pages）。

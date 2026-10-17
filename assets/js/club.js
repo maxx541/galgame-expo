@@ -1,6 +1,9 @@
 /* =============================================================================
- * about.js — 「關於同好會」頁：選單、日夜切換、活動相簿輪播
+ * club.js — 「關於 Galgame 同好會」彈出面板：活動相簿輪播、Facebook 粉專
  * -----------------------------------------------------------------------------
+ * 面板本身是 index.html 底部的 <dialog id="intro-club">，由 intro.js 開關。
+ * 面板第一次打開時才初始化（那時候版面才量得到寬度），之後每次打開／關閉
+ * 只負責讓自動播放跟著暫停或繼續。
  * 相簿資料在 events-data.js（由 tools/build_photos.py 產生）。
  * 輪播用原生的 scroll-snap，所以手機的滑動、觸控板的橫向捲動都是瀏覽器自己
  * 處理的；這裡只補上：箭頭／鍵盤／滑鼠拖曳、自動播放、同步計數與圓點。
@@ -8,76 +11,12 @@
 (function () {
   'use strict';
 
+  const dlg = document.getElementById('intro-club');
+  if (!dlg || !window.U) return;
+
   const { $, el, rafThrottle } = window.U;
   const AUTO_MS = 5000;
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  /* ---- 頁面外框：主題、選單 ---------------------------------------------- */
-  function bindChrome() {
-    const header = $('#site-header');
-    const onScroll = rafThrottle(() => {
-      if (header) header.classList.toggle('is-stuck', window.scrollY > 8);
-    });
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-
-    const themeBtn = $('#theme-toggle');
-    if (themeBtn) {
-      const paint = () => {
-        const t = document.documentElement.getAttribute('data-theme');
-        themeBtn.textContent = t === 'day' ? '☾' : '☀';
-        themeBtn.title = t === 'day' ? '切換到夜間模式' : '切換到日間模式';
-      };
-      paint();
-      themeBtn.addEventListener('click', () => {
-        window.U.toggleTheme();
-        paint();
-      });
-    }
-
-    const toggle = $('#menu-toggle');
-    const drawer = $('#menu-drawer');
-    const scrim = $('#menu-scrim');
-    if (!toggle || !drawer || !scrim) return;
-    let closeTimer = 0;
-
-    function open() {
-      clearTimeout(closeTimer);
-      toggle.setAttribute('aria-expanded', 'true');
-      drawer.hidden = false;
-      scrim.hidden = false;
-      requestAnimationFrame(() =>
-        requestAnimationFrame(() => {
-          drawer.classList.add('is-open');
-          scrim.classList.add('is-open');
-        })
-      );
-      document.body.classList.add('menu-is-open');
-    }
-
-    function close() {
-      toggle.setAttribute('aria-expanded', 'false');
-      drawer.classList.remove('is-open');
-      scrim.classList.remove('is-open');
-      document.body.classList.remove('menu-is-open');
-      clearTimeout(closeTimer);
-      closeTimer = setTimeout(() => {
-        drawer.hidden = true;
-        scrim.hidden = true;
-      }, 320);
-    }
-
-    toggle.addEventListener('click', () =>
-      drawer.classList.contains('is-open') ? close() : open()
-    );
-    scrim.addEventListener('click', close);
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && drawer.classList.contains('is-open')) close();
-    });
-    drawer.addEventListener('click', (e) => {
-      if (e.target.closest('.menu-drawer__item')) close();
-    });
-  }
 
   /* ---- 相簿輪播 ----------------------------------------------------------- */
   function bindAlbum() {
@@ -292,7 +231,7 @@
 
     /* 自動播放 ---------------------------------------------------------------- */
     function shouldRun() {
-      return !state.userPaused && !state.hovering && state.visible && !document.hidden;
+      return !state.userPaused && !state.hovering && state.visible && !document.hidden && dlg.open;
     }
 
     function restartTimer() {
@@ -347,6 +286,17 @@
     paintPlay();
     loadAlbum(0);
     restartTimer();
+
+    return {
+      pause() {
+        clearInterval(state.timer);
+        state.timer = 0;
+      },
+      resume() {
+        go(state.index, false);
+        restartTimer();
+      },
+    };
   }
 
   /* ---- Facebook 粉專（官方 Page plugin） --------------------------------------
@@ -409,8 +359,26 @@
     }
   }
 
-  window.U.initTheme();
-  bindChrome();
-  bindAlbum();
-  bindFacebook();
+  let album = null;
+  let started = false;
+
+  dlg.addEventListener('intro:open', () => {
+    if (!started) {
+      started = true;
+      // 等面板的版面算完（拿得到寬度）再初始化
+      requestAnimationFrame(() => {
+        album = bindAlbum();
+        bindFacebook();
+      });
+    } else if (album) {
+      album.resume();
+    }
+  });
+
+  dlg.addEventListener('close', () => {
+    if (album) album.pause();
+  });
+
+  // 網址帶 #intro-club 進站時，intro.js 在這支腳本載入前就已經把面板打開了
+  if (dlg.open) dlg.dispatchEvent(new CustomEvent('intro:open'));
 })();
