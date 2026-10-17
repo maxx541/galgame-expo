@@ -380,8 +380,12 @@
 
 /* ---- 響應式 ------------------------------------------------------------- */
 @media (max-width: 860px) {
-  .about-intro__grid,
-  @media (max-width: 760px) {
+  .about-intro__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 760px) {
   .types {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -405,52 +409,80 @@
 }
 
 /* ---- 追蹤我們 ------------------------------------------------------------- */
-.about-follow > p {
-  max-width: 760px;
+.about-follow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 500px);
+  gap: clamp(28px, 6vw, 80px);
+  align-items: start;
 }
 
-.social {
+.about-follow__text p {
+  max-width: 560px;
+}
+
+.social-mini {
   list-style: none;
   padding: 0;
   margin: 22px 0 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 8px;
 }
 
-.social__link {
-  display: flex;
+.social-mini a {
+  display: inline-flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 18px;
+  gap: 6px;
+  padding: 6px 12px;
   border: 1px solid var(--line-strong);
-  background: var(--panel-solid);
-  color: var(--text);
+  font-size: 12.5px;
+  letter-spacing: 0.06em;
+  color: var(--text-soft);
   transition: border-color 0.2s var(--ease), color 0.2s var(--ease);
 }
 
-.social__link:hover,
-.social__link:focus-visible {
+.social-mini a:hover,
+.social-mini a:focus-visible {
   border-color: var(--sakura);
   color: var(--sakura);
 }
 
-.social__link span {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  line-height: 1.3;
+.about-follow__fb {
+  min-height: 90px;
+  background: #fff;
+  border: 1px solid var(--line);
+  line-height: 0;
 }
 
-.social__link strong {
-  font-size: 14.5px;
-  letter-spacing: 0.06em;
+.about-follow__fb iframe {
+  display: block;
+  width: 100%;
+  border: 0;
+  overflow: hidden;
 }
 
-.social__link small {
-  font-size: 12px;
-  letter-spacing: 0.06em;
-  color: var(--text-muted);
+/* 外掛載入前（或被擋掉時）顯示的備用連結；載入後就被 iframe 取代 */
+.fb-fallback {
+  padding: 18px;
+  line-height: 1.6;
+  font-size: 13.5px;
+  text-align: center;
+}
+
+.fb-fallback a {
+  color: #1c1a20;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 860px) {
+  .about-follow {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .about-follow__fb {
+    max-width: 500px;
+  }
 }
 
 /* ---- 會刊嵌入 -------------------------------------------------------------- */

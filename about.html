@@ -150,30 +150,33 @@
     <!-- ===== 追蹤我們 ===== -->
     <section class="about-block about-block--next" id="follow">
       <div class="shell about-follow">
-        <h2 class="about-h2">追蹤我們</h2>
-        <p>
-          這些討論若只留在聚會當下，實在可惜，所以我們開了粉專，記錄同好會的足跡。歡迎有興趣的追蹤，若是有意願加入推廣 Galgame 的行列，也可以到粉專聯繫我們。
-        </p>
-        <ul class="social">
-          <li>
-            <a class="social__link" href="https://www.threads.com/@galgame0720" target="_blank" rel="noopener noreferrer">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.5 8.5C16.6 5.7 14.6 4.5 12 4.5 8.4 4.5 6 7.2 6 12s2.4 7.5 6 7.5c3 0 5.2-1.6 5.2-4 0-2.3-1.8-3.4-4.6-3.4-2 0-3.3.8-3.3 2 0 1 .9 1.7 2.1 1.7 1.9 0 3-1.4 3-4.2"/></svg>
-              <span><strong>Threads</strong><small>@galgame0720</small></span>
-            </a>
-          </li>
-          <li>
-            <a class="social__link" href="https://www.instagram.com/galgame0720/" target="_blank" rel="noopener noreferrer">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4.5"/><circle cx="12" cy="12" r="3.6"/><circle cx="16.8" cy="7.2" r="0.6" fill="currentColor"/></svg>
-              <span><strong>Instagram</strong><small>@galgame0720</small></span>
-            </a>
-          </li>
-          <li>
-            <a class="social__link" href="https://www.facebook.com/profile.php?id=61587255845771" target="_blank" rel="noopener noreferrer">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 8.5h2.5V5H14c-2 0-3.5 1.5-3.5 3.5V11H8v3.5h2.5V21H14v-6.5h2.4l.6-3.5H14V8.8c0-.2.1-.3.3-.3z"/></svg>
-              <span><strong>Facebook</strong><small>Galgame 同好會粉專</small></span>
-            </a>
-          </li>
-        </ul>
+        <div class="about-follow__text">
+          <h2 class="about-h2">追蹤我們</h2>
+          <p>
+            這些討論若只留在聚會當下，實在可惜，所以我們開了粉專，記錄同好會的足跡。歡迎有興趣的追蹤，若是有意願加入推廣 Galgame 的行列，也可以到粉專聯繫我們。
+          </p>
+          <ul class="social-mini" aria-label="其他平台">
+            <li>
+              <a href="https://www.threads.com/@galgame0720" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.5 8.5C16.6 5.7 14.6 4.5 12 4.5 8.4 4.5 6 7.2 6 12s2.4 7.5 6 7.5c3 0 5.2-1.6 5.2-4 0-2.3-1.8-3.4-4.6-3.4-2 0-3.3.8-3.3 2 0 1 .9 1.7 2.1 1.7 1.9 0 3-1.4 3-4.2"/></svg>
+                Threads
+              </a>
+            </li>
+            <li>
+              <a href="https://www.instagram.com/galgame0720/" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4.5"/><circle cx="12" cy="12" r="3.6"/><circle cx="16.8" cy="7.2" r="0.6" fill="currentColor"/></svg>
+                Instagram
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Facebook 粉專（官方 Page plugin，iframe 版）。寬度由 about.js 依容器寬度帶進網址（上限 500） -->
+        <div class="about-follow__fb" id="fb-embed" data-href="https://www.facebook.com/profile.php?id=61587255845771">
+          <p class="fb-fallback">
+            <a href="https://www.facebook.com/profile.php?id=61587255845771" target="_blank" rel="noopener noreferrer">到 Facebook 粉專看看</a>
+          </p>
+        </div>
       </div>
     </section>
 
