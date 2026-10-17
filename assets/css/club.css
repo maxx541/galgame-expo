@@ -4,11 +4,27 @@
  * 這裡只補面板裡面的內容：引言、分類清單、追蹤連結、活動相簿輪播、會刊嵌入。
  * ========================================================================== */
 
+/* 左：logo，右：介紹文字；窄螢幕改成上下排 */
+.club-lead {
+  display: flex;
+  align-items: center;
+  gap: clamp(20px, 4vw, 36px);
+}
+
+.club-lead__text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.club-lead__text p + p {
+  margin-top: 0.9em;
+}
+
 .intro--club .club-logo {
   display: block;
-  width: clamp(120px, 22vw, 168px);
+  flex: 0 0 auto;
+  width: clamp(130px, 22vw, 180px);
   height: auto;
-  margin: 4px auto 6px;
 }
 
 .club-quote {
@@ -376,6 +392,16 @@
 }
 
 @media (max-width: 600px) {
+  .club-lead {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .intro--club .club-logo {
+    width: 128px;
+    align-self: center;
+  }
+
   .intro--club .carousel__track {
     aspect-ratio: 4 / 3;
   }
