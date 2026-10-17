@@ -74,10 +74,6 @@
     // description 留給 <meta name="description"> 用，這裡不渲染。
     set('#site-desc', s.subtitle);
     if (s.title) document.title = `${s.title}｜${s.subtitle || ''}`.replace(/｜$/, '');
-
-    // 佔位圖：站徽（之後換成自己的檔案，見 docs/ASSETS.md）
-    const logo = $('#brand-logo');
-    if (logo) logo.src = window.PH.logo(72);
   }
 
   /* ---- 分類篩選鈕（Galgame 的「選択肢」） --------------------------------- */

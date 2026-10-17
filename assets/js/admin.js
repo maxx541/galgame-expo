@@ -39,7 +39,6 @@
     window.U.initTheme();
 
     $('#gate-mark').src = window.PH.lockMark(64);
-    $('#brand-logo').src = window.PH.logo(72);
 
     buildCategoryOptions();
     bindGate();

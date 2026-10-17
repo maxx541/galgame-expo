@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <!-- viewport-fit=cover：讓瀏海機 / 圓角螢幕能搭配 env(safe-area-inset-*) -->
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="author" content="資訊老師黃博胤" />
 <meta name="color-scheme" content="dark light" />
 <meta name="theme-color" content="#0b0714" media="(prefers-color-scheme: dark)" />
 <meta name="theme-color" content="#fff3f8" media="(prefers-color-scheme: light)" />
@@ -18,7 +19,7 @@
 <meta property="og:image" content="assets/img/og-image.png" />
 <meta name="twitter:card" content="summary_large_image" />
 
-<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="assets/img/favicon.png" type="image/png" />
 
 <!-- 字體：明朝體做標題（galgame 的文藝感），圓體做內文 -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -55,7 +56,7 @@
   <header class="site-header" id="site-header">
     <div class="shell site-header__inner">
       <a class="brand" href="./" aria-label="回到展覽首頁">
-        <img class="brand__mark" id="brand-logo" src="" alt="" width="34" height="34" />
+        <img class="brand__mark" id="brand-logo" src="assets/img/logo.png" alt="" width="40" height="40" />
         <span class="brand__text">
           <span class="brand__name" id="brand-name">ATELIER SAKURA</span>
           <span class="brand__sub" id="brand-sub">Galgame 週邊線上展覽</span>
@@ -98,6 +99,10 @@
     </div>
     <div class="menu-drawer__group">
       <span class="menu-drawer__label">團隊</span>
+      <a class="menu-drawer__item" href="about.html">
+        <span class="menu-drawer__icon" aria-hidden="true">❖</span>
+        關於同好會
+      </a>
       <a class="menu-drawer__item" href="admin.html">
         <span class="menu-drawer__icon" aria-hidden="true">✎</span>
         上傳者入口
@@ -210,6 +215,7 @@
       <span>
         圖片版權屬各原作者所有，本站僅為個人收藏之非商業性展示。
       </span>
+      <a href="about.html">關於同好會</a>
       <a href="admin.html">上傳者入口</a>
     </div>
   </footer>

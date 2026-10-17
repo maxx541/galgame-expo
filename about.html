@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" data-theme="day">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="author" content="資訊老師黃博胤" />
+<meta name="color-scheme" content="dark light" />
+<meta name="theme-color" content="#0b0714" media="(prefers-color-scheme: dark)" />
+<meta name="theme-color" content="#fff3f8" media="(prefers-color-scheme: light)" />
+
+<title>關於 Galgame 同好會｜口袋中的夏末號</title>
+<meta name="description" content="Galgame 同好會的介紹與活動相簿：從 2023 年的一堂社課開始，以作品討論為中心，從線上延伸到線下。" />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="關於 Galgame 同好會｜口袋中的夏末號" />
+<meta property="og:description" content="Galgame 同好會的介紹與活動相簿。" />
+<meta property="og:image" content="assets/img/og-image.png" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<link rel="icon" href="assets/img/favicon.png" type="image/png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Zen+Maru+Gothic:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap"
+  rel="stylesheet"
+/>
+
+<link rel="stylesheet" href="assets/css/styles.css" />
+<link rel="stylesheet" href="assets/css/about.css" />
+<link rel="stylesheet" href="assets/css/flipbook.css" />
+</head>
+
+<body>
+
+<a class="skip-link" href="#about">跳到介紹</a>
+
+<div class="page">
+
+  <header class="site-header" id="site-header">
+    <div class="shell site-header__inner">
+      <a class="brand" href="./" aria-label="回到展覽首頁">
+        <img class="brand__mark" src="assets/img/logo.png" alt="" width="40" height="40" />
+        <span class="brand__text">
+          <span class="brand__name">口袋中的夏末號</span>
+          <span class="brand__sub">線上週邊展示牆</span>
+        </span>
+      </a>
+
+      <div class="header-spacer"></div>
+
+      <button class="btn btn--icon btn--ghost" id="theme-toggle" type="button" aria-label="切換日夜模式" title="切換日夜模式">☀</button>
+
+      <button
+        class="menu-toggle"
+        id="menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="menu-drawer"
+        aria-label="選單"
+      >
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="menu-scrim" id="menu-scrim" hidden></div>
+  <nav class="menu-drawer" id="menu-drawer" aria-label="站台選單" hidden>
+    <div class="menu-drawer__group">
+      <span class="menu-drawer__label">瀏覽</span>
+      <a class="menu-drawer__item" href="./">
+        <span class="menu-drawer__icon" aria-hidden="true">▤</span>
+        回到展覽
+      </a>
+      <a class="menu-drawer__item" href="#album">
+        <span class="menu-drawer__icon" aria-hidden="true">▦</span>
+        活動相簿
+      </a>
+      <a class="menu-drawer__item" href="#zine">
+        <span class="menu-drawer__icon" aria-hidden="true">▧</span>
+        創刊號會刊
+      </a>
+    </div>
+    <div class="menu-drawer__group">
+      <span class="menu-drawer__label">團隊</span>
+      <a class="menu-drawer__item" href="admin.html">
+        <span class="menu-drawer__icon" aria-hidden="true">✎</span>
+        上傳者入口
+      </a>
+    </div>
+  </nav>
+
+  <main id="about" tabindex="-1">
+
+    <!-- ===== 介紹 ===== -->
+    <section class="about-intro">
+      <div class="shell about-intro__grid">
+        <div class="about-intro__head">
+          <p class="about-eyebrow">ABOUT US</p>
+          <h1 class="about-title">關於 Galgame 同好會</h1>
+          <p class="about-quote">
+            Galgame 不只是遊戲，它可以是文學、是哲學思考，也是連結陌生彼此的共同語言。
+          </p>
+        </div>
+
+        <div class="about-intro__body">
+          <p>
+            2023 年 11 月，清大 ACG 蔓延社辦了第一堂 Galgame 社課。課後幾位參加者在 Discord 開了群組，同好會就從這裡開始。我們不是學校的正式社團，而是從線上社群起家，慢慢把討論延伸到線下的聚會。
+          </p>
+          <p>
+            現在成員來自不同學校與各行各業，也陸續和台大卡漫社、東吳漫學、北醫漫研社等社團合辦聯合社課。我們聚在一起的方式很單純：把喜歡的作品拿出來，好好聊一聊。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 數字 ===== -->
+    <section class="about-stats" aria-label="同好會數據">
+      <div class="shell">
+        <dl class="stats">
+          <div class="stats__item">
+            <dt>總瀏覽次數</dt>
+            <dd>188.1<small>萬</small></dd>
+          </div>
+          <div class="stats__item">
+            <dt>總瀏覽者</dt>
+            <dd>21.1<small>萬</small></dd>
+          </div>
+          <div class="stats__item">
+            <dt>內容互動總數</dt>
+            <dd>2.2<small>萬</small></dd>
+          </div>
+          <div class="stats__item">
+            <dt>FB 追蹤人數</dt>
+            <dd>2,871</dd>
+          </div>
+          <div class="stats__item">
+            <dt>FB 瀏覽次數</dt>
+            <dd>5.7<small>萬</small></dd>
+          </div>
+          <div class="stats__item">
+            <dt>FB 連結點擊次數</dt>
+            <dd>2,613</dd>
+          </div>
+        </dl>
+        <p class="stats__note">同好會年度核心數據總覽。粉專創立於 2026/02/08。</p>
+      </div>
+    </section>
+
+    <!-- ===== 我們做過的事（依類型） ===== -->
+    <section class="about-block" id="done">
+      <div class="shell">
+        <h2 class="about-h2">我們做過的事</h2>
+        <div class="types">
+          <article class="type">
+            <h3>社課</h3>
+            <ul class="about-list">
+              <li>清大 ACG 蔓延社課：2023/11 第一堂起，每學期持續舉辦</li>
+              <li>台大卡漫社聯合社課，含中場大合唱</li>
+              <li>東吳漫學聯合社課</li>
+              <li>北醫漫研社聯合社課，東京大學視覺小說同好會來訪</li>
+              <li>長庚社課</li>
+              <li>台大社課（2026/10/16）</li>
+            </ul>
+          </article>
+          <article class="type">
+            <h3>討論會與研討會</h3>
+            <ul class="about-list">
+              <li>Summer Pockets 討論會</li>
+              <li>變態監獄討論會</li>
+              <li>Little Busters! 小討論會</li>
+              <li>素晴日討論會</li>
+              <li>Key 社作品介紹（Clannad、Little Busters!）</li>
+              <li>線上線下的主題討論</li>
+            </ul>
+          </article>
+          <article class="type">
+            <h3>聚會與小活動</h3>
+            <ul class="about-list">
+              <li>推坑大會</li>
+              <li>有獎徵答</li>
+              <li>猜歌猜圖片活動</li>
+              <li>週邊展示</li>
+              <li>吃吃喝喝聊天的單純聚會</li>
+            </ul>
+          </article>
+          <article class="type">
+            <h3>日 K 與觀影</h3>
+            <ul class="about-list">
+              <li>線下日 K（北部場、南部場）</li>
+              <li>DC 線上日 K</li>
+              <li>Gal 改編作品觀影會，例如星之夢</li>
+            </ul>
+          </article>
+          <article class="type">
+            <h3>走出去</h3>
+            <ul class="about-list">
+              <li>同好會旅遊（高雄旗津）</li>
+              <li>上海 Galonly Fes</li>
+            </ul>
+          </article>
+          <article class="type">
+            <h3>社群與出版</h3>
+            <ul class="about-list">
+              <li>Facebook 粉專與 Threads 日常更新</li>
+              <li>創刊號會刊《還在共通線中！》</li>
+              <li>台灣版 vndb 建置中</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 接下來 ===== -->
+    <section class="about-block about-block--next">
+      <div class="shell about-next">
+        <div>
+          <h2 class="about-h2">接下來</h2>
+          <p>
+            這些討論若只留在聚會當下，實在可惜，所以我們開了粉專，記錄同好會的足跡。內容更新以 Threads 為主：
+          </p>
+        </div>
+        <div>
+          <ul class="about-list about-list--first">
+            <li>心得評論、作品評析</li>
+            <li>值得回味的台詞精選</li>
+            <li>實體討論會與社課的活動資訊</li>
+            <li>各種與 Galgame 相關的企劃創作</li>
+          </ul>
+          <p class="about-meta">
+            活動主要地點：台北、新竹<br />
+            Threads：<a class="about-link" href="https://www.threads.com/@galgame0720" target="_blank" rel="noopener noreferrer">@galgame0720</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 活動相簿 ===== -->
+    <section class="about-album" id="album" aria-labelledby="album-title">
+      <div class="shell">
+        <p class="about-eyebrow">PHOTOS</p>
+        <h2 class="about-title about-title--sm" id="album-title">活動相簿</h2>
+        <p class="about-sub">每個活動一本相簿。可以左右滑動、按箭頭，或讓它自己播放。</p>
+
+        <div class="album-tabs" id="album-tabs" role="tablist" aria-label="選擇活動"></div>
+
+        <div
+          class="carousel"
+          id="carousel"
+          role="region"
+          aria-roledescription="輪播"
+          aria-label="活動照片"
+        >
+          <div class="carousel__stage">
+            <div class="carousel__track" id="carousel-track" tabindex="0"></div>
+            <button class="carousel__nav carousel__nav--prev" id="car-prev" type="button" aria-label="上一張">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg>
+            </button>
+            <button class="carousel__nav carousel__nav--next" id="car-next" type="button" aria-label="下一張">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
+            </button>
+          </div>
+
+          <div class="carousel__bar">
+            <div class="carousel__caption" aria-live="polite">
+              <strong id="car-title"></strong>
+              <span id="car-date"></span>
+            </div>
+            <div class="carousel__ctrl">
+              <span class="carousel__count" id="car-count"></span>
+              <button class="carousel__play" id="car-play" type="button" aria-pressed="true">
+                <svg class="i-pause" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" /><rect x="14" y="5" width="4" height="14" /></svg>
+                <svg class="i-play" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M7 5l12 7-12 7z" /></svg>
+                <span class="carousel__play-text">暫停</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="carousel__dots" id="car-dots"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 會刊（翻頁閱讀器） ===== -->
+    <section class="about-album about-zine" id="zine" aria-labelledby="zine-title">
+      <div class="shell">
+        <p class="about-eyebrow">ZINE</p>
+        <h2 class="about-title about-title--sm" id="zine-title">創刊號會刊　還在共通線中！</h2>
+        <p class="about-sub">拖曳頁角、點擊頁面或按箭頭翻頁；底下工具列可看縮圖、放大、自動翻頁，也能用手機掃 QR code 繼續看。</p>
+
+        <div class="flipbook" id="flipbook" role="region" aria-label="創刊號會刊翻頁閱讀器">
+          <div class="fb__stage" id="fb-stage" tabindex="0">
+            <div class="fb__loading" id="fb-loading">載入會刊中…</div>
+            <div class="fb__shift" id="fb-shift"><div class="fb__book" id="fb-book"></div></div>
+
+            <!-- 放大模式：用原圖解析度顯示目前這一頁／這一組跨頁，可拖曳平移 -->
+            <div class="fb__zoomlayer" id="fb-zoomlayer" hidden>
+              <div class="fb__zoomcanvas" id="fb-zoomcanvas"></div>
+            </div>
+
+            <button class="fb__btn fb__arrow fb__arrow--prev" id="fb-prev" type="button" aria-label="上一頁" title="上一頁"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+            <button class="fb__btn fb__arrow fb__arrow--next" id="fb-next" type="button" aria-label="下一頁" title="下一頁"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+
+            <aside class="fb__thumbs" id="fb-thumbs" hidden aria-label="頁面縮圖">
+              <div class="fb__thumbs-head">
+                <strong>縮圖</strong>
+                <button class="fb__btn" id="fb-thumbs-close" type="button" aria-label="關閉縮圖" title="關閉縮圖"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+              </div>
+              <div class="fb__thumbs-grid" id="fb-thumbs-grid"></div>
+            </aside>
+          </div>
+
+          <div class="fb__slider">
+            <button class="fb__btn" id="fb-first" type="button" aria-label="第一頁" title="第一頁"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 5v14M18 5l-7 7 7 7"/></svg></button>
+            <input id="fb-range" type="range" min="0" max="33" value="0" step="1" aria-label="頁碼" />
+            <button class="fb__btn" id="fb-last" type="button" aria-label="最後一頁" title="最後一頁"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 5v14M6 5l7 7-7 7"/></svg></button>
+            <span class="fb__page" id="fb-page" aria-live="polite"></span>
+          </div>
+
+          <div class="fb__bar" role="toolbar" aria-label="閱讀工具">
+            <button class="fb__btn" id="fb-btn-thumbs" type="button" aria-label="縮圖" title="縮圖"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="6.5" height="6.5"/><rect x="13.5" y="4" width="6.5" height="6.5"/><rect x="4" y="13.5" width="6.5" height="6.5"/><rect x="13.5" y="13.5" width="6.5" height="6.5"/></svg></button>
+            <button class="fb__btn" id="fb-btn-share" type="button" aria-label="分享與 QR code" title="分享與 QR code"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="12" r="2.4"/><circle cx="18" cy="6" r="2.4"/><circle cx="18" cy="18" r="2.4"/><path d="M8.1 10.9l7.8-3.8M8.1 13.1l7.8 3.8"/></svg></button>
+            <span class="fb__sep"></span>
+            <button class="fb__btn" id="fb-zout" type="button" aria-label="縮小" title="縮小"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5M8 10.5h5"/></svg></button>
+            <span class="fb__zoomval" id="fb-zoomval">100%</span>
+            <button class="fb__btn" id="fb-zin" type="button" aria-label="放大" title="放大"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5M10.5 8v5M8 10.5h5"/></svg></button>
+            <span class="fb__sep"></span>
+            <button class="fb__btn" id="fb-play" type="button" aria-label="自動翻頁" title="自動翻頁" aria-pressed="false"><span class="i-play"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 5l11 7-11 7z"/></svg></span><span class="i-pause"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 5v14M16 5v14"/></svg></span></button>
+            <button class="fb__btn" id="fb-sound" type="button" aria-label="翻頁聲音" title="翻頁聲音" aria-pressed="true"><span class="i-snd"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5z"/><path d="M15.5 9a4.2 4.2 0 010 6M18 6.5a8 8 0 010 11"/></svg></span><span class="i-mute"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5z"/><path d="M16 9.5l5 5M21 9.5l-5 5"/></svg></span></button>
+            <button class="fb__btn" id="fb-full" type="button" aria-label="全螢幕" title="全螢幕"><span class="i-full"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></span><span class="i-exit"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg></span></button>
+          </div>
+
+          <div class="fb__share" id="fb-share" hidden role="dialog" aria-modal="true" aria-labelledby="fb-share-title">
+            <div class="fb__share-card">
+              <div class="fb__share-head">
+                <strong id="fb-share-title">用手機繼續看</strong>
+                <button class="fb__btn" id="fb-share-close" type="button" aria-label="關閉" title="關閉"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+              </div>
+              <div class="fb__qr" id="fb-qr" aria-label="QR code"></div>
+              <p class="fb__share-tip">用手機相機掃描，會直接打開這本會刊並停在目前這一頁。</p>
+              <div class="fb__share-row">
+                <input id="fb-share-url" type="text" readonly aria-label="連結" />
+                <button class="fb__copy" id="fb-copy" type="button">複製連結</button>
+              </div>
+              <p class="fb__share-warn" id="fb-share-warn" hidden>目前是本機網址，網站上線後掃描才會打開。上線網址可填在 config.js 的 site.url。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell site-footer__inner">
+      <span>Galgame 週邊線上展覽</span>
+      <span>圖片版權屬各原作者所有，本站僅為個人收藏之非商業性展示。</span>
+      <a href="./">回到展覽</a>
+    </div>
+  </footer>
+
+</div>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/events-data.js"></script>
+<script src="assets/js/vendor/page-flip.browser.js"></script>
+<script src="assets/js/vendor/qrcode.js"></script>
+<script src="assets/js/zine-data.js"></script>
+<script src="assets/js/about.js"></script>
+<script src="assets/js/flipbook.js"></script>
+
+</body>
+</html>

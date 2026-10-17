@@ -25,3 +25,6 @@ _mobile-preview.html
 .env.*
 *secret*
 *.key
+
+# 會刊 PDF 太大（約 44 MB），網站只用轉出的頁面圖
+*.pdf

@@ -920,9 +920,10 @@ body.has-bg-photo .bg-glass {
 }
 
 .brand__mark {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   flex: 0 0 auto;
+  object-fit: contain;
 }
 
 .brand__text {
@@ -1029,6 +1030,13 @@ body.has-bg-photo .bg-glass {
   transform: translateX(0);
 }
 
+/* display:flex 會蓋掉瀏覽器預設的 [hidden]，關著的抽屜雖然被推到畫面外，
+   box-shadow 還是會在視窗右緣漏出一條陰影，所以明確隱藏。 */
+.menu-drawer[hidden],
+.menu-scrim[hidden] {
+  display: none;
+}
+
 .menu-drawer__group {
   display: flex;
   flex-direction: column;
@@ -1098,8 +1106,8 @@ body.menu-is-open {
   }
 
   .brand__mark {
-    width: 26px;
-    height: 26px;
+    width: 34px;
+    height: 34px;
   }
 
   .brand__name {
