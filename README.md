@@ -268,19 +268,13 @@ await expoHashPassword('你的新密碼')
 
 ## 關於同好會頁與活動相簿
 
-- `about.html`：同好會介紹 ＋ 活動相簿（自動播放、左右滑動、箭頭、鍵盤方向鍵、滑鼠拖曳）。
+- `about.html`：同好會介紹、我們做過的事、追蹤連結（Threads、Instagram、Facebook）、
+  活動相簿（自動播放、左右滑動、箭頭、鍵盤方向鍵、滑鼠拖曳），以及嵌入的創刊號會刊（FlipHTML5）。
 - 相簿資料在 `assets/js/events-data.js`，照片在 `assets/img/events/<活動>/`，
   兩者都由 `tools/build_photos.py` 產生：它讀 `D:\Galgame同好會\對外活動照` 底下每個資料夾
   （一個資料夾＝一本相簿），縮成長邊 1600px 的 JPG。要新增或更換照片，
   改照片資料夾後執行 `python tools/build_photos.py` 即可；活動標題與日期寫在腳本最上面的 `EVENTS`。
 - 站徽來源是專案根目錄的 `logo.jpg`，腳本會同時去黑底輸出 `assets/img/logo.png` 與 `assets/img/favicon.png`。
-- 會刊翻頁瀏覽：`tools/build_zine.py` 讀專案根目錄的會刊 PDF（要剛好一個 `.pdf`，34 頁含封面封底），
-  轉成 `assets/img/zine/NN.jpg` 與 `assets/js/zine-data.js`；執行前需 `pip install pypdfium2`。
-  換新版會刊：把新 PDF 放進根目錄、舊的拿掉，重新執行即可。PDF 很大，已列在 `.gitignore`，不會提交或部署。
-- 翻頁閱讀器（`assets/js/flipbook.js`、`assets/css/flipbook.css`）：頁面捲曲翻頁用
-  [StPageFlip](https://github.com/Nodlik/StPageFlip)（MIT），QR code 用
-  [qrcode-generator](https://github.com/kazuhikosato/qrcode-generator)（MIT），兩者放在 `assets/js/vendor/`。
-  StPageFlip 有一處修改（畫布清除由填白改為透明），已寫在該檔第一行註解。
-  工具列有縮圖、分享（QR code，掃了會直接開到目前這一頁）、放大平移、自動翻頁、翻頁聲音（Web Audio 合成）、全螢幕。
-- QR code 內容是目前頁面網址。網站上線後把網址填進 `assets/js/config.js` 的 `site.url`，
-  掃出來的連結才會是正式網址（沒填就用瀏覽器目前的網址）。
+- 會刊用 FlipHTML5 的嵌入碼（`about.html` 裡的 `#zine` 區塊）。換新版會刊時，到 FlipHTML5 更新同一本，
+  或把 iframe 的 `src` 換成新網址。
+- `assets/js/config.js` 的 `site.url` 是網站正式網址（GitHub Pages）。
