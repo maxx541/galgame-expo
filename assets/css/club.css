@@ -4,6 +4,13 @@
  * 這裡只補面板裡面的內容：引言、分類清單、追蹤連結、活動相簿輪播、會刊嵌入。
  * ========================================================================== */
 
+.intro--club .club-logo {
+  display: block;
+  width: clamp(120px, 22vw, 168px);
+  height: auto;
+  margin: 4px auto 6px;
+}
+
 .club-quote {
   margin: 0;
   padding-left: 16px;
