@@ -24,6 +24,11 @@ window.EVENT_ALBUMS = [
         "src": "assets/img/events/tmu-tokyo/04.jpg",
         "w": 1600,
         "h": 900
+      },
+      {
+        "src": "assets/img/events/tmu-tokyo/05.jpg",
+        "w": 1600,
+        "h": 900
       }
     ]
   },
