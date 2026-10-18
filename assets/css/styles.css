@@ -3023,20 +3023,3 @@ body.protect-images img {
     column-count: 2;
   }
 }
-
-/* header「關於我們」：純說明文字（不可點），放在漢堡旁邊提醒使用者那顆鈕點得開 */
-.header-about {
-  font-size: 14px;
-  letter-spacing: 0.12em;
-  color: var(--text-soft);
-  white-space: nowrap;
-  user-select: none;
-  pointer-events: none;
-}
-
-@media (max-width: 760px) {
-  .header-about {
-    font-size: 13px;
-    letter-spacing: 0.08em;
-  }
-}
