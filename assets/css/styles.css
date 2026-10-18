@@ -3024,27 +3024,26 @@ body.protect-images img {
   }
 }
 
-/* header「關於我們」：打開同好會介紹面板 */
+/* header「關於我們」：純文字，提醒使用者旁邊的漢堡選單點得開（點了就是開選單） */
 .header-about {
-  padding: 8px 14px;
-  font-size: 13.5px;
-  letter-spacing: 0.1em;
-  color: var(--text);
-  border: 1px solid var(--line-strong);
+  padding: 8px 4px;
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  color: var(--text-soft);
   background: transparent;
+  border: 0;
   white-space: nowrap;
-  transition: border-color 0.2s var(--ease), color 0.2s var(--ease);
+  transition: color 0.2s var(--ease);
 }
 
 .header-about:hover,
 .header-about:focus-visible {
-  border-color: var(--sakura);
   color: var(--sakura);
 }
 
 @media (max-width: 760px) {
   .header-about {
-    padding: 6px 10px;
-    font-size: 12.5px;
+    font-size: 13px;
+    letter-spacing: 0.08em;
   }
 }

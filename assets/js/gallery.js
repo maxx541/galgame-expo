@@ -417,6 +417,10 @@
     const scrim = $('#menu-scrim');
     if (!toggle || !drawer || !scrim) return;
 
+    // header 的「關於我們」文字只是提示，點了等於按漢堡鈕
+    const hint = $('.header-about');
+    if (hint) hint.addEventListener('click', () => toggle.click());
+
     let closeTimer = 0;
 
     function open() {
