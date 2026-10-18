@@ -3024,21 +3024,14 @@ body.protect-images img {
   }
 }
 
-/* header「關於我們」：純文字，提醒使用者旁邊的漢堡選單點得開（點了就是開選單） */
+/* header「關於我們」：純說明文字（不可點），放在漢堡旁邊提醒使用者那顆鈕點得開 */
 .header-about {
-  padding: 8px 4px;
   font-size: 14px;
   letter-spacing: 0.12em;
   color: var(--text-soft);
-  background: transparent;
-  border: 0;
   white-space: nowrap;
-  transition: color 0.2s var(--ease);
-}
-
-.header-about:hover,
-.header-about:focus-visible {
-  color: var(--sakura);
+  user-select: none;
+  pointer-events: none;
 }
 
 @media (max-width: 760px) {
