@@ -44,9 +44,9 @@
   z-index: 1;
   display: flex;
   flex-direction: column;
-  width: min(680px, calc(100vw - 32px));
-  /* 矮一點，把背景角色的上半身露出來 */
-  height: min(42vh, 380px);
+  /* 依螢幕長寬比自適應：越寬的螢幕，玻璃塊越寬、越矮，把背景角色的上半身露出來 */
+  width: min(960px, calc(100vw - 32px));
+  height: min(40vh, 380px);
   min-height: 250px;
   text-align: center;
   background: rgba(14, 32, 66, 0.34);
@@ -228,9 +228,31 @@ body.welcome-is-open {
   }
 }
 
-@media (max-width: 600px) {
+/* 寬螢幕（約 16:9 以上） */
+@media (min-aspect-ratio: 16/9) {
   .welcome__glass {
-    height: min(46vh, 380px);
+    width: min(1240px, 82vw);
+    height: min(34vh, 320px);
+  }
+
+  .welcome__text {
+    font-size: clamp(14.5px, 1.05vw, 17px);
+  }
+}
+
+/* 超寬螢幕（約 2:1 以上） */
+@media (min-aspect-ratio: 2/1) {
+  .welcome__glass {
+    width: min(1360px, 80vw);
+    height: min(32vh, 300px);
+  }
+}
+
+/* 直式、接近正方形的螢幕：用滿寬度，高度稍高一點好讀 */
+@media (max-aspect-ratio: 1/1) {
+  .welcome__glass {
+    width: calc(100vw - 24px);
+    height: min(46vh, 420px);
   }
 }
 
