@@ -216,3 +216,17 @@ body.welcome-is-open {
     animation: none;
   }
 }
+
+/* Eden 小站介紹：圖片（可點開看原圖）與清單 */
+.intro--eden figure img {
+  border: 1px solid var(--line);
+  background: var(--bg-3);
+}
+
+.intro--eden .club-list {
+  margin-top: 0;
+}
+
+.intro--eden .intro__body > * {
+  flex-shrink: 0;
+}
