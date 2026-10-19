@@ -299,69 +299,6 @@
     };
   }
 
-  /* ---- Facebook 粉專（官方 Page plugin） --------------------------------------
-   * 外掛只在載入時決定寬度（180–500），所以這裡量過容器再帶進網址。
-   * 用 iframe 版本，不載入 Facebook 的 JS SDK；離開畫面很遠時才載入。 */
-  function bindFacebook() {
-    const box = $('#fb-embed');
-    if (!box) return;
-    let done = false;
-
-    function load() {
-      if (done) return;
-      done = true;
-      const width = Math.max(180, Math.min(500, Math.floor(box.clientWidth) || 340));
-      // 貼文（timeline）分頁：Facebook 對未登入的訪客常常整塊顯示空白，實測這個粉專也是，
-      // 所以預設只放粉專卡片（名稱、追蹤人數、追蹤按鈕）。要試貼文牆，把 FB_TABS 改成 'timeline'、
-      // FB_HEIGHT 改成 500 以上。
-      const FB_TABS = '';
-      const FB_HEIGHT = 130;
-      const height = FB_HEIGHT;
-      const q = new URLSearchParams({
-        href: box.dataset.href,
-        tabs: FB_TABS,
-        width: String(width),
-        height: String(height),
-        small_header: 'false',
-        adapt_container_width: 'true',
-        hide_cover: 'false',
-        show_facepile: 'true',
-        locale: 'zh_TW',
-      });
-      const frame = el('iframe', {
-        src: `https://www.facebook.com/plugins/page.php?${q}`,
-        title: 'Galgame 同好會 Facebook 粉專',
-        width: String(width),
-        height: String(height),
-        scrolling: 'no',
-        frameborder: '0',
-        allowfullscreen: 'true',
-        allow: 'autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share',
-        loading: 'lazy',
-        // 第三方內容：可以跑自己的程式、開新視窗（追蹤、分享），但不能把整個網站導走
-        sandbox: 'allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms',
-        referrerpolicy: 'strict-origin-when-cross-origin',
-      });
-      frame.style.height = `${height}px`;
-      box.textContent = '';
-      box.append(frame);
-    }
-
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver(
-        (entries, obs) => {
-          if (entries[0].isIntersecting) {
-            obs.disconnect();
-            load();
-          }
-        },
-        { rootMargin: '400px 0px' }
-      ).observe(box);
-    } else {
-      load();
-    }
-  }
-
   let album = null;
   let started = false;
 
@@ -371,7 +308,6 @@
       // 等面板的版面算完（拿得到寬度）再初始化
       requestAnimationFrame(() => {
         album = bindAlbum();
-        bindFacebook();
       });
     } else if (album) {
       album.resume();

@@ -27,18 +27,6 @@
   height: auto;
 }
 
-.club-quote {
-  margin: 0;
-  padding-left: 16px;
-  border-left: 3px solid var(--sakura);
-  /* 字體與「Eden 小站」介紹面板的引言（.intro__lead）一致 */
-  font-family: var(--font-display);
-  font-size: 17px;
-  line-height: 1.9;
-  letter-spacing: 0.06em;
-  color: var(--text);
-}
-
 /* .intro__body 是直向 flex 且可捲動，裡面的區塊不能被壓扁（相簿分頁籤、粉專卡片都吃過虧） */
 .intro--club .intro__body > * {
   flex-shrink: 0;
@@ -54,11 +42,13 @@
   gap: 22px 26px;
 }
 
+/* 類型小標題：與 Eden 面板的標題（.intro__body h3）相同的字體、大小、顏色 */
 .club-types h4 {
   font-family: var(--font-display);
-  font-size: 15px;
+  font-size: 17px;
+  font-weight: 600;
   letter-spacing: 0.06em;
-  color: var(--sakura);
+  color: var(--text);
 }
 
 .club-list {
@@ -116,31 +106,71 @@
   color: var(--sakura);
 }
 
-.club-fb {
-  max-width: 500px;
-  min-height: 90px;
-  background: #fff;
-  border: 1px solid var(--line);
-  line-height: 0;
+/* Facebook 粉專卡片（連結到粉專） */
+.intro__body a.fb-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: 520px;
+  padding: 16px 18px;
+  border: 1px solid var(--line-strong);
+  background: var(--bg-2);
+  color: var(--text);
+  text-decoration: none;
+  transition: border-color 0.2s var(--ease);
 }
 
-.club-fb iframe {
-  display: block;
-  width: 100%;
-  border: 0;
-  overflow: hidden;
+.intro__body a.fb-card:hover,
+.intro__body a.fb-card:focus-visible {
+  border-color: var(--sakura);
 }
 
-/* 外掛載入前（或被擋掉時）顯示的備用連結；載入後就被 iframe 取代 */
-.fb-fallback {
-  padding: 18px;
-  line-height: 1.6;
-  font-size: 13.5px;
-  text-align: center;
+.intro__body .fb-card__logo {
+  flex: 0 0 auto;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
-.intro__body .fb-fallback a {
-  color: #1c1a20;
+.fb-card__text {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fb-card__text strong {
+  font-size: 17px;
+  letter-spacing: 0.04em;
+}
+
+.fb-card__text small {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+}
+
+.fb-card__btn {
+  flex: 0 0 auto;
+  padding: 9px 14px;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  color: #fff;
+  background: #1877f2;
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .intro__body a.fb-card {
+    flex-wrap: wrap;
+  }
+
+  .fb-card__btn {
+    width: 100%;
+    text-align: center;
+  }
 }
 
 /* ---- 活動相簿 ------------------------------------------------------------- */
