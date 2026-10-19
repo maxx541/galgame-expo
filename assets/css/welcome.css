@@ -20,7 +20,7 @@
 .welcome[open] {
   display: grid;
   place-items: end center;
-  padding-bottom: clamp(24px, 6vh, 56px);
+  padding-bottom: 6vh;
   animation: welcome-in 0.5s var(--ease);
 }
 
@@ -46,7 +46,7 @@
   flex-direction: column;
   /* 依螢幕長寬比自適應：越寬的螢幕，玻璃塊越寬、越矮，把背景角色的上半身露出來 */
   width: min(960px, calc(100vw - 32px));
-  height: min(40vh, 380px);
+  height: min(50vh, 560px);
   min-height: 250px;
   text-align: center;
   background: rgba(14, 32, 66, 0.34);
@@ -228,23 +228,19 @@ body.welcome-is-open {
   }
 }
 
-/* 寬螢幕（約 16:9 以上） */
+/* 寬螢幕（約 16:9 以上）：寬而高，頂端約落在畫面 40% 處（左邊角色的腰），下方留出一點邊 */
 @media (min-aspect-ratio: 16/9) {
   .welcome__glass {
-    width: min(1240px, 82vw);
-    height: min(34vh, 320px);
+    width: min(1500px, 80vw);
+    height: 54vh;
   }
 
   .welcome__text {
-    font-size: clamp(14.5px, 1.05vw, 17px);
+    font-size: clamp(15px, 1.05vw, 18px);
   }
-}
 
-/* 超寬螢幕（約 2:1 以上） */
-@media (min-aspect-ratio: 2/1) {
-  .welcome__glass {
-    width: min(1360px, 80vw);
-    height: min(32vh, 300px);
+  .welcome__title {
+    font-size: clamp(30px, 2.6vw, 44px);
   }
 }
 
