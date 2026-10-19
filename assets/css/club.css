@@ -32,14 +32,18 @@
   flex-shrink: 0;
 }
 
-
-}
-
 /* ---- 做過的事（依類型） ---------------------------------------------------- */
 .club-types {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-  gap: 22px 26px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 32px 40px;
+}
+
+/* 面板夠寬才排三欄；中間寬度排兩欄會落單一欄，不好看，所以直接疊成一欄 */
+@media (min-width: 900px) {
+  .club-types {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 /* 類型小標題：與 Eden 面板的標題（.intro__body h3）相同的字體、大小、顏色 */
@@ -54,15 +58,15 @@
 .club-list {
   list-style: none;
   padding: 0;
-  margin: 8px 0 0;
+  margin: 10px 0 0;
 }
 
 .club-list li {
   position: relative;
-  padding: 8px 0 8px 18px;
+  padding: 11px 0 11px 20px;
   border-bottom: 1px solid var(--line);
   font-size: 14px;
-  line-height: 1.7;
+  line-height: 1.75;
   letter-spacing: 0.03em;
   color: var(--text);
 }
@@ -71,7 +75,7 @@
   content: '';
   position: absolute;
   left: 2px;
-  top: 1.15em;
+  top: 1.3em;
   width: 6px;
   height: 6px;
   background: var(--sakura);
@@ -106,78 +110,38 @@
   color: var(--sakura);
 }
 
-/* Facebook 粉專卡片（連結到粉專） */
-.intro__body a.fb-card {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  max-width: 520px;
-  padding: 16px 18px;
-  border: 1px solid var(--line-strong);
-  background: var(--bg-2);
-  color: var(--text);
-  text-decoration: none;
-  transition: border-color 0.2s var(--ease);
+.club-fb {
+  max-width: 500px;
+  min-height: 90px;
+  background: #fff;
+  border: 1px solid var(--line);
+  line-height: 0;
 }
 
-.intro__body a.fb-card:hover,
-.intro__body a.fb-card:focus-visible {
-  border-color: var(--sakura);
+.club-fb iframe {
+  display: block;
+  width: 100%;
+  border: 0;
+  overflow: hidden;
 }
 
-.intro__body .fb-card__logo {
-  flex: 0 0 auto;
-  width: 72px;
-  height: 72px;
-  border-radius: 50%;
-  object-fit: cover;
+/* 外掛載入前（或被擋掉時）顯示的備用連結；載入後就被 iframe 取代 */
+.fb-fallback {
+  padding: 18px;
+  line-height: 1.6;
+  font-size: 13.5px;
+  text-align: center;
 }
 
-.fb-card__text {
-  flex: 1 1 auto;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.fb-card__text strong {
-  font-size: 17px;
-  letter-spacing: 0.04em;
-}
-
-.fb-card__text small {
-  font-size: 12.5px;
-  color: var(--text-muted);
-  letter-spacing: 0.06em;
-}
-
-.fb-card__btn {
-  flex: 0 0 auto;
-  padding: 9px 14px;
-  font-size: 13px;
-  letter-spacing: 0.06em;
-  color: #fff;
-  background: #1877f2;
-  white-space: nowrap;
-}
-
-@media (max-width: 480px) {
-  .intro__body a.fb-card {
-    flex-wrap: wrap;
-  }
-
-  .fb-card__btn {
-    width: 100%;
-    text-align: center;
-  }
+.intro__body .fb-fallback a {
+  color: #1c1a20;
 }
 
 /* ---- 活動相簿 ------------------------------------------------------------- */
 .album-tabs {
   display: flex;
   gap: 8px;
-  margin: 24px 0 18px;
+  margin: 0;
   overflow-x: auto;
   scrollbar-width: none;
   padding-bottom: 2px;
@@ -453,4 +417,46 @@
   width: 100%;
   height: 100%;
   border: 0;
+}
+
+/* ---- 版面節奏（2026-10 重新整理） -------------------------------------------
+ * 面板內容由上往下排，區塊之間要有明顯的呼吸：
+ *   段落之間 16px（沿用 .intro__body）、大標題（h3）上方 40px、類型小標（h4）下方 6px、
+ *   清單項目上下各 11px。引言左側保留粉色豎線，字體與 Eden 面板的引言相同。 */
+.intro--club .intro__body {
+  gap: 18px;
+}
+
+.intro--club .intro__body > h3 {
+  margin-top: 40px;
+}
+
+.intro--club .intro__body > h3 + * {
+  margin-top: -2px;
+}
+
+.intro--club .intro__lead {
+  padding-left: 18px;
+  border-left: 3px solid var(--sakura);
+}
+
+.club-lead {
+  margin-bottom: 4px;
+}
+
+.club-types h4 {
+  margin-bottom: 6px;
+}
+
+.social-mini {
+  margin-top: 2px;
+}
+
+.intro--club .carousel__bar {
+  padding-top: 16px;
+}
+
+.intro--club .club-yt,
+.intro--club .club-zine {
+  margin-top: 2px;
 }

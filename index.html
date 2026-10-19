@@ -5,7 +5,7 @@
 <!-- viewport-fit=cover：讓瀏海機 / 圓角螢幕能搭配 env(safe-area-inset-*) -->
 <!-- 資安：限制頁面只能載入哪些來源（GitHub Pages 不能設定回應標頭，只能用 meta）。
      新增外部服務（圖床、嵌入、字型）時要把網域加進來，不然會被瀏覽器擋掉。 -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob: https://res.cloudinary.com; connect-src 'self' https://otoengoysjwpipqhehoi.supabase.co wss://otoengoysjwpipqhehoi.supabase.co https://api.cloudinary.com; frame-src https://online.fliphtml5.com https://www.youtube-nocookie.com; media-src 'self'; worker-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests" />
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob: https://res.cloudinary.com; connect-src 'self' https://otoengoysjwpipqhehoi.supabase.co wss://otoengoysjwpipqhehoi.supabase.co https://api.cloudinary.com; frame-src https://online.fliphtml5.com https://www.facebook.com https://www.youtube-nocookie.com; media-src 'self'; worker-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests" />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="author" content="資訊老師黃博胤" />
@@ -34,7 +34,7 @@
 />
 
 <link rel="stylesheet" href="assets/css/styles.css?v=20261018v" />
-<link rel="stylesheet" href="assets/css/club.css?v=20261019k" />
+<link rel="stylesheet" href="assets/css/club.css?v=20261019p" />
 <link rel="stylesheet" href="assets/css/welcome.css?v=20261019h" />
 </head>
 
@@ -360,15 +360,12 @@
       <p>
         這些討論若只留在聚會當下，實在可惜，所以我們開了粉專，記錄同好會的足跡。歡迎有興趣的追蹤，若是有意願加入推廣 Galgame 的行列，也可以到粉專聯繫我們。
       </p>
-      <!-- Facebook 粉專卡片：Facebook 官方外掛在這個粉專上會把追蹤人數那行切掉、版面不穩，所以改用自己的卡片（沒有第三方嵌入、不會追蹤訪客） -->
-      <a class="fb-card" href="https://www.facebook.com/profile.php?id=61587255845771" target="_blank" rel="noopener noreferrer">
-        <img class="fb-card__logo" src="assets/img/club-logo.png" alt="" width="72" height="72" loading="lazy" />
-        <span class="fb-card__text">
-          <strong>GalGame 同好會</strong>
-          <small>Facebook 粉絲專頁</small>
-        </span>
-        <span class="fb-card__btn">追蹤粉絲專頁 ↗</span>
-      </a>
+      <!-- Facebook 粉專（官方 Page plugin，iframe 版）。寬度由 club.js 依容器寬度帶進網址（上限 500） -->
+      <div class="club-fb" id="fb-embed" data-href="https://www.facebook.com/profile.php?id=61587255845771">
+        <p class="fb-fallback">
+          <a href="https://www.facebook.com/profile.php?id=61587255845771" target="_blank" rel="noopener noreferrer">到 Facebook 粉專看看</a>
+        </p>
+      </div>
       <ul class="social-mini" aria-label="其他平台">
             <li>
               <a href="https://www.threads.com/@galgame0720" target="_blank" rel="noopener noreferrer">
@@ -516,7 +513,7 @@
 <script src="assets/js/background.js?v=20261018v"></script>
 <script src="assets/js/events-data.js?v=20261018v"></script>
 <script src="assets/js/intro.js?v=20261018v"></script>
-<script src="assets/js/club.js?v=20261019j"></script>
+<script src="assets/js/club.js?v=20261019q"></script>
 
 </body>
 </html>
