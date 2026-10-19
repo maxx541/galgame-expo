@@ -35,6 +35,7 @@
 
 <link rel="stylesheet" href="assets/css/styles.css?v=20261018v" />
 <link rel="stylesheet" href="assets/css/club.css?v=20261018v" />
+<link rel="stylesheet" href="assets/css/welcome.css?v=20261019b" />
 </head>
 
 <body>
@@ -252,6 +253,25 @@
        <figure><img src="…" alt="…" /><figcaption>圖說</figcaption></figure>
      放了真正的內容之後，把那一行 <p class="intro__placeholder"> 刪掉即可。
      ===================================================================== -->
+<dialog class="welcome" id="welcome" aria-labelledby="welcome-title">
+  <img class="welcome__bg" src="assets/img/welcome-bg.jpg" alt="" aria-hidden="true" />
+  <div class="welcome__glass">
+    <button class="welcome__close" type="button" data-welcome-close aria-label="關閉">×</button>
+    <p class="welcome__eyebrow">2026 線下展覽</p>
+    <h2 class="welcome__title" id="welcome-title">口袋中的夏末號</h2>
+    <p class="welcome__sub">夏天的風吹入我們心中</p>
+    <p class="welcome__lead">「在口袋裡藏著一艘來自夏季末的方舟」</p>
+    <p class="welcome__text">
+      現代的資訊流極度碎片化，我們需要一個空間，留下那些值得回想的人事物。「口袋」成了避風港，收納的不只是《Summer Pockets》鳥白島的無盡夏日，更是我們共同經歷的歷史。讓我們把這些美好的回憶收進口袋，累的時候，再拿出來品味。
+    </p>
+    <div class="welcome__actions">
+      <button class="welcome__btn welcome__btn--main" type="button" data-welcome-close>進入展覽</button>
+      <button class="welcome__btn" type="button" data-welcome-more>完整介紹</button>
+    </div>
+  </div>
+  <p class="welcome__credit">©VISUAL ARTS/Key</p>
+</dialog>
+
 <dialog class="intro" id="intro-booth" aria-labelledby="intro-booth-title">
   <div class="intro__panel">
     <header class="intro__head">
@@ -259,7 +279,23 @@
       <button class="intro__close" type="button" data-intro-close aria-label="關閉">×</button>
     </header>
     <div class="intro__body">
-      <p class="intro__placeholder">內容準備中，敬請期待。</p>
+      <p class="intro__lead">「在口袋裡藏著一艘來自夏季末的方舟」</p>
+      <p>
+        Pocket 是一個自帶安全感的「微觀封閉空間」。現代的資訊流極度碎片化，網路社群充滿了節奏與撕裂，我們需要一個空間，留下那些值得回想的人事物。「口袋」成了一個避風港，它收納的不只是《Summer Pockets》鳥白島的無盡夏日，更是這兩年我們共同經歷的歷史。
+      </p>
+      <p>
+        2025 到 2026 年，從高達邁向 50 週年的 Road to 50，到《原神》跨越《空月之歌》的里程碑；《明日方舟》航向終末地，鳴瀨白羽傳承給了辻倉朱比華……在這個夏季迎向終末時，吹起了那股來自夏季初至夏季末的風。這股串起始與末的傳承之風，吹動著我們航向 kirakira 的明天。
+      </p>
+      <p>
+        明明是迎向終末一般的尾聲，卻蘊含著推動我們迎向明天的力量——這種「終末，但又向著明天」的否定性，正是我們前行的動力。
+      </p>
+      <p>
+        讓我們將這些美好的回憶收進口袋。累的時候，再把它拿出來品味。也期盼各位如哥倫比婭一般，踏上逆時而行的道路，在那條路上找回那些美好。
+      </p>
+      <p>
+        這個夏天，邀請各位把這些美好收進口袋——2026 線下《口袋中的夏末號 Ark - Sʌm-mɔɪ'se》。我們明日終末地見。
+      </p>
+      <p class="intro__credit">文章整理自 Eden 小站〈口袋中的夏末號〉主題說明（<a href="https://forum.gamer.com.tw/C.php?bsn=60520&amp;snA=2895" target="_blank" rel="noopener noreferrer">巴哈姆特原文</a>）</p>
     </div>
   </div>
 </dialog>
@@ -420,6 +456,7 @@
 <script src="assets/js/events-data.js?v=20261018v"></script>
 <script src="assets/js/intro.js?v=20261018v"></script>
 <script src="assets/js/club.js?v=20261018v"></script>
+<script src="assets/js/welcome.js?v=20261019"></script>
 
 </body>
 </html>

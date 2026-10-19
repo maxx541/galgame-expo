@@ -1,0 +1,202 @@
+/* =============================================================================
+ * welcome.css — 進站歡迎彈窗：霧化玻璃塊疊在主視覺圖上
+ * 背景圖 ©VISUAL ARTS/Key，畫面角落標註版權。
+ * ========================================================================== */
+.welcome {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  overflow: hidden;
+}
+
+.welcome[open] {
+  display: grid;
+  place-items: center;
+  animation: welcome-in 0.5s var(--ease);
+}
+
+.welcome::backdrop {
+  background: #0b1a33;
+}
+
+/* 背景圖是 dialog 裡的真實元素（不是 ::backdrop），玻璃塊的 backdrop-filter 才一定會模糊到它 */
+.welcome__bg {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.welcome__glass {
+  position: relative;
+  width: min(560px, calc(100vw - 32px));
+  max-height: calc(100vh - 72px);
+  max-height: calc(100dvh - 72px);
+  overflow-y: auto;
+  padding: clamp(26px, 5vw, 42px) clamp(22px, 5vw, 40px) clamp(24px, 4vw, 34px);
+  text-align: center;
+  z-index: 1;
+  background: rgba(14, 32, 66, 0.34);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 24px 70px -20px rgba(4, 12, 32, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  -webkit-backdrop-filter: blur(22px) saturate(1.35);
+  backdrop-filter: blur(22px) saturate(1.35);
+  text-shadow: 0 1px 10px rgba(4, 12, 32, 0.45);
+}
+
+/* 不支援毛玻璃的瀏覽器：改用較深的實色底，確保文字讀得到 */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .welcome__glass {
+    background: rgba(12, 28, 58, 0.82);
+  }
+}
+
+.welcome__close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  font-size: 20px;
+  line-height: 1;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.welcome__close:hover,
+.welcome__close:focus-visible {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.welcome__eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.28em;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.welcome__title {
+  margin-top: 10px;
+  font-size: clamp(30px, 7vw, 44px);
+  letter-spacing: 0.1em;
+  line-height: 1.2;
+  color: #fff;
+}
+
+.welcome__sub {
+  margin-top: 8px;
+  font-size: 14px;
+  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.welcome__lead {
+  margin: 22px 0 14px;
+  font-family: var(--font-display);
+  font-size: clamp(15px, 3.6vw, 18px);
+  line-height: 1.8;
+  letter-spacing: 0.06em;
+}
+
+.welcome__text {
+  font-size: 14.5px;
+  line-height: 2;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.welcome__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 26px;
+}
+
+.welcome__btn {
+  min-width: 120px;
+  padding: 11px 22px;
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.08);
+  text-shadow: none;
+  transition: background-color 0.2s var(--ease);
+}
+
+.welcome__btn:hover,
+.welcome__btn:focus-visible {
+  background: rgba(255, 255, 255, 0.24);
+}
+
+.welcome__btn--main {
+  color: #0b1a33;
+  background: rgba(255, 255, 255, 0.92);
+  border-color: transparent;
+}
+
+.welcome__btn--main:hover,
+.welcome__btn--main:focus-visible {
+  background: #fff;
+}
+
+.welcome__credit {
+  z-index: 1;
+  position: fixed;
+  right: 14px;
+  bottom: 10px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7);
+}
+
+body.welcome-is-open {
+  overflow: hidden;
+}
+
+/* 介紹面板裡的引言與出處 */
+.intro__lead {
+  font-family: var(--font-display);
+  font-size: 17px;
+  line-height: 1.9;
+  letter-spacing: 0.06em;
+  color: var(--text);
+}
+
+.intro__credit {
+  margin-top: 4px;
+  font-size: 12.5px;
+  color: var(--text-muted);
+}
+
+@keyframes welcome-in {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .welcome[open] {
+    animation: none;
+  }
+}
