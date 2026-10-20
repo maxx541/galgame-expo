@@ -1,0 +1,76 @@
+/* =============================================================================
+ * denpa.css — 「電波空間」介紹面板
+ * ========================================================================== */
+.intro--denpa .intro__body {
+  gap: 18px;
+}
+
+.intro--denpa .intro__body > * {
+  flex-shrink: 0;
+}
+
+.intro--denpa .intro__body > h3 {
+  margin-top: 36px;
+}
+
+.denpa-lead {
+  display: flex;
+  align-items: center;
+  gap: clamp(18px, 4vw, 32px);
+}
+
+.intro--denpa .denpa-lead__logo {
+  flex: 0 0 auto;
+  width: clamp(110px, 20vw, 160px);
+  height: auto;
+  border: 1px solid var(--line);
+}
+
+.denpa-lead__text {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.intro--denpa .intro__lead {
+  padding-left: 18px;
+  border-left: 3px solid var(--sakura);
+}
+
+.denpa-address {
+  font-size: 13.5px;
+  letter-spacing: 0.06em;
+  color: var(--text);
+}
+
+.denpa-shop {
+  margin: 0;
+}
+
+.intro--denpa .denpa-shop img {
+  display: block;
+  width: min(100%, 440px);
+  height: auto;
+  border: 1px solid var(--line);
+}
+
+.denpa-callout {
+  padding: 16px 18px;
+  border-left: 3px solid var(--mint);
+  background: var(--bg-2);
+  color: var(--text);
+  line-height: 1.9;
+}
+
+@media (max-width: 600px) {
+  .denpa-lead {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .intro--denpa .denpa-lead__logo {
+    align-self: center;
+  }
+}

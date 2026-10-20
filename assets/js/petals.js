@@ -130,7 +130,8 @@
 
   /** 讀取使用者偏好；沒設定過就用 config 的預設值 */
   function enabled() {
-    const saved = window.U.store.get(KEY, null);
+    // 櫻花特效的開關已從選單移除，一律照 config.js 的 ux.petals（預設開）；舊版存下的偏好不再使用
+    const saved = null;
     if (saved === null) return Boolean(window.U.CFG.ux && window.U.CFG.ux.petals);
     return Boolean(saved);
   }

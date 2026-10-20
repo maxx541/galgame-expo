@@ -39,6 +39,7 @@
 <link rel="stylesheet" href="assets/css/quiz.css?v=20261023" />
 <link rel="stylesheet" href="assets/css/what.css?v=20261020d" />
 <link rel="stylesheet" href="assets/css/deco.css?v=20261023b" />
+<link rel="stylesheet" href="assets/css/denpa.css?v=20261025" />
 </head>
 
 <body>
@@ -132,14 +133,6 @@
         <span class="menu-drawer__icon" aria-hidden="true">✿</span>
         什麼是 Galgame？
       </button>
-      <button class="menu-drawer__item" type="button" data-intro="intro-club">
-        <span class="menu-drawer__icon" aria-hidden="true">❀</span>
-        關於 Galgame 同好會
-      </button>
-      <button class="menu-drawer__item" type="button" data-intro="intro-eden">
-        <span class="menu-drawer__icon" aria-hidden="true">◈</span>
-        關於 Eden *創小壇
-      </button>
     </div>
     <div class="menu-drawer__group">
       <span class="menu-drawer__label">互動</span>
@@ -149,14 +142,18 @@
       </button>
     </div>
     <div class="menu-drawer__group">
-      <span class="menu-drawer__label">瀏覽</span>
-      <button class="menu-drawer__item" id="wall-mode" type="button">
-        <span class="menu-drawer__icon" aria-hidden="true">▤</span>
-        單欄 / 多欄
+      <span class="menu-drawer__label">關於我們</span>
+      <button class="menu-drawer__item" type="button" data-intro="intro-club">
+        <span class="menu-drawer__icon" aria-hidden="true">❀</span>
+        關於 Galgame 同好會
       </button>
-      <button class="menu-drawer__item" id="petal-toggle" type="button" aria-pressed="false">
-        <span class="menu-drawer__icon" aria-hidden="true">✽</span>
-        櫻花特效
+      <button class="menu-drawer__item" type="button" data-intro="intro-eden">
+        <span class="menu-drawer__icon" aria-hidden="true">◈</span>
+        關於 Eden *創小壇
+      </button>
+      <button class="menu-drawer__item" type="button" data-intro="intro-denpa">
+        <span class="menu-drawer__icon" aria-hidden="true">❖</span>
+        電波空間
       </button>
     </div>
     <div class="menu-drawer__group">
@@ -609,6 +606,48 @@
   </div>
 </dialog>
 
+<dialog class="intro intro--denpa" id="intro-denpa" aria-labelledby="intro-denpa-title">
+  <div class="intro__panel">
+    <header class="intro__head">
+      <h2 class="intro__title" id="intro-denpa-title">電波空間</h2>
+      <button class="intro__close" type="button" data-intro-close aria-label="關閉">×</button>
+    </header>
+    <div class="intro__body">
+      <div class="denpa-lead">
+        <img class="denpa-lead__logo" src="assets/img/denpa/logo.jpg" alt="電波空間 印章標誌" width="360" height="360" loading="lazy" decoding="async" />
+        <div class="denpa-lead__text">
+          <p class="intro__lead">嘉義的 Galgame 店</p>
+          <p>結合「Galgame 推廣、選物現貨、預約訂購」的空間。美少女遊戲、動漫周邊、立牌、掛軸，走進來就能看到、摸到。</p>
+          <p class="denpa-address">嘉義市中正路 476 號　電波空間工作室</p>
+          <p><a class="denpa-link" href="https://www.threads.com/@denppakuukan2026" target="_blank" rel="noopener noreferrer">Threads：@denppakuukan2026 ↗</a></p>
+        </div>
+      </div>
+
+      <figure class="denpa-shop">
+        <img src="assets/img/denpa/shop.jpg" alt="電波空間 店面，招牌寫著美少女遊戲、動漫周邊、立牌、掛軸" loading="lazy" decoding="async" />
+      </figure>
+
+      <h3>為什麼在嘉義開一間 Galgame 店？</h3>
+      <p>一開始，店主其實是想開一間以 Galgame 為主的店，原因很簡單，兩個：</p>
+      <ul class="club-list">
+        <li>台灣現在還沒有一間真正以 Galgame 為主的店。</li>
+        <li>想讓市場直接看到：讓大家走進來就能看到、摸到這些作品。比起在網路上講一百次有多好，不如讓它直接出現在大家面前，這才是最直接的推廣。</li>
+      </ul>
+      <p>我們相信，當市場的消費力被看見了，日本那邊的廠商，才會更重視台灣的玩家。這是最初的初衷。</p>
+
+      <h3>選物與現貨</h3>
+      <p>再來，才是以二次元周邊為輔的選物代購。平常會去挖很多台灣市場比較少見的商品，把資訊整理好，讓大家知道、也買得到。</p>
+      <p>店裡的現貨，是店主自己分析、判斷，覺得台灣市場應該會喜歡，或是預購結束後就很難再買到的東西，先引進來放著。想幫大家留一個機會：給那些當時猶豫了一下、或是忘記跟到的人，之後還有一個地方，可以用相對合理的價格入手，而不是被哄抬。</p>
+
+      <h3>這是一個怎樣的地方？</h3>
+      <p class="denpa-callout">結合「Galgame 推廣、選物現貨、預約訂購」的空間，也是讓大家在嘉義，就能來逛逛、看看實體、參考一下周邊要怎麼擺才好看的地方。</p>
+      <p>如果你也跟店主一樣，覺得台灣應該要有這樣一間店，那我們店就在這裡。</p>
+      <p class="denpa-address">嘉義市中正路 476 號　電波空間工作室</p>
+      <img class="chibi chibi--panel" src="assets/img/chibi/tier-vet.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+    </div>
+  </div>
+</dialog>
+
 <dialog class="intro intro--eden" id="intro-eden" aria-labelledby="intro-eden-title">
   <div class="intro__panel">
     <header class="intro__head">
@@ -684,9 +723,9 @@
 <script src="assets/js/placeholder.js?v=20261018v"></script>
 <script src="assets/js/cloudinary.js?v=20261018v"></script>
 <script src="assets/js/store.js?v=20261018v"></script>
-<script src="assets/js/petals.js?v=20261018v"></script>
+<script src="assets/js/petals.js?v=20261025"></script>
 <script src="assets/js/lightbox.js?v=20261018v"></script>
-<script src="assets/js/gallery.js?v=20261023"></script>
+<script src="assets/js/gallery.js?v=20261025"></script>
 <script src="assets/js/background.js?v=20261018v"></script>
 <script src="assets/js/events-data.js?v=20261018v"></script>
 <script src="assets/js/intro.js?v=20261018v"></script>

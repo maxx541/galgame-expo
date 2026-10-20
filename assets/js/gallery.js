@@ -319,7 +319,9 @@
   }
 
   function restoreWallMode() {
-    const single = store.get('expo.wallMode', 'grid') === 'single';
+    // 單欄／多欄切換已移除，一律多欄；順便清掉舊版存下來的偏好
+    store.del('expo.wallMode');
+    const single = false;
     if (single) wall.classList.add('is-single');
     paintWallModeBtn(single);
   }
