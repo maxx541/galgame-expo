@@ -1,16 +1,14 @@
 /* =============================================================================
- * jump.js — 跳轉轉場：開面板、進入展覽、換頁時，蓋上一張帶 Q 版角色的轉場畫面
+ * jump.js — 進入展覽的轉場：按下歡迎彈窗的「進入展覽」時，蓋上一張帶 Q 版角色的轉場畫面
  * -----------------------------------------------------------------------------
  * 概念參考 JIEJOE 的「頁面跳轉動畫」教學：先用一張全螢幕的畫面蓋住 →
  * 在被蓋住的時候偷偷切換內容 → 再把畫面滑開。這裡的畫面是從下面滑上來、
  * 中間有一隻隨機的 Q 版角色跳動、切換完成後往上滑走。
  *
  * 用法：
- *   JUMP.run(() => { 要切換的事 });          // 同一頁內（開面板、關彈窗）
- *   JUMP.go('admin.html');                    // 換頁：蓋住 → 跳轉；新頁面載入後再滑開
+ *   JUMP.run(() => { 要切換的事 });          // 蓋住 → 執行 → 滑開
  *
- * 轉場畫面是 popover（最上層），比 <dialog> 後出現就會蓋在上面；切換內容之後
- * 會把它重新提到最上層，所以面板不會擋住滑開的動畫。
+ * 轉場畫面是 popover（最上層），所以會蓋在 <dialog> 上面。
  * 不支援 popover、或使用者設定了「減少動態」時，直接執行切換，不播動畫。
  * ========================================================================== */
 (function () {
@@ -19,7 +17,6 @@
   const COUNT = 17; // assets/img/chibi/jump-01 ~ jump-17
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const supported = typeof HTMLElement !== 'undefined' && 'showPopover' in HTMLElement.prototype;
-  const FLAG = 'expo.jump';
 
   const IN_MS = 420; // 蓋上
   const HOLD_MS = 420; // 蓋住後停留（切換內容、讓角色露臉）
@@ -89,11 +86,7 @@
     }
     await wait(HOLD_MS);
 
-    // 內容切換完成：把轉場畫面提回最上層，再往上滑走
-    root.classList.add('is-static');
-    show();
-    await frame();
-    root.classList.remove('is-static');
+    // 內容切換完成，往上滑走
     root.classList.add('is-out');
     await wait(OUT_MS);
 
@@ -102,50 +95,6 @@
     } catch (_) {}
     root.classList.remove('is-cover', 'is-out');
     busy = false;
-  }
-
-  // 換頁：先蓋住再跳轉，新頁面一載入就接著播「滑開」
-  function go(url) {
-    if (reduceMotion || !supported) {
-      location.href = url;
-      return;
-    }
-    try {
-      sessionStorage.setItem(FLAG, '1');
-    } catch (_) {}
-    run(() => {
-      location.href = url;
-    });
-  }
-
-  // 剛跳轉過來：畫面一開始就是蓋住的，等頁面準備好再滑開
-  function arrive() {
-    let flagged = false;
-    try {
-      flagged = sessionStorage.getItem(FLAG) === '1';
-      sessionStorage.removeItem(FLAG);
-    } catch (_) {}
-    if (!flagged || reduceMotion || !supported) return;
-
-    build();
-    img.src = src(pick());
-    root.classList.add('is-cover', 'is-static');
-    root.showPopover();
-    busy = true;
-    const done = async () => {
-      await wait(HOLD_MS);
-      await frame();
-      root.classList.remove('is-static');
-      root.classList.add('is-out');
-      await wait(OUT_MS);
-      try {
-        root.hidePopover();
-      } catch (_) {}
-      root.classList.remove('is-cover', 'is-out');
-      busy = false;
-    };
-    if (document.readyState === 'complete') done();
-    else window.addEventListener('load', done, { once: true });
   }
 
   // 閒置時先把角色圖抓下來，第一次轉場才不會閃一下空白
@@ -159,15 +108,5 @@
   const idle = window.requestIdleCallback || ((f) => setTimeout(f, 2500));
   window.addEventListener('load', () => idle(preload));
 
-  // <a data-jump href="..."> 會自動套上換頁轉場（按住 Ctrl／⌘、中鍵、新分頁則維持原本行為）
-  document.addEventListener('click', (e) => {
-    const a = e.target.closest('a[data-jump]');
-    if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-    if (a.target && a.target !== '_self') return;
-    e.preventDefault();
-    go(a.href);
-  });
-
-  window.JUMP = { run, go };
-  arrive();
+  window.JUMP = { run };
 })();
