@@ -312,9 +312,9 @@
       done = true;
       const width = Math.max(180, Math.min(500, Math.floor(box.clientWidth) || 340));
       // Facebook 官方 Page plugin：只放粉專名片（封面、追蹤、分享）。
-      // 貼文分頁對未登入的訪客常常是一大片空白，所以不放，高度收到名片剛好。
+      // 貼文分頁對未登入的訪客常常是一大片空白，所以不放；追蹤者頭像區也一樣，所以關掉。
       const FB_TABS = '';
-      const FB_HEIGHT = 210;
+      const FB_HEIGHT = 132; // 實測：標準名片（含封面區、追蹤、分享）內容底部約 131px
       const height = FB_HEIGHT;
       const q = new URLSearchParams({
         href: box.dataset.href,
@@ -324,7 +324,7 @@
         small_header: 'false',
         adapt_container_width: 'true',
         hide_cover: 'false',
-        show_facepile: 'true',
+        show_facepile: 'false', // 未登入看不到頭像，但會留一塊空白
         locale: 'zh_TW',
       });
       const frame = el('iframe', {
