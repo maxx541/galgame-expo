@@ -89,3 +89,50 @@
     padding-right: 56px;
   }
 }
+
+/* ---- 頁尾致謝：協力舉辦／技術支援／題庫提供 --------------------------------- */
+.site-credits {
+  margin-bottom: 26px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--line);
+}
+
+.site-credits__list {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px 44px;
+  text-align: center;
+}
+
+.site-credits__list > div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.site-credits dt {
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  color: var(--text-muted);
+}
+
+.site-credits dd {
+  margin: 0;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  color: var(--text-soft);
+}
+
+.site-credits dd span {
+  margin: 0 0.35em;
+  color: var(--text-muted);
+}
+
+@media (max-width: 600px) {
+  .site-credits__list {
+    flex-direction: column;
+    gap: 16px;
+  }
+}
