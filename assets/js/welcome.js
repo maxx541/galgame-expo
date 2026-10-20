@@ -21,7 +21,9 @@
 
   dlg.addEventListener('click', (e) => {
     if (e.target.closest('[data-welcome-close]')) {
-      close();
+      // 進入展覽：蓋上轉場，在被蓋住時關掉歡迎彈窗
+      if (window.JUMP) window.JUMP.run(close);
+      else close();
     } else if (e.target.closest('[data-welcome-more]')) {
       close();
       // 交給 intro.js 的點擊代理打開「攤位活動介紹」

@@ -16,7 +16,7 @@
   const dialogs = document.querySelectorAll('dialog.intro');
   if (!dialogs.length || typeof HTMLDialogElement !== 'function') return;
 
-  function open(id) {
+  function openNow(id) {
     const dlg = document.getElementById(id);
     if (!dlg || !dlg.classList.contains('intro') || dlg.open) return;
 
@@ -31,9 +31,20 @@
     document.body.classList.add('intro-is-open');
   }
 
+  // 從選單／連結點開面板：有轉場（jump.js）就套轉場，沒有就直接開
+  function open(id) {
+    const dlg = document.getElementById(id);
+    if (!dlg || !dlg.classList.contains('intro') || dlg.open) return;
+    if (window.JUMP) window.JUMP.run(() => openNow(id));
+    else openNow(id);
+  }
+
   document.addEventListener('click', (e) => {
     const trigger = e.target.closest('[data-intro]');
-    if (trigger) open(trigger.dataset.intro);
+    if (trigger) {
+      e.preventDefault();
+      open(trigger.dataset.intro);
+    }
   });
 
   dialogs.forEach((dlg) => {
@@ -53,5 +64,6 @@
     });
   });
 
-  if (location.hash) open(location.hash.slice(1));
+  // 網址帶 hash 進站：直接開，不播轉場
+  if (location.hash) openNow(location.hash.slice(1));
 })();

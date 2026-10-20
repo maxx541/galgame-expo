@@ -311,9 +311,10 @@
       if (done) return;
       done = true;
       const width = Math.max(180, Math.min(500, Math.floor(box.clientWidth) || 340));
-      // Facebook 官方 Page plugin 標準設定（貼文分頁、寬度上限 500）
-      const FB_TABS = 'timeline';
-      const FB_HEIGHT = 400;
+      // Facebook 官方 Page plugin：只放粉專名片（封面、追蹤、分享）。
+      // 貼文分頁對未登入的訪客常常是一大片空白，所以不放，高度收到名片剛好。
+      const FB_TABS = '';
+      const FB_HEIGHT = 210;
       const height = FB_HEIGHT;
       const q = new URLSearchParams({
         href: box.dataset.href,
