@@ -11,10 +11,6 @@
   flex-shrink: 0;
 }
 
-.quiz__intro {
-  margin-bottom: 22px;
-}
-
 .quiz__list {
   display: flex;
   flex-direction: column;
