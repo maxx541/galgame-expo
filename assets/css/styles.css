@@ -1014,9 +1014,13 @@ body.has-bg-photo .bg-glass {
   bottom: 0;
   z-index: 91;
   width: min(300px, 82vw);
+  /* 手機瀏覽器的網址列會伸縮：用動態視窗高度，底部才不會被切掉 */
+  height: 100vh;
+  height: 100dvh;
+  bottom: auto;
   background: #17131f;
   color: #f4ecf8;
-  padding: 78px 0 24px;
+  padding: 78px 0 max(24px, env(safe-area-inset-bottom));
   display: flex;
   flex-direction: column;
   gap: 22px;
@@ -1092,6 +1096,32 @@ body.has-bg-photo .bg-glass {
   border: 1px solid rgba(244, 236, 248, 0.25);
   border-radius: 0;
   padding: 1px 6px;
+}
+
+/* 矮螢幕：縮小間距，讓整個選單不用捲動就能看完 */
+@media (max-height: 760px) {
+  .menu-drawer {
+    padding-top: 64px;
+    gap: 14px;
+  }
+
+  .menu-drawer__item {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+}
+
+@media (max-height: 620px) {
+  .menu-drawer {
+    padding-top: 56px;
+    gap: 8px;
+  }
+
+  .menu-drawer__item {
+    padding-top: 7px;
+    padding-bottom: 7px;
+    font-size: 14px;
+  }
 }
 
 /* 選單開著時鎖住背景捲動（JS 加在 body 上） */

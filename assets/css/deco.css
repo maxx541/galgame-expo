@@ -11,11 +11,17 @@
   -webkit-user-drag: none;
 }
 
-/* 漢堡選單最底下：探出頭的角色 */
-.chibi--drawer {
+/* 漢堡選單最底下：探出頭的角色。
+   吃掉選項下方剩下的空間（flex 1），空間不夠就縮小、再不夠就消失，
+   所以選單項目永遠完整看得到、不需要捲動，各種螢幕高度都適用。 */
+.menu-drawer > .chibi--drawer {
+  flex: 1 1 0;
+  min-height: 0;
+  max-height: 150px;
   width: 96px;
-  margin: auto 22px 0 auto;
-  padding-top: 24px;
+  margin: 0 22px 0 auto;
+  object-fit: contain;
+  object-position: right bottom;
   opacity: 0.95;
 }
 
@@ -73,7 +79,7 @@
     top: -48px;
   }
 
-  .chibi--drawer {
+  .menu-drawer > .chibi--drawer {
     width: 80px;
   }
 
