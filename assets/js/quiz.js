@@ -38,7 +38,8 @@
     if (q.type === 'pair') {
       if (!Array.isArray(answer)) return false;
       const [x, y] = answer.map(norm);
-      const hit = (input, aliases) => input && aliases.some((a) => norm(a) === input);
+      // 寬鬆比對：只要輸入裡包含任一種可接受的寫法就算（例如「我們是 Eden 小壇」也算）
+      const hit = (input, aliases) => input && aliases.some((a) => input.includes(norm(a)));
       const [g1, g2] = q.groups;
       return (hit(x, g1) && hit(y, g2)) || (hit(x, g2) && hit(y, g1));
     }
