@@ -2,47 +2,20 @@
  * denpa.css — 「電波空間」介紹面板
  * ========================================================================== */
 .intro--denpa .intro__body {
-  gap: 18px;
+  gap: 0;
 }
 
 .intro--denpa .intro__body > * {
   flex-shrink: 0;
 }
 
-.intro--denpa .intro__body > h3 {
-  margin-top: 36px;
-}
-
-.denpa-lead {
-  display: flex;
-  align-items: center;
-  gap: clamp(18px, 4vw, 32px);
-}
-
-.intro--denpa .denpa-lead__logo {
-  flex: 0 0 auto;
-  width: clamp(110px, 20vw, 160px);
-  height: auto;
-  border: 1px solid var(--line);
-}
-
-.denpa-lead__text {
-  flex: 1 1 auto;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.intro--denpa .intro__lead {
-  padding-left: 18px;
-  border-left: 3px solid var(--sakura);
-}
-
-.denpa-address {
-  font-size: 13.5px;
-  letter-spacing: 0.06em;
-  color: var(--text);
+/* ---- 上方：店面照 + 資訊卡 ------------------------------------------------ */
+.denpa-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 4fr);
+  gap: clamp(18px, 3vw, 32px);
+  align-items: stretch;
+  margin-bottom: 40px;
 }
 
 .denpa-shop {
@@ -51,26 +24,156 @@
 
 .intro--denpa .denpa-shop img {
   display: block;
-  width: min(100%, 440px);
+  width: 100%;
   height: auto;
   border: 1px solid var(--line);
 }
 
-.denpa-callout {
-  padding: 16px 18px;
-  border-left: 3px solid var(--mint);
+.denpa-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 16px;
+  padding: clamp(18px, 3vw, 28px);
+  border: 1px solid var(--line);
   background: var(--bg-2);
-  color: var(--text);
-  line-height: 1.9;
 }
 
-@media (max-width: 600px) {
-  .denpa-lead {
-    flex-direction: column;
-    align-items: stretch;
+.intro--denpa .denpa-card__logo {
+  width: clamp(96px, 16vw, 132px);
+  height: auto;
+  border: 1px solid var(--line);
+}
+
+.denpa-address {
+  font-size: 14px;
+  line-height: 1.9;
+  letter-spacing: 0.08em;
+  color: var(--text);
+}
+
+.denpa-link {
+  display: inline-block;
+  padding: 8px 14px;
+  border: 1px solid var(--sakura);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  color: var(--text);
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.denpa-link:hover,
+.denpa-link:focus-visible {
+  background: color-mix(in srgb, var(--sakura) 14%, transparent);
+}
+
+/* ---- 文章 ----------------------------------------------------------------- */
+.denpa-story {
+  max-width: 40em;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.intro--denpa .denpa-story > h3 {
+  margin: 0 0 4px;
+  padding-left: 14px;
+  border-left: 3px solid var(--sakura);
+}
+
+.denpa-story p {
+  line-height: 2;
+}
+
+.denpa-story__lead {
+  color: var(--text-soft);
+}
+
+/* 兩個原因 */
+.denpa-reasons {
+  list-style: none;
+  margin: 4px 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.denpa-reasons li {
+  padding: 16px 20px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--sakura);
+  background: var(--bg-2);
+  line-height: 1.95;
+}
+
+/* 初衷 */
+.denpa-quote {
+  margin: 8px 0;
+  padding: 4px 0 4px 18px;
+  border-left: 3px solid var(--sakura);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.denpa-quote p {
+  font-family: var(--font-display, serif);
+  font-size: 1.05em;
+  color: var(--text);
+}
+
+.denpa-quote p:last-child {
+  letter-spacing: 0.12em;
+}
+
+/* 「那店裡的現貨是什麼？」 */
+.denpa-story p.denpa-ask {
+  margin-top: 12px;
+  margin-bottom: -6px;
+  font-family: var(--font-display, serif);
+  font-size: 1.08em;
+  color: var(--text);
+}
+
+/* 定位 */
+.denpa-callout {
+  margin: 14px 0;
+  padding: 20px 22px;
+  border-left: 3px solid var(--mint);
+  background: var(--bg-2);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.denpa-callout p {
+  color: var(--text);
+}
+
+.denpa-address--end {
+  padding-top: 18px;
+  margin-top: 6px;
+  border-top: 1px solid var(--line);
+}
+
+@media (max-width: 720px) {
+  .denpa-hero {
+    grid-template-columns: 1fr;
+    margin-bottom: 32px;
   }
 
-  .intro--denpa .denpa-lead__logo {
-    align-self: center;
+  .intro--denpa .denpa-shop img {
+    width: min(100%, 360px);
+    margin: 0 auto;
+  }
+
+  .denpa-card {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
   }
 }
