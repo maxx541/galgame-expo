@@ -124,6 +124,12 @@
   outline-offset: 2px;
 }
 
+.quiz__pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
 .quiz__field {
   width: 100%;
   padding: 12px 14px;
@@ -286,6 +292,10 @@
 }
 
 @media (max-width: 600px) {
+  .quiz__pair {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
   .quiz__opts {
     grid-template-columns: minmax(0, 1fr);
   }

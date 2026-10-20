@@ -3,8 +3,8 @@
  * -----------------------------------------------------------------------------
  * 要改題目只動這支檔案：
  *   type 'choice'：選擇題。options 是選項，answer 是正確選項的「文字」（作答時選項順序會打亂）。
- *   type 'text'  ：填空題。groups 是「必須都答到」的幾組答案，每組裡的字串是這組可接受的寫法
- *                  （比對時會忽略大小寫、空白、標點與星號）。
+ *   type 'pair'  ：兩格填空題。groups 是兩個「正確答案」，每組裡的字串是這個答案可接受的寫法
+ *                  （比對時會忽略大小寫、空白、標點與星號，兩格順序不拘）。
  *   image        ：題目附圖（選填），放在 assets/img/quiz/。
  *   disabled     ：true 的題目暫時不出（例如圖片還沒放好）。
  *   explain      ：答完之後顯示的補充說明（選填）。
@@ -50,16 +50,6 @@ window.QUIZ = {
       answer: '千戀萬花',
     },
     {
-      type: 'text',
-      q: '本次展覽的兩個主辦單位分別是？（請填兩個單位，用頓號或空格分開）',
-      placeholder: '例：○○同好會、○○小壇',
-      groups: [
-        ['台灣Galgame同好會', 'Galgame同好會', 'Gal同好會', '同好會'],
-        ['Eden*創小壇', 'Eden創小壇', 'Eden小壇', '創小壇', 'Eden'],
-      ],
-      show: '台灣 Galgame 同好會（Galgame 同好會）、Eden* 創小壇（Eden）',
-    },
-    {
       // 題目附圖取自展品牆的「魔女的夜宴漫畫」
       type: 'choice',
       image: 'assets/img/quiz/q7.jpg',
@@ -71,6 +61,16 @@ window.QUIZ = {
         '星光咖啡館與死神之蝶（喫茶ステラと死神の蝶）',
       ],
       answer: '魔女的夜宴（サノバウィッチ）',
+    },
+    {
+      type: 'pair',
+      q: '本次展覽的兩個主辦單位分別是？（兩格順序不拘）',
+      fields: ['主辦單位一', '主辦單位二'],
+      groups: [
+        ['台灣Galgame同好會', 'Galgame同好會'],
+        ['Eden*創小壇', 'Eden創小壇', 'Eden'],
+      ],
+      show: '台灣 Galgame 同好會（Galgame 同好會）、Eden* 創小壇（Eden 創小壇、Eden）',
     },
   ],
 };

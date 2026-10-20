@@ -35,10 +35,12 @@
       .replace(/[\s、，,.。*＊·・\-_()（）「」『』!！?？:：;；'"]/g, '');
 
   function isCorrect(q, answer) {
-    if (q.type === 'text') {
-      const input = norm(answer);
-      if (!input) return false;
-      return q.groups.every((aliases) => aliases.some((a) => input.includes(norm(a))));
+    if (q.type === 'pair') {
+      if (!Array.isArray(answer)) return false;
+      const [x, y] = answer.map(norm);
+      const hit = (input, aliases) => input && aliases.some((a) => norm(a) === input);
+      const [g1, g2] = q.groups;
+      return (hit(x, g1) && hit(y, g2)) || (hit(x, g2) && hit(y, g1));
     }
     return answer === q.answer;
   }
@@ -104,20 +106,25 @@
         });
         block.append(opts);
       } else {
-        block.append(
-          el('input', {
+        const row = el('div', { class: 'quiz__pair' });
+        const inputs = it.q.fields.map((label, fi) => {
+          const input = el('input', {
             class: 'quiz__field',
             type: 'text',
-            maxlength: '80',
-            placeholder: it.q.placeholder || '請輸入答案',
+            maxlength: '60',
+            placeholder: label,
             autocomplete: 'off',
-            'aria-label': `第 ${qi + 1} 題答案`,
-            oninput: (e) => {
-              state.answers[qi] = e.target.value.trim() || null;
+            'aria-label': `第 ${qi + 1} 題：${label}`,
+            oninput: () => {
+              const v = inputs.map((x) => x.value.trim());
+              state.answers[qi] = v.every(Boolean) ? v : null;
               updateBar();
             },
-          })
-        );
+          });
+          row.append(input);
+          return input;
+        });
+        block.append(row);
       }
       list.append(block);
     });
@@ -186,11 +193,11 @@
         card.append(
           el('p', { class: 'quiz__line quiz__line--bad' }, [
             el('span', {}, '你的答案'),
-            r.answer == null ? '（未作答）' : r.answer,
+            r.answer == null ? '（未作答）' : Array.isArray(r.answer) ? r.answer.join('、') : r.answer,
           ]),
           el('p', { class: 'quiz__line quiz__line--good' }, [
             el('span', {}, '正確答案'),
-            r.it.q.type === 'text' ? r.it.q.show : r.it.q.answer,
+            r.it.q.type === 'pair' ? r.it.q.show : r.it.q.answer,
           ])
         );
         if (r.it.q.explain) card.append(el('p', { class: 'quiz__explain' }, r.it.q.explain));
