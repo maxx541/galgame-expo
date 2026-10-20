@@ -741,7 +741,7 @@
     if (!host) return;
     host.append(
       el('div', { class: 'empty', id: 'empty-state' }, [
-        el('img', { class: 'empty__mark', src: window.PH.emptyMark(), alt: '' }),
+        el('img', { class: 'empty__mark empty__mark--chibi', src: 'assets/img/chibi/empty.webp', alt: '', 'aria-hidden': 'true' }),
         el('div', { class: 'empty__title' }, 'なにも見つからなかった…'),
         el(
           'div',

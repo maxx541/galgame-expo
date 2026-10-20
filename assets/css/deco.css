@@ -1,0 +1,91 @@
+/* =============================================================================
+ * deco.css — Q 版插圖裝飾（assets/img/chibi/）
+ * 原則：只做點綴，不蓋住任何內容、不擋點擊；窄螢幕再縮小或收起來。
+ * ========================================================================== */
+.chibi,
+.intro__body .chibi {
+  display: block;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* 漢堡選單最底下：探出頭的角色 */
+.chibi--drawer {
+  width: 96px;
+  margin: auto 22px 0 auto;
+  padding-top: 24px;
+  opacity: 0.95;
+}
+
+/* 頁尾：坐在頁尾右上角 */
+.site-footer {
+  position: relative;
+}
+
+.chibi--footer {
+  position: absolute;
+  right: clamp(16px, 4vw, 48px);
+  top: -62px;
+  width: 92px;
+}
+
+/* 介紹面板的結尾：置中的小角色 */
+.intro__body > .chibi--panel {
+  width: 112px;
+  margin: 28px auto 6px;
+  opacity: 0.95;
+}
+
+/* 展品牆沒有結果：換成 Q 版角色 */
+.empty__mark--chibi {
+  width: 120px;
+  opacity: 1;
+}
+
+/* 答題：模式卡片右下角、評級結果 */
+.quiz__mode {
+  position: relative;
+  overflow: hidden;
+}
+
+.intro__body .chibi--mode {
+  position: absolute;
+  right: 12px;
+  bottom: 10px;
+  width: 78px;
+  opacity: 0.95;
+}
+
+.quiz__mode-text {
+  padding-right: 70px;
+}
+
+.intro__body .chibi--tier {
+  width: clamp(110px, 24vw, 150px);
+  margin: 0 auto 14px;
+}
+
+@media (max-width: 600px) {
+  .chibi--footer {
+    width: 72px;
+    top: -48px;
+  }
+
+  .chibi--drawer {
+    width: 80px;
+  }
+
+  .intro__body > .chibi--panel {
+    width: 96px;
+  }
+
+  .intro__body .chibi--mode {
+    width: 64px;
+  }
+
+  .quiz__mode-text {
+    padding-right: 56px;
+  }
+}

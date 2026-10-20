@@ -116,6 +116,17 @@
     return it.opts.filter((o) => it.correct.includes(o.idx)).map((o) => o.text).join('、');
   }
 
+  // 評級對應的 Q 版插圖（assets/img/chibi/）
+  const TIER_CHIBI = {
+    剛入坑的萌新: 'tier-newbie',
+    'Gal 新人': 'tier-new',
+    'Gal 老手': 'tier-vet',
+    'Gal 老資歷': 'tier-senior',
+    婆羅門: 'tier-brahmin',
+  };
+  const chibi = (name, cls) =>
+    el('img', { class: `chibi ${cls}`, src: `assets/img/chibi/${name}.webp`, alt: '', 'aria-hidden': 'true', decoding: 'async' });
+
   const tierOf = (tiers, ratio) => tiers.find((t) => ratio < t.below) || tiers[tiers.length - 1];
 
   /* ---- 狀態 ----------------------------------------------------------------- */
@@ -124,6 +135,7 @@
   /* ---- 選擇模式畫面 --------------------------------------------------------- */
   function modeCard(mode, title, count, text) {
     return el('button', { class: 'quiz__mode', type: 'button', onclick: () => startQuiz(mode) }, [
+      chibi(`mode-${mode}`, 'chibi--mode'),
       el('span', { class: 'quiz__mode-count' }, count),
       el('strong', {}, title),
       el('span', { class: 'quiz__mode-text' }, text),
@@ -283,6 +295,7 @@
 
     root.append(
       el('section', { class: 'quiz__result', 'aria-live': 'polite' }, [
+        TIER_CHIBI[tier.name] ? chibi(TIER_CHIBI[tier.name], 'chibi--tier') : null,
         hard ? el('p', { class: 'quiz__level' }, '婆羅門級') : null,
         el('p', { class: 'quiz__score' }, [
           '答對 ',
