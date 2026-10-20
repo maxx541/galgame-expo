@@ -27,9 +27,9 @@
 }
 
 /* 開場大圖：完整顯示、不裁切，標註畫師 */
-.what-hero {
+.intro--what .what-hero {
   width: min(100%, 520px);
-  margin: 0 auto;
+  align-self: center;
 }
 
 .intro--what .what-hero img {
