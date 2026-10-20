@@ -28,7 +28,8 @@
 
 /* 開場大圖：完整顯示、不裁切，標註畫師 */
 .what-hero {
-  margin: 0;
+  width: min(100%, 520px);
+  margin: 0 auto;
 }
 
 .intro--what .what-hero img {
