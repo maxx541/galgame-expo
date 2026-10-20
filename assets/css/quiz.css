@@ -1,0 +1,300 @@
+/* =============================================================================
+ * quiz.css — Gal 知識小測驗面板
+ * 外框沿用 styles.css 的介紹面板（.intro），這裡只管面板裡的題目與結果。
+ * ========================================================================== */
+.intro--quiz .intro__body {
+  gap: 0;
+  padding-bottom: 0;
+}
+
+.intro--quiz .intro__body > * {
+  flex-shrink: 0;
+}
+
+.quiz__intro {
+  margin-bottom: 22px;
+}
+
+.quiz__list {
+  display: flex;
+  flex-direction: column;
+}
+
+.quiz__q {
+  margin: 0;
+  padding: 26px 0;
+  border: 0;
+  border-top: 1px solid var(--line);
+  min-width: 0;
+}
+
+.quiz__q:first-child {
+  border-top: 0;
+  padding-top: 6px;
+}
+
+.quiz__legend {
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin-bottom: 16px;
+  font-size: 16px;
+  line-height: 1.75;
+  letter-spacing: 0.04em;
+  color: var(--text);
+}
+
+.quiz__no {
+  display: block;
+  margin-bottom: 4px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  color: var(--sakura);
+}
+
+.intro--quiz .quiz__img {
+  display: block;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 0 16px;
+  border: 1px solid var(--line);
+}
+
+.quiz__opts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.quiz__opt {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--line-strong);
+  background: var(--panel-solid);
+  color: var(--text);
+  font-size: 14.5px;
+  line-height: 1.6;
+  cursor: pointer;
+  transition: border-color 0.18s var(--ease), background-color 0.18s var(--ease);
+}
+
+.quiz__opt:hover {
+  border-color: var(--sakura);
+}
+
+.quiz__opt input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.quiz__key {
+  flex: 0 0 auto;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  border: 1px solid var(--line-strong);
+  color: var(--text-soft);
+}
+
+.quiz__text {
+  min-width: 0;
+}
+
+.quiz__opt:has(input:checked) {
+  border-color: var(--sakura);
+  background: var(--bg-2);
+}
+
+.quiz__opt:has(input:checked) .quiz__key {
+  background: var(--sakura);
+  border-color: var(--sakura);
+  color: #fff;
+}
+
+.quiz__opt:has(input:focus-visible) {
+  outline: 2px solid var(--sakura);
+  outline-offset: 2px;
+}
+
+.quiz__field {
+  width: 100%;
+  padding: 12px 14px;
+  font: inherit;
+  font-size: 15px;
+  color: var(--text);
+  background: var(--panel-solid);
+  border: 1px solid var(--line-strong);
+}
+
+.quiz__field:focus {
+  outline: none;
+  border-color: var(--sakura);
+}
+
+/* 送出列：固定在面板底部，題目捲動時按鈕一直看得到 */
+.quiz__bar {
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin: 8px calc(-1 * clamp(18px, 3vw, 28px)) 0;
+  padding: 14px clamp(18px, 3vw, 28px);
+  background: var(--panel-solid);
+  border-top: 1px solid var(--line-strong);
+}
+
+.quiz__bar--result {
+  justify-content: center;
+}
+
+.quiz__left {
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+.quiz__btn {
+  min-width: 132px;
+  padding: 11px 24px;
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  border: 1px solid var(--line-strong);
+  color: var(--text);
+  background: transparent;
+}
+
+.quiz__btn--main {
+  border-color: transparent;
+  color: var(--on-accent);
+  background: linear-gradient(135deg, var(--accent-fill-1), var(--accent-fill-2));
+}
+
+.quiz__btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ---- 結果 ---------------------------------------------------------------- */
+.quiz__result {
+  padding: 28px 0 30px;
+  text-align: center;
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.quiz__score {
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  color: var(--text-soft);
+}
+
+.quiz__score strong {
+  font-family: var(--font-display);
+  font-size: 22px;
+  color: var(--text);
+}
+
+.intro--quiz .quiz__tier {
+  margin: 14px 0 10px;
+  font-size: clamp(26px, 6vw, 36px);
+  letter-spacing: 0.1em;
+  color: var(--sakura);
+}
+
+.quiz__note {
+  max-width: 440px;
+  margin: 0 auto;
+  font-size: 14px;
+  line-height: 1.9;
+  color: var(--text-soft);
+}
+
+.quiz__review {
+  padding: 26px 0 8px;
+}
+
+.quiz__review-title {
+  margin-bottom: 18px;
+}
+
+.quiz__allright {
+  padding: 24px 0;
+  text-align: center;
+  color: var(--text-soft);
+}
+
+.quiz__wrong {
+  padding: 20px 0;
+  border-top: 1px solid var(--line);
+}
+
+.quiz__wrong:first-of-type {
+  border-top: 0;
+}
+
+.quiz__wrong-q {
+  margin-bottom: 14px;
+  font-size: 15.5px;
+  line-height: 1.75;
+  color: var(--text);
+}
+
+.quiz__line {
+  display: flex;
+  gap: 14px;
+  padding: 9px 12px;
+  margin-top: 8px;
+  font-size: 14.5px;
+  line-height: 1.6;
+  border-left: 3px solid transparent;
+}
+
+.quiz__line span {
+  flex: 0 0 4.5em;
+  font-size: 12.5px;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.quiz__line--bad {
+  border-left-color: var(--danger);
+  background: color-mix(in srgb, var(--danger) 8%, transparent);
+  color: var(--text);
+}
+
+.quiz__line--good {
+  border-left-color: var(--mint);
+  background: color-mix(in srgb, var(--mint) 10%, transparent);
+  color: var(--text);
+}
+
+.quiz__explain {
+  margin-top: 10px;
+  font-size: 13.5px;
+  line-height: 1.8;
+  color: var(--text-soft);
+}
+
+@media (max-width: 600px) {
+  .quiz__opts {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .quiz__bar {
+    flex-wrap: wrap;
+  }
+
+  .quiz__btn {
+    flex: 1 1 100%;
+  }
+}

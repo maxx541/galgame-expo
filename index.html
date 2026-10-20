@@ -36,6 +36,7 @@
 <link rel="stylesheet" href="assets/css/styles.css?v=20261018v" />
 <link rel="stylesheet" href="assets/css/club.css?v=20261019p" />
 <link rel="stylesheet" href="assets/css/welcome.css?v=20261019h" />
+<link rel="stylesheet" href="assets/css/quiz.css?v=20261020" />
 </head>
 
 <body>
@@ -132,6 +133,13 @@
       <button class="menu-drawer__item" type="button" data-intro="intro-eden">
         <span class="menu-drawer__icon" aria-hidden="true">◈</span>
         關於 Eden *創小壇
+      </button>
+    </div>
+    <div class="menu-drawer__group">
+      <span class="menu-drawer__label">互動</span>
+      <button class="menu-drawer__item" type="button" data-intro="intro-quiz">
+        <span class="menu-drawer__icon" aria-hidden="true">◎</span>
+        Gal 知識小測驗
       </button>
     </div>
     <div class="menu-drawer__group">
@@ -433,6 +441,19 @@
   </div>
 </dialog>
 
+<dialog class="intro intro--quiz" id="intro-quiz" aria-labelledby="intro-quiz-title">
+  <div class="intro__panel">
+    <header class="intro__head">
+      <h2 class="intro__title" id="intro-quiz-title">Gal 知識小測驗</h2>
+      <button class="intro__close" type="button" data-intro-close aria-label="關閉">×</button>
+    </header>
+    <div class="intro__body">
+      <p class="quiz__intro">共 7 題，全部作答後送出，會依答對題數給你一個評級，並且可以回顧答錯的題目。</p>
+      <div id="quiz-root"></div>
+    </div>
+  </div>
+</dialog>
+
 <dialog class="intro intro--eden" id="intro-eden" aria-labelledby="intro-eden-title">
   <div class="intro__panel">
     <header class="intro__head">
@@ -514,6 +535,8 @@
 <script src="assets/js/events-data.js?v=20261018v"></script>
 <script src="assets/js/intro.js?v=20261018v"></script>
 <script src="assets/js/club.js?v=20261019q"></script>
+<script src="assets/js/quiz-data.js?v=20261020"></script>
+<script src="assets/js/quiz.js?v=20261020"></script>
 
 </body>
 </html>

@@ -285,3 +285,9 @@ await expoHashPassword('你的新密碼')
 
 資安檢查結果、程式端已修的項目，以及必須在 Supabase / Cloudinary / GitHub 後台手動完成的設定，見 [docs/SECURITY.md](docs/SECURITY.md)。
 第一次架站或改過資料庫時，`supabase/schema.sql` 跑完一定要接著跑 `supabase/security-hardening.sql`。
+
+## Gal 知識小測驗
+
+漢堡選單 → 互動 → Gal 知識小測驗（`index.html` 的 `<dialog id="intro-quiz">`）。題目與評級寫在 `assets/js/quiz-data.js`，
+判斷全部在瀏覽器內建完成，不需要後端：作答 → 送出 → 評級（剛入坑的萌新／Gal 新人／Gal 老手／Gal 老資歷）→ 回顧錯題 → 重新作答。
+選擇題的選項每次作答會重新打亂。要新增題目照檔案開頭的說明加一筆即可；題目附圖放在 `assets/img/quiz/`。
