@@ -63,7 +63,7 @@ for i, q in enumerate(data['questions']):
 meta = {
     'title': '婆羅門級',
     'pick': 25,
-    'points': 2,
+    'points': 4,  # 每次抽 25 題 × 4 分 = 滿分 100
     'tiers': [
         {'below': 0.34, 'name': '剛入坑的萌新', 'note': '這份題庫連老玩家都會被考倒，能走進來就很勇敢了。'},
         {'below': 0.6, 'name': 'Gal 新人', 'note': '在婆羅門級拿到這個成績，已經不是等閒之輩。'},
