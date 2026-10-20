@@ -291,3 +291,15 @@ await expoHashPassword('你的新密碼')
 漢堡選單 → 互動 → Gal 知識小測驗（`index.html` 的 `<dialog id="intro-quiz">`）。題目與評級寫在 `assets/js/quiz-data.js`，
 判斷全部在瀏覽器內建完成，不需要後端：作答 → 送出 → 評級（剛入坑的萌新／Gal 新人／Gal 老手／Gal 老資歷）→ 回顧錯題 → 重新作答。
 選擇題的選項每次作答會重新打亂。要新增題目照檔案開頭的說明加一筆即可；題目附圖放在 `assets/img/quiz/`。
+
+### 婆羅門級題庫
+
+答題面板有兩個模式：入門（`quiz-data.js` 的 7 題）與婆羅門級（`quiz-hard-data.js` 的題庫，每次隨機抽 25 題，不限時，
+題型有單選、多選（要全對才算對）、是非，答錯會附解析）。婆羅門級的題庫由題庫匯出的 JSON 轉出：
+
+```bash
+pip install opencc-python-reimplemented
+python tools/build_quiz_hard.py "C:/Users/maxx/Downloads/quiz_questions (1).json"
+```
+
+轉換時會把簡體轉成台灣繁體字、拆出題目出處、略過填空題，並丟掉匯出時混進選項尾端的題幹殘片。

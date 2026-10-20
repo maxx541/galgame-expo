@@ -304,3 +304,127 @@
     flex: 1 1 100%;
   }
 }
+
+/* ---- 模式選擇 ------------------------------------------------------------ */
+.quiz__modes {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+  padding: 6px 0 24px;
+}
+
+@media (min-width: 700px) {
+  .quiz__modes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.quiz__mode {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 22px 22px 20px;
+  text-align: left;
+  border: 1px solid var(--line-strong);
+  background: var(--panel-solid);
+  color: var(--text);
+  transition: border-color 0.2s var(--ease), background-color 0.2s var(--ease);
+}
+
+.quiz__mode:hover,
+.quiz__mode:focus-visible {
+  border-color: var(--sakura);
+  background: var(--bg-2);
+}
+
+.quiz__mode strong {
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: 0.08em;
+}
+
+.quiz__mode-count {
+  padding: 2px 8px;
+  font-size: 11.5px;
+  letter-spacing: 0.1em;
+  color: #fff;
+  background: var(--sakura);
+}
+
+.quiz__mode-text {
+  flex: 1 1 auto;
+  font-size: 14px;
+  line-height: 1.85;
+  color: var(--text-soft);
+}
+
+.quiz__mode-go {
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  color: var(--sakura);
+}
+
+/* ---- 題目附加資訊 -------------------------------------------------------- */
+.quiz__badge {
+  margin-left: 10px;
+  padding: 1px 8px;
+  font-family: var(--font-body);
+  font-size: 11.5px;
+  font-style: normal;
+  letter-spacing: 0.06em;
+  color: var(--text-soft);
+  border: 1px solid var(--line-strong);
+}
+
+.quiz__key--box {
+  border-radius: 0;
+}
+
+.quiz__opts--judge {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: 420px;
+}
+
+.quiz__source {
+  margin-top: 12px;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+.quiz__level {
+  margin-bottom: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  color: var(--text-muted);
+}
+
+.quiz__btn--ghost {
+  min-width: 0;
+  padding: 11px 16px;
+}
+
+.quiz__bar {
+  flex-wrap: wrap;
+}
+
+.quiz__left {
+  flex: 1 1 auto;
+  text-align: right;
+}
+
+@media (max-width: 600px) {
+  .quiz__bar .quiz__btn--ghost {
+    flex: 0 0 auto;
+  }
+
+  .quiz__bar .quiz__btn--main {
+    flex: 1 1 100%;
+  }
+
+  .quiz__opts--judge {
+    max-width: none;
+  }
+}
