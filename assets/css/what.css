@@ -1,0 +1,180 @@
+/* =============================================================================
+ * what.css — 「什麼是 Galgame？」介紹面板
+ * 外框與基本字體沿用 styles.css 的介紹面板（.intro），清單沿用 club.css 的 .club-list。
+ * ========================================================================== */
+.intro--what .intro__body {
+  gap: 18px;
+}
+
+.intro--what .intro__body > * {
+  flex-shrink: 0;
+}
+
+.intro--what .intro__body > h3 {
+  margin-top: 40px;
+}
+
+.intro--what .intro__lead {
+  padding-left: 18px;
+  border-left: 3px solid var(--sakura);
+}
+
+.intro--what figure img,
+.intro--what .what-lead__img,
+.intro--what .what-card img {
+  border: 1px solid var(--line);
+  background: var(--bg-3);
+}
+
+/* 開場：左圖右文，窄螢幕上下排 */
+.what-lead {
+  display: flex;
+  align-items: center;
+  gap: clamp(20px, 4vw, 34px);
+}
+
+.intro--what .what-lead__img {
+  flex: 0 0 auto;
+  width: clamp(150px, 26vw, 230px);
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: 50% 18%;
+}
+
+.what-lead__text {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.what-note {
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--text-muted);
+}
+
+/* 遊玩畫面：兩張並排 */
+.what-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+/* 改編作品：直式封面一排 */
+.what-works {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.what-works figure img {
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: top;
+}
+
+.what-callout {
+  padding: 16px 18px;
+  border-left: 3px solid var(--mint);
+  background: var(--bg-2);
+  color: var(--text);
+  line-height: 1.9;
+}
+
+.what-types {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (min-width: 700px) {
+  .what-types {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.what-types section p {
+  margin-top: 8px;
+}
+
+/* 入門推薦卡片 */
+.what-cards {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px;
+}
+
+@media (min-width: 700px) {
+  .what-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.what-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line-strong);
+  background: var(--panel-solid);
+}
+
+.intro--what .what-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 7.5;
+  object-fit: cover;
+  object-position: top;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.what-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 16px 18px;
+}
+
+.what-card__tag {
+  align-self: flex-start;
+  padding: 2px 8px;
+  font-size: 11.5px;
+  letter-spacing: 0.1em;
+  color: #fff;
+  background: var(--sakura);
+}
+
+.intro--what .what-card h4 {
+  margin-top: 6px;
+  font-family: var(--font-display);
+  font-size: 17px;
+  letter-spacing: 0.04em;
+  color: var(--text);
+}
+
+.what-card small {
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+.what-card p {
+  margin-top: 8px;
+  font-size: 13.5px;
+  line-height: 1.8;
+}
+
+@media (max-width: 600px) {
+  .what-lead {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .intro--what .what-lead__img {
+    width: 150px;
+    align-self: center;
+  }
+
+  .what-works {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

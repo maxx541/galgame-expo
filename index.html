@@ -37,6 +37,7 @@
 <link rel="stylesheet" href="assets/css/club.css?v=20261019p" />
 <link rel="stylesheet" href="assets/css/welcome.css?v=20261019h" />
 <link rel="stylesheet" href="assets/css/quiz.css?v=20261020d" />
+<link rel="stylesheet" href="assets/css/what.css?v=20261020" />
 </head>
 
 <body>
@@ -125,6 +126,10 @@
       <button class="menu-drawer__item" type="button" data-intro="intro-booth">
         <span class="menu-drawer__icon" aria-hidden="true">✦</span>
         攤位活動介紹
+      </button>
+      <button class="menu-drawer__item" type="button" data-intro="intro-what">
+        <span class="menu-drawer__icon" aria-hidden="true">✿</span>
+        什麼是 Galgame？
       </button>
       <button class="menu-drawer__item" type="button" data-intro="intro-club">
         <span class="menu-drawer__icon" aria-hidden="true">❀</span>
@@ -449,6 +454,143 @@
     </header>
     <div class="intro__body">
       <div id="quiz-root"></div>
+    </div>
+  </div>
+</dialog>
+
+<dialog class="intro intro--what" id="intro-what" aria-labelledby="intro-what-title">
+  <div class="intro__panel">
+    <header class="intro__head">
+      <h2 class="intro__title" id="intro-what-title">什麼是 Galgame？</h2>
+      <button class="intro__close" type="button" data-intro-close aria-label="關閉">×</button>
+    </header>
+    <div class="intro__body">
+      <div class="what-lead">
+        <img class="what-lead__img" src="assets/img/gal/hero.jpg" alt="" loading="lazy" decoding="async" />
+        <div class="what-lead__text">
+          <p class="intro__lead">Galgame，是一種可以「互動」的戀愛故事。</p>
+          <p>
+            Galgame（ギャルゲーム）以和美少女互動、戀愛為賣點，用文字、角色立繪、CG、配音與音樂說一個完整的故事，而你的選擇，會決定它走向哪一個結局。也有人稱它為美少女遊戲、視覺小說、戀愛文字冒險遊戲。
+          </p>
+          <p class="what-note">1992 年，日本遊戲雜誌《Fami通》首次用「ギャルゲーム」一詞形容這類遊戲。</p>
+        </div>
+      </div>
+
+      <h3>怎麼玩？</h3>
+      <p>用滑鼠一路點下去讀故事，遇到選項時選擇反應或前往的地點，累積角色的好感，劇情就會往不同的支線發展。不需要操作技巧，只要有耐心讀完。</p>
+      <div class="what-pair">
+        <figure><img src="assets/img/gal/play-choice.jpg" alt="遊戲中出現選項的畫面" loading="lazy" decoding="async" /><figcaption>遇到選項，選擇你的反應</figcaption></figure>
+        <figure><img src="assets/img/gal/play-map.jpg" alt="遊戲中的地圖選擇畫面" loading="lazy" decoding="async" /><figcaption>決定要去哪裡、遇見誰</figcaption></figure>
+      </div>
+
+      <h3>為什麼讓人著迷？</h3>
+      <ul class="club-list">
+        <li><strong>像是自己在經歷</strong>：用主角的第一人稱視角讀完一個完整的故事。</li>
+        <li><strong>聲光齊備</strong>：精美的 CG、完整的配音與配樂，像一本會動的小說。</li>
+        <li><strong>多結局</strong>：同一個故事，因為你的選擇走向不同的人生。</li>
+        <li><strong>題材自由</strong>：從日常、搞笑、催淚，到奇幻、科幻、懸疑，甚至更深刻、更黑暗的主題，都能放進故事裡。</li>
+      </ul>
+
+      <h3>你可能早就看過它的影響</h3>
+      <p>許多廣為人知的動畫與輕小說，原作或創作者都出自 Galgame：Fate/stay night、CLANNAD、命運石之門、緣之空、Summer Pockets，以及《魔法少女小圓》的編劇虛淵玄、《不起眼女主角培育法》的作者丸戶史明。</p>
+      <div class="what-works"><figure><img src="assets/img/gal/anime-fate.jpg" alt="Fate/stay night" loading="lazy" decoding="async" /><figcaption>Fate/stay night</figcaption></figure><figure><img src="assets/img/gal/anime-clannad.jpg" alt="CLANNAD" loading="lazy" decoding="async" /><figcaption>CLANNAD</figcaption></figure><figure><img src="assets/img/gal/anime-steins.jpg" alt="Steins;Gate" loading="lazy" decoding="async" /><figcaption>Steins;Gate</figcaption></figure><figure><img src="assets/img/gal/anime-summer.jpg" alt="Summer Pockets" loading="lazy" decoding="async" /><figcaption>Summer Pockets</figcaption></figure></div>
+
+      <h3>常見的誤會</h3>
+      <p class="what-callout">Galgame 不等於色情遊戲。並非所有作品都是 R18，製作團隊花很多精力在主線劇情與角色塑造上，情色場景只是其中的一小部分。</p>
+
+      <h3>角色作與劇情作</h3>
+      <div class="club-types what-types">
+        <section>
+          <h4>角色作</h4>
+          <p>以男女主角之間的相處與戀愛為賣點，劇情著重在角色塑造，多為校園戀愛，氣氛輕鬆溫暖。</p>
+        </section>
+        <section>
+          <h4>劇情作</h4>
+          <p>除了塑造角色，更花心力在設定嚴謹的主線上，題材多元：催淚、奇幻、科幻、懸疑，玩完會留下深刻的印象。</p>
+        </section>
+      </div>
+      <p class="what-note">兩者只是比重不同，是一條光譜，不是非黑即白。</p>
+
+      <h3>從哪一部開始？</h3>
+      <p>依照你想要的心情挑一部。多數作品可以在 Steam 找到中文版。</p>
+      <div class="what-cards">
+        <article class="what-card">
+          <img src="assets/img/gal/rec-majo.jpg" alt="魔女的夜宴" loading="lazy" decoding="async" />
+          <div class="what-card__body">
+            <span class="what-card__tag">治癒賣萌</span>
+            <h4>魔女的夜宴</h4>
+            <small>YUZU SOFT</small>
+            <p>校園戀愛的經典名作，女主角魅力出眾，有國際中文版，很適合當第一部。</p>
+          </div>
+        </article>
+        <article class="what-card">
+          <img src="assets/img/gal/rec-making.jpg" alt="Making＊Lovers（突然＊戀人）" loading="lazy" decoding="async" />
+          <div class="what-card__body">
+            <span class="what-card__tag">歡樂搞笑</span>
+            <h4>Making＊Lovers（突然＊戀人）</h4>
+            <small>SMEE</small>
+            <p>節奏輕快、笑點密集的戀愛作品，想先輕鬆一下的人可以從這裡開始。</p>
+          </div>
+        </article>
+        <article class="what-card">
+          <img src="assets/img/gal/rec-aokana.jpg" alt="蒼之彼方的四重奏" loading="lazy" decoding="async" />
+          <div class="what-card__body">
+            <span class="what-card__tag">運動競技</span>
+            <h4>蒼之彼方的四重奏</h4>
+            <small>sprite</small>
+            <p>以飛行運動為主題，角色與劇情兼具，是當年的年度大贏家。</p>
+          </div>
+        </article>
+        <article class="what-card">
+          <img src="assets/img/gal/rec-steins.jpg" alt="命運石之門" loading="lazy" decoding="async" />
+          <div class="what-card__body">
+            <span class="what-card__tag">幻想科學</span>
+            <h4>命運石之門</h4>
+            <small>5pb. × Nitroplus</small>
+            <p>科幻名作，被讚為「催淚遊戲」，後來改編成漫畫、動畫與電影。</p>
+          </div>
+        </article>
+        <article class="what-card">
+          <img src="assets/img/gal/rec-summer.jpg" alt="Summer Pockets" loading="lazy" decoding="async" />
+          <div class="what-card__body">
+            <span class="what-card__tag">感動催淚</span>
+            <h4>Summer Pockets</h4>
+            <small>Key</small>
+            <p>遠離塵囂的小島，與夥伴共度的夏日回憶。讀完會一直記得那個夏天。</p>
+          </div>
+        </article>
+        <article class="what-card">
+          <img src="assets/img/gal/rec-kara.jpg" alt="殼之少女" loading="lazy" decoding="async" />
+          <div class="what-card__body">
+            <span class="what-card__tag">懸疑獵奇</span>
+            <h4>殼之少女</h4>
+            <small>Innocent Grey</small>
+            <p>一位私人偵探接到奇怪的委託，登場人物超過 30 人，劇情峰迴路轉。</p>
+          </div>
+        </article>
+        <article class="what-card">
+          <img src="assets/img/gal/rec-hakujitsu.jpg" alt="白日夢的構想圖" loading="lazy" decoding="async" />
+          <div class="what-card__body">
+            <span class="what-card__tag">致鬱系</span>
+            <h4>白日夢的構想圖</h4>
+            <small>Laplacian</small>
+            <p>少年醒來，失去了記憶，身處一間白色的房間……適合想被故事狠狠打動的人。</p>
+          </div>
+        </article>
+        <article class="what-card">
+          <img src="assets/img/gal/rec-wa2.jpg" alt="WHITE ALBUM 2" loading="lazy" decoding="async" />
+          <div class="what-card__body">
+            <span class="what-card__tag">三角戀愛</span>
+            <h4>WHITE ALBUM 2</h4>
+            <small>Leaf</small>
+            <p>三角戀愛的代表名作，也是公認讓人「胃痛」的神作。</p>
+          </div>
+        </article>
+      </div>
+
+      <h3>最後</h3>
+      <p>評價只是參考，找到自己喜歡的那一部最重要。想聊聊作品、找人一起推坑，歡迎來同好會。</p>
+      <p class="intro__credit">內容參考銓華〈galgame 完全手冊：從入門到入土〉，圖片取自該簡報；作品圖片版權屬各原作者與發行商所有。</p>
     </div>
   </div>
 </dialog>
