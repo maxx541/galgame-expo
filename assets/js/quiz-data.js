@@ -50,6 +50,32 @@ window.QUIZ = {
       answer: '千戀萬花',
     },
     {
+      type: 'choice',
+      q: '《9-nine-》第四部的副標題是？',
+      options: ['九色九日九重色', '天色天歌天之音', '春色春戀春之風', '雪色雪花雪之痕'],
+      answer: '雪色雪花雪之痕',
+      explain: '日文原名《9-nine- ゆきいろゆきはなゆきのあと》。',
+    },
+    {
+      type: 'choice',
+      q: '《9-nine-》系列的原畫師是誰？',
+      options: ['和泉つばす', 'みつみ美里', '左（Hidari）', '竹岡美穗'],
+      answer: '和泉つばす',
+    },
+    {
+      type: 'choice',
+      q: '請問哪一部作品還沒推出？',
+      options: ["Clover Heart's", "Clover Day's", 'Clover Memories', 'LimeLight Lemonade Jam'],
+      answer: 'Clover Memories',
+    },
+    {
+      type: 'choice',
+      q: '《戀愛與選舉與巧克力》中，主角所屬的是哪個社團？',
+      options: ['食品研究部', '料理研究部', '美食同好會', '學生會執行部'],
+      answer: '食品研究部',
+      explain: '仔細看遊戲的外盒就能找到答案。',
+    },
+    {
       // 題目附圖取自展品牆的「魔女的夜宴漫畫」
       type: 'choice',
       image: 'assets/img/quiz/q7.jpg',
